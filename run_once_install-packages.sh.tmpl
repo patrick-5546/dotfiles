@@ -16,6 +16,7 @@ sudo dnf -y update && sudo dnf -y install \
     neovim \
     starship \
     unzip \
+    util-linux-user \
     zsh \
     zsh-syntax-highlighting
 {{ end }}
@@ -41,6 +42,9 @@ if [ $SHELL != "/usr/bin/zsh" ]
 then
     chsh -s /usr/bin/zsh
 fi
+# Creating Zsh history file
+mkdir -p ~/.cache/zsh
+touch ~/.cache/zsh/history
 
 zsh
 
