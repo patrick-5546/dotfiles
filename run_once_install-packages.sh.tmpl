@@ -17,9 +17,9 @@ sudo dnf -y update && sudo dnf -y install \
     zsh \
     zsh-syntax-highlighting
 {{ end }}
+# Install fonts
 if [ ! -d ~/.local/share/fonts/FiraCode ]
 then
-    # Fonts
     mkdir -p ~/.local/share/fonts
     curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip --output Firacode.zip
     unzip FiraCode.zip -d ~/.local/share/fonts
@@ -27,8 +27,18 @@ then
     fc-cache -f
 fi
 
+# Login to GitHub
+gh auth status
+if [ $? -ne 0 ]
+then
+   gh auth login
+fi
+
+# Make Zsh default shell
 if [ $SHELL != "/usr/bin/zsh" ]
 then
     chsh -s /usr/bin/zsh
 fi
+
+zsh
 
