@@ -63,6 +63,9 @@ bindkey -s '^o' 'lfcd\n'
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
+# fzf
+source /usr/share/fzf/shell/key-bindings.zsh
+
 # Aliases
 alias c='chezmoi'
 alias cls='clear'

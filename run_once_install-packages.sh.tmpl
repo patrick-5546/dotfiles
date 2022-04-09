@@ -12,9 +12,12 @@ sudo dnf -y update && sudo dnf -y install 'dnf-command(config-manager)'
 sudo dnf -y config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
 sudo dnf -y update && sudo dnf -y install \
     fontconfig \
+    fzf \
     gh \
+    git-delta \
     neofetch \
     neovim \
+    ripgrep \
     starship \
     unzip \
     util-linux-user \
@@ -25,9 +28,9 @@ sudo dnf -y update && sudo dnf -y install \
 # Install fonts
 if [ ! -d ~/.local/share/fonts/FiraCode ]
 then
-    mkdir -p ~/.local/share/fonts
+    mkdir -p ~/.local/share/fonts/FiraCode
     curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip --output FiraCode.zip
-    unzip FiraCode.zip -d ~/.local/share/fonts
+    unzip FiraCode.zip -d ~/.local/share/fonts/FiraCode
     rm FiraCode.zip
     fc-cache -f
 fi
