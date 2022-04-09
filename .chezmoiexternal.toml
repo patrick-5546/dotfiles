@@ -1,0 +1,9 @@
+[".local/bin/lf"]
+    type = "file"
+    url = "https://github.com/gokcehan/lf/releases/latest/download/lf-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
+    executable = true
+    refreshPeriod = "168h"
+    [".local/bin/lf".filter]
+        command = "tar"
+        args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "lf"]
+

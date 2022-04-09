@@ -1,0 +1,9 @@
+[user]
+	email = pcreighton429@gmail.com
+	name = Patrick Creighton
+[pull]
+	rebase = true
+[fetch]
+	prune = true
+[core]
+	editor = nvim

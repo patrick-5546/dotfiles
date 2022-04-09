@@ -1,0 +1,31 @@
+#!/bin/sh
+
+if [ ! -d ~/.local/share/fonts/FiraCode ]
+then
+    # Fonts
+    mkdir -p ~/.local/share/fonts
+    curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip --output Firacode.zip
+    unzip FiraCode.zip -d ~/.local/share/fonts
+    rm FiraCode.zip
+    fc-cache -fv
+fi
+{{   if eq .chezmoi.osRelease.id "debian" }}
+# Debian-specific code
+
+{{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+# WSL-specific code
+
+{{   end }}
+{{   else if eq .chezmoi.osRelease.id "fedora" }}
+# Fedora-specific code
+sudo dnf -y update && sudo dnf -y install \
+    neofetch \
+    neovim \
+    starship \
+    zsh \
+    zsh-syntax-highlighting
+{{ end }}
+if [ $SHELL != "/usr/bin/zsh" ]
+then
+    chsh -s /usr/bin/zsh
+fi
