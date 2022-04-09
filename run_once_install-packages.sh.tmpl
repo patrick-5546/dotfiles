@@ -9,7 +9,9 @@
 {{   else if eq .chezmoi.osRelease.id "fedora" }}
 # Fedora-specific code
 sudo dnf -y update && sudo dnf -y install \
+    alacritty \
     fontconfig \
+    gh \
     neofetch \
     neovim \
     starship \
