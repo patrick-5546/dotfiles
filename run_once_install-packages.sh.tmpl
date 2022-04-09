@@ -24,7 +24,7 @@ sudo dnf -y update && sudo dnf -y install \
 if [ ! -d ~/.local/share/fonts/FiraCode ]
 then
     mkdir -p ~/.local/share/fonts
-    curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip --output Firacode.zip
+    curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip --output FiraCode.zip
     unzip FiraCode.zip -d ~/.local/share/fonts
     rm FiraCode.zip
     fc-cache -f
@@ -42,7 +42,7 @@ if [ $SHELL != "/usr/bin/zsh" ]
 then
     chsh -s /usr/bin/zsh
 fi
-# Creating Zsh history file
+# Create Zsh history file
 mkdir -p ~/.cache/zsh
 touch ~/.cache/zsh/history
 
