@@ -82,8 +82,8 @@ endif
 set ruler
 
 " " Height of the command bar
-set cmdheight=1
-" set cmdheight=2  " To avoid many cases of having to press <Enter> to continue
+" set cmdheight=1
+set cmdheight=2  " To avoid many cases of having to press <Enter> to continue
 
 " A buffer becomes hidden when it is abandoned
 set hid
@@ -536,4 +536,3 @@ map W yiw
 "   Ps = 6  -> steady bar (xterm).
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
-
