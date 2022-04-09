@@ -11,6 +11,7 @@
 sudo dnf -y update && sudo dnf -y install 'dnf-command(config-manager)'
 sudo dnf -y config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
 sudo dnf -y update && sudo dnf -y install \
+    bpytop \
     fontconfig \
     fzf \
     gh \
@@ -51,5 +52,3 @@ fi
 # Create Zsh history file
 mkdir -p ~/.cache/zsh
 touch ~/.cache/zsh/history
-
-zsh
