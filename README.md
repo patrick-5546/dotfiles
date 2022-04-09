@@ -2,7 +2,10 @@
 
 Install with
 ```
+mkdir -p ~/.local/bin
+pushd ~/.local
 sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply patrick-5546
+popd
 ```
 
 Additional configuration
