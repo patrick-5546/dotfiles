@@ -15,3 +15,13 @@ popd
 
 ## Manual Setup
 - Speed up neofetch in Fedora: in `/usr/bin/neofetch`, comment line `has "rpm" && tot rpm -qa` out
+- [Enable RPM Fusion repositories](https://docs.fedoraproject.org/en-US/quick-docs/setup_rpmfusion/)
+- (Laptop) [Install multimedia plugins](https://docs.fedoraproject.org/en-US/quick-docs/assembly_installing-plugins-for-playing-movies-and-music/)
+- dnf configuration (`man dnf.conf` to see options and defaults): append the following lines
+    ```
+    fastestmirror=True
+    max_parallel_downloads=10
+    defaultyes=True
+    keepcache=True
+    ```
+ 
