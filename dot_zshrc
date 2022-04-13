@@ -105,6 +105,7 @@ alias vim=nvim
 export PATH=$HOME/.local/bin:$PATH
 export VISUAL=nvim
 export EDITOR="$VISUAL"
+export DOCKER_BUILDKIT=1
 
 # Other Zsh scripts
 source /usr/share/fzf/shell/key-bindings.zsh
