@@ -64,6 +64,7 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
 # Aliases
+alias btop='bpytop'
 alias c='chezmoi'
 alias cls='clear'
 alias ga='git add'
