@@ -521,9 +521,6 @@ map <Enter> o<ESC>
 " Fast quiting
 nmap <leader>q :q<cr>
 
-" Copy word in one click
-map W yiw
-
 " Use a line cursor within insert mode and a block cursor everywhere else.
 "
 " Reference chart of values:
