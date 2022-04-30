@@ -1,11 +1,14 @@
 #!/bin/sh
-{{   if eq .chezmoi.osRelease.id "debian" }}
-# Debian-specific code
-
 {{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
-# WSL-specific code
-{{   end }}
-
+# WSL Ubuntu-specific code
+sudo apt -y update && sudo apt -y install \
+    bpytop \
+    fzf \
+    neofetch \
+    neovim \
+    ripgrep \
+    zsh \
+    zsh-syntax-highlighting
 {{   else if eq .chezmoi.osRelease.id "fedora" }}
 # Fedora-specific code
 sudo dnf -y update && sudo dnf -y install 'dnf-command(config-manager)'
@@ -24,7 +27,6 @@ sudo dnf -y update && sudo dnf -y install \
     util-linux-user \
     zsh \
     zsh-syntax-highlighting
-{{ end }}
 
 # Install fonts
 if [ ! -d ~/.local/share/fonts/FiraCode ]
@@ -42,7 +44,7 @@ if [ $? -ne 0 ]
 then
    gh auth login
 fi
-
+{{ end }}
 # Make Zsh default shell
 if [ $SHELL != "/usr/bin/zsh" ]
 then

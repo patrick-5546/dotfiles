@@ -1,3 +1,14 @@
+{{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+[credential]
+    helper = /mnt/c/Program\\ Files/Git/mingw64/libexec/git-core/git-credential-manager-core.exe
+{{   else  }}
+[credential "https://github.com"]
+    helper = 
+    helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+    helper = 
+    helper = !/usr/bin/gh auth git-credential
+{{ end }}
 [user]
     email = pcreighton429@gmail.com
     name = Patrick Creighton
@@ -28,9 +39,3 @@
     conflictstyle = diff3
 [diff]
     colorMoved = default
-[credential "https://github.com"]
-    helper = 
-    helper = !/usr/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-    helper = 
-    helper = !/usr/bin/gh auth git-credential
