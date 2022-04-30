@@ -111,6 +111,7 @@ export DOCKER_BUILDKIT=1
 # Other Zsh scripts
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+source $HOME/.local/share/zsh-nvm/zsh-nvm.plugin.zsh
 
 # Display system information
 neofetch

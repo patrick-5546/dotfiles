@@ -25,3 +25,8 @@
     [".local/bin/lf".filter]
         command = "tar"
         args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout"]
+
+[".local/share/zsh-nvm"]
+    type = "git-repo"
+    url = "https://github.com/lukechilds/zsh-nvm.git"
+    refreshPeriod = "168h"
