@@ -29,14 +29,16 @@ sudo dnf -y update && sudo dnf -y install \
     zsh-syntax-highlighting
 
 # Install fonts
-if [ ! -d ~/.local/share/fonts/FiraCode ]
+if [ -d ~/.local/share/fonts/FiraCode ]
 then
+    rm -rf ~/.local/share/fonts/FiraCode/*
+else
     mkdir -p ~/.local/share/fonts/FiraCode
-    curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip --output FiraCode.zip
-    unzip FiraCode.zip -d ~/.local/share/fonts/FiraCode
-    rm FiraCode.zip
-    fc-cache -f
 fi
+curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip --output FiraCode.zip
+unzip FiraCode.zip -d ~/.local/share/fonts/FiraCode "Fira*Mono.ttf"
+rm FiraCode.zip
+fc-cache -f
 
 # Login to GitHub
 gh auth status
@@ -52,5 +54,8 @@ then
 fi
 
 # Create Zsh history file
-mkdir -p ~/.cache/zsh
-touch ~/.cache/zsh/history
+if [ ! -f ~/.cache/zsh/history ]
+then
+    mkdir -p ~/.cache/zsh
+    touch ~/.cache/zsh/history
+fi
