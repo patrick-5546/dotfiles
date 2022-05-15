@@ -19,7 +19,6 @@ popd
 - (Laptop) [Install multimedia plugins](https://docs.fedoraproject.org/en-US/quick-docs/assembly_installing-plugins-for-playing-movies-and-music/)
 - dnf configuration (`man dnf.conf` to see options and defaults): append the following lines
     ```
-    fastestmirror=True
     max_parallel_downloads=10
     defaultyes=True
     keepcache=True
