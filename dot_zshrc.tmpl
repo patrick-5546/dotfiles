@@ -18,6 +18,7 @@ bindkey -v
 export KEYTIMEOUT=10
 bindkey -M viins 'jk' vi-cmd-mode
 bindkey "^R" history-incremental-search-backward
+bindkey '^[[3~' delete-char
 
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
