@@ -3,12 +3,16 @@
 # WSL Ubuntu-specific code
 sudo apt -y update && sudo apt -y install \
     bpytop \
+    fd-find \
     fzf \
     neofetch \
     neovim \
     ripgrep \
     zsh \
     zsh-syntax-highlighting
+
+# symlink fd-find to fd
+ln -snf $(which fdfind) ~/.local/bin/fd
 {{   else if eq .chezmoi.osRelease.id "fedora" }}
 # Fedora-specific code
 sudo dnf -y update && sudo dnf -y install 'dnf-command(config-manager)'
@@ -16,6 +20,7 @@ sudo dnf -y config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli
 sudo dnf -y update && sudo dnf -y install \
     bpytop \
     fontconfig \
+    fd-find \
     fzf \
     gh \
     git-delta \
