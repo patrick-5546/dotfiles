@@ -1,7 +1,7 @@
 {{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 [".local/bin/delta"]
     type = "file"
-    url = "https://github.com/dandavison/delta/releases/latest/download/delta-0.12.1-x86_64-unknown-linux-gnu.tar.gz"
+    url = "https://github.com/dandavison/delta/releases/latest/download/delta-0.13.0-x86_64-unknown-linux-gnu.tar.gz"
     executable = true
     refreshPeriod = "168h"
     [".local/bin/delta".filter]
