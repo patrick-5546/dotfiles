@@ -104,7 +104,7 @@ alias lt='ls -alhrt'
 alias md='mkdir -p'
 alias rd='rmdir'
 alias vim=nvim
-# git
+# git - from https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
 alias ga='git add'
 alias gb='git branch'
 alias gbD='git branch -D'
