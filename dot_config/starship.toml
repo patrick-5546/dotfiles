@@ -1,6 +1,16 @@
+[shell]
+unknown_indicator = "unknownsh"
+style = "cyan bold"
+disabled = false
+
+[username]
+format = "[$user]($style)"
+show_always = true
+disabled = false
+
 [hostname]
 ssh_only = false
-format = "[$ssh_symbol](bold blue) on [$hostname](bold red) "
+format = "@[$hostname](bold red) [$ssh_symbol](bold blue)"
 trim_at = ".companyname.com"
 disabled = false
 
