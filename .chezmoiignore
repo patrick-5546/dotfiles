@@ -1,1 +1,21 @@
 README.md
+
+{{ if eq .chezmoi.os "linux" }}
+#Documents
+#AppData
+#dot_config/icons
+#dot_config/profile.ps1
+{{ end }}
+
+{{ if eq .chezmoi.os "windows" }}
+.chezmoiexternal.toml
+dot_config/bpytop
+dot_config/fzf
+dot_config/lf
+dot_zshrc
+run_once_install-packages.sh.tmpl
+{{ end }}
+
+{{ if or (eq .chezmoi.os "windows") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+dot_alacritty.yml
+{{ end }}

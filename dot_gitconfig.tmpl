@@ -1,12 +1,10 @@
-{{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+{{ if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 [credential]
     helper = /mnt/c/Program\\ Files/Git/mingw64/libexec/git-core/git-credential-wincred.exe
-{{   else  }}
+{{ else if eq .chezmoi.os "linux" }}
 [credential "https://github.com"]
-    helper = 
     helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-    helper = 
     helper = !/usr/bin/gh auth git-credential
 {{ end }}
 [user]
@@ -25,6 +23,7 @@
     features = decorations
     navigate = true  # use n and N to move between diff sections
     line-numbers = true
+    light = false
 [delta "interactive"]
     keep-plus-minus-markers = false
 [delta "decorations"]
