@@ -66,7 +66,7 @@ fzf-file-widget() {
   return $ret
 }
 zle     -N   fzf-file-widget
-bindkey '^T' fzf-file-widget
+bindkey '^F' fzf-file-widget
 
 # ALT-C - cd into the selected directory
 fzf-cd-widget() {
