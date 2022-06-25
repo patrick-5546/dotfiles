@@ -1,4 +1,5 @@
-{{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+{{ if eq .chezmoi.os "linux" }}
+{{ if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 [".local/bin/delta"]
     type = "file"
     url = "https://github.com/dandavison/delta/releases/latest/download/delta-0.13.0-x86_64-unknown-linux-gnu.tar.gz"
@@ -16,7 +17,7 @@
     [".local/bin/starship".filter]
         command = "tar"
         args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout"]
-{{  end  }}
+{{ end }}
 [".local/bin/lf"]
     type = "file"
     url = "https://github.com/gokcehan/lf/releases/latest/download/lf-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
@@ -30,3 +31,4 @@
     type = "git-repo"
     url = "https://github.com/lukechilds/zsh-nvm.git"
     refreshPeriod = "168h"
+{{ end }}

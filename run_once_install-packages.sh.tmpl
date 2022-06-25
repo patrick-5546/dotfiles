@@ -1,5 +1,6 @@
+{{ if eq .chezmoi.os "linux" }}
 #!/bin/sh
-{{ if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+{{ if .chezmoi.kernel.osrelease | lower | contains "microsoft" }}
 sudo apt -y update && sudo apt -y install \
     bpytop \
     fd-find \
@@ -62,3 +63,4 @@ then
     mkdir -p ~/.cache/zsh
     touch ~/.cache/zsh/history
 fi
+{{ end }}
