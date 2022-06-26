@@ -6,3 +6,8 @@ cd:
 
 diff:
     pager: "delta"
+edit:
+    command: "nvim"
+merge:
+    command: "nvim"
+    args: ["-d", "{{ .Destination }}", "{{ .Source }}", "{{ .Target }}"]
