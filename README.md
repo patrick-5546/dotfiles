@@ -16,7 +16,6 @@ My cross-platform, cross-shell configuration files and installation scripts mana
     popd
     ```
 2. Additional setup for Fedora
-    1. Speed up neofetch: in `/usr/bin/neofetch`, comment line `has "rpm" && tot rpm -qa` out
     2. [Enable RPM Fusion repositories](https://docs.fedoraproject.org/en-US/quick-docs/setup_rpmfusion/)
     3. [Install multimedia plugins](https://docs.fedoraproject.org/en-US/quick-docs/assembly_installing-plugins-for-playing-movies-and-music/)
     4. Configure dnf (run `man dnf.conf` to see options and defaults): append the following lines to `/etc/dnf/dnf.conf`
