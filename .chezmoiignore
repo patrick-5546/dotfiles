@@ -1,20 +1,20 @@
 install.ps1
 README.md
 
-{{ if ne .chezmoi.os "windows" }}
+{{ if ne .chezmoi.os "windows" -}}
 Documents
 AppData
 #.config/icons
-{{ end }}
+{{- end }}
 
-{{ if ne .chezmoi.os "linux" }}
+{{ if ne .chezmoi.os "linux" -}}
 .config/bpytop
 .config/fzf
 .config/lf
 .config/nvim
 .zshrc
-{{ end }}
+{{- end }}
 
-{{ if or (ne .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+{{ if or (ne .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
  .alacritty.yml
-{{ end }}
+{{- end }}
