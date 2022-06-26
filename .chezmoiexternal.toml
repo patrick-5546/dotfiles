@@ -1,5 +1,5 @@
-{{ if eq .chezmoi.os "linux" }}
-{{ if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+{{ if eq .chezmoi.os "linux" -}}
+{{ if (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
 [".local/bin/delta"]
     type = "file"
     url = "https://github.com/dandavison/delta/releases/latest/download/delta-0.13.0-x86_64-unknown-linux-gnu.tar.gz"
@@ -31,4 +31,4 @@
     type = "git-repo"
     url = "https://github.com/lukechilds/zsh-nvm.git"
     refreshPeriod = "168h"
-{{ end }}
+{{- end }}

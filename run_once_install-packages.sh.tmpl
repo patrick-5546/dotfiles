@@ -1,6 +1,7 @@
-{{ if eq .chezmoi.os "linux" }}
+{{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
-{{ if .chezmoi.kernel.osrelease | lower | contains "microsoft" }}
+
+{{ if .chezmoi.kernel.osrelease | lower | contains "microsoft" -}}
 sudo apt -y update && sudo apt -y install \
     bpytop \
     fd-find \
@@ -13,7 +14,8 @@ sudo apt -y update && sudo apt -y install \
 
 # symlink fd-find to fd
 ln -snf $(which fdfind) ~/.local/bin/fd
-{{ else if eq .chezmoi.osRelease.id "fedora" }}
+
+{{- else if eq .chezmoi.osRelease.id "fedora" -}}
 sudo dnf -y update && sudo dnf -y install 'dnf-command(config-manager)'
 sudo dnf -y config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
 sudo dnf -y update && sudo dnf -y install \
@@ -50,7 +52,8 @@ if [ $? -ne 0 ]
 then
    gh auth login
 fi
-{{ end }}
+{{- end }}
+
 # Make Zsh default shell
 if [ $SHELL != "/usr/bin/zsh" ]
 then
@@ -63,4 +66,4 @@ then
     mkdir -p ~/.cache/zsh
     touch ~/.cache/zsh/history
 fi
-{{ end }}
+{{- end }}

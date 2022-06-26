@@ -1,5 +1,8 @@
-{{ if eq .chezmoi.os "windows" }}
+{{ if eq .chezmoi.os "windows" -}}
 cd:
-  command: "pwsh"
-  args: ["-NoLogo", "-NoExit", "-Command", "& {Set-Location $env:HOMEPATH/.local/share/chezmoi}"]
-{{ end }}
+    command: "pwsh"
+    args: ["-NoLogo", "-NoExit", "-Command", "& {Set-Location $env:HOMEPATH/.local/share/chezmoi}"]
+{{- end -}}
+
+diff:
+    pager: "delta"
