@@ -1,7 +1,7 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 
-{{ if .chezmoi.kernel.osrelease | lower | contains "microsoft" -}}
+{{ if eq .chezmoi.osRelease.id "ubuntu" -}}
 sudo apt -y update && sudo apt -y install \
     bpytop \
     fd-find \
@@ -12,7 +12,10 @@ sudo apt -y update && sudo apt -y install \
     zsh-syntax-highlighting
 
 # symlink fd-find to fd
-ln -snf $(which fdfind) ~/.local/bin/fd
+if [[ command -v fdfind > /dev/null 2>&1 ]] && [[ ! -f ~/.local/bin/fd ]]
+then
+    ln -s $(which fdfind) ~/.local/bin/fd
+fi
 
 {{- else if eq .chezmoi.osRelease.id "fedora" -}}
 sudo dnf -y update && sudo dnf -y install 'dnf-command(config-manager)'
@@ -31,18 +34,22 @@ sudo dnf -y update && sudo dnf -y install \
     util-linux-user \
     zsh \
     zsh-syntax-highlighting
+{{- end }}
+
+{{ if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
+{{ if eq .chezmoi.osRelease.id "ubuntu" -}}
+sudo apt install gh -y
+{{- end }}
 
 # Install fonts
-if [ -d ~/.local/share/fonts/FiraCode ]
+if [ ! -d ~/.local/share/fonts/FiraCode ]
 then
-    rm -rf ~/.local/share/fonts/FiraCode/*
-else
     mkdir -p ~/.local/share/fonts/FiraCode
+    curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip --output FiraCode.zip
+    unzip FiraCode.zip -d ~/.local/share/fonts/FiraCode "Fira*Mono.ttf"
+    rm FiraCode.zip
+    fc-cache -f
 fi
-curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip --output FiraCode.zip
-unzip FiraCode.zip -d ~/.local/share/fonts/FiraCode "Fira*Mono.ttf"
-rm FiraCode.zip
-fc-cache -f
 
 # Login to GitHub
 gh auth status
