@@ -1,6 +1,6 @@
 # dotfiles
 
-My cross-platform, cross-shell configuration files and installation scripts using [Chezmoi](https://www.chezmoi.io/):
+My cross-platform, cross-shell configuration files and installation scripts managed using [chezmoi](https://www.chezmoi.io/):
 - Personal Laptop: dual boot Windows 11 and Fedora 36
     - Zsh on Windows 11 WSL 2 Ubuntu
     - Zsh on Fedora 36
