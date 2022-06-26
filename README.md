@@ -1,10 +1,10 @@
 # dotfiles
 
 My cross-platform, cross-shell configuration files and installation scripts managed using [chezmoi](https://www.chezmoi.io/):
-- Personal Laptop: dual boot Windows 11 and Fedora 36
-    - Zsh on Windows 11 WSL 2 Ubuntu
-    - Zsh on Fedora 36
-    - Powershell 7 on Windows 11
+- Zsh on Windows 11 WSL 2 Ubuntu 22.04
+- Zsh on Ubuntu 22.04
+- Zsh on Fedora 36
+- Powershell 7 on Windows 11
 
 ## Installation
 ### Zsh on Linux
@@ -15,10 +15,12 @@ My cross-platform, cross-shell configuration files and installation scripts mana
     sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply patrick-5546
     popd
     ```
-2. Additional setup for Fedora
-    2. [Enable RPM Fusion repositories](https://docs.fedoraproject.org/en-US/quick-docs/setup_rpmfusion/)
-    3. [Install multimedia plugins](https://docs.fedoraproject.org/en-US/quick-docs/assembly_installing-plugins-for-playing-movies-and-music/)
-    4. Configure dnf (run `man dnf.conf` to see options and defaults): append the following lines to `/etc/dnf/dnf.conf`
+2. Additional setup for GUI distros
+    1. [Install alacritty](https://github.com/alacritty/alacritty/blob/master/INSTALL.md)
+4. Additional setup for Fedora
+    1. [Enable RPM Fusion repositories](https://docs.fedoraproject.org/en-US/quick-docs/setup_rpmfusion/)
+    2. [Install multimedia plugins](https://docs.fedoraproject.org/en-US/quick-docs/assembly_installing-plugins-for-playing-movies-and-music/)
+    3. Configure dnf (run `man dnf.conf` to see options and defaults): append the following lines to `/etc/dnf/dnf.conf`
         ```
         max_parallel_downloads=10
         defaultyes=True
