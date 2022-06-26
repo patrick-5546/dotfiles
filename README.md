@@ -2,9 +2,9 @@
 
 My cross-platform, cross-shell configuration files and installation scripts using [Chezmoi](https://www.chezmoi.io/):
 - Personal Laptop: dual boot Windows 11 and Fedora 36
-    - Powershell 7 on Windows 11
     - Zsh on Windows 11 WSL 2 Ubuntu
     - Zsh on Fedora 36
+    - Powershell 7 on Windows 11
 
 ## Installation
 ### Zsh on Linux
