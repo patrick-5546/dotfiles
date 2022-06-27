@@ -37,10 +37,6 @@ sudo dnf -y update && sudo dnf -y install \
 {{- end }}
 
 {{ if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
-{{ if eq .chezmoi.osRelease.id "ubuntu" -}}
-sudo apt install gh -y
-{{- end }}
-
 # Install fonts
 if [ ! -d ~/.local/share/fonts/FiraCode ]
 then
@@ -52,6 +48,9 @@ then
 fi
 
 # Login to GitHub
+{{ if eq .chezmoi.osRelease.id "ubuntu" -}}
+sudo apt install gh -y
+{{- end }}
 gh auth status
 if [ $? -ne 0 ]
 then
