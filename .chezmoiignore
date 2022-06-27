@@ -12,6 +12,7 @@ AppData
 .config/fzf
 .config/lf
 .config/nvim
+.tmux.conf
 .zshrc
 {{- end }}
 
