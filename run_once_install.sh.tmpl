@@ -1,12 +1,12 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 
+printf "\n# Install rust utilities\n"
 if ! command -v rustup > /dev/null 2>&1
 then
-    printf "\n# Install rustup and rust utilities\n"
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    cargo install du-dust
 fi
+cargo install du-dust
 
 {{ if eq .chezmoi.osRelease.id "ubuntu" -}}
 printf "\n# Install apt utilities\n"
@@ -19,6 +19,7 @@ sudo apt -y update && sudo apt -y install \
     tmux \
     zsh \
     zsh-syntax-highlighting
+sudo apt upgrade
 
 if command -v fdfind > /dev/null 2>&1 && ! [ -L ~/.local/bin/fd ]
 then

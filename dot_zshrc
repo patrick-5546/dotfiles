@@ -69,7 +69,7 @@ export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 source $HOME/.config/zsh/aliases.zsh
 
 # Environment Variables
-export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$PATH
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export DOCKER_BUILDKIT=1
