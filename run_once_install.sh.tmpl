@@ -1,7 +1,15 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 
+if ! command -v rustup > /dev/null 2>&1
+then
+    printf "\n# Install rustup and rust utilities\n"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    cargo install du-dust
+fi
+
 {{ if eq .chezmoi.osRelease.id "ubuntu" -}}
+printf "\n# Install apt utilities\n"
 sudo apt -y update && sudo apt -y install \
     bpytop \
     fd-find \
@@ -12,13 +20,14 @@ sudo apt -y update && sudo apt -y install \
     zsh \
     zsh-syntax-highlighting
 
-# symlink fd-find to fd
-if [[ command -v fdfind > /dev/null 2>&1 ]] && [[ ! -f ~/.local/bin/fd ]]
+if command -v fdfind > /dev/null 2>&1 && ! [ -L ~/.local/bin/fd ]
 then
+    printf "\n# Symlink fd-find to fd\n"
     ln -s $(which fdfind) ~/.local/bin/fd
 fi
 
 {{- else if eq .chezmoi.osRelease.id "fedora" -}}
+printf "\n# Install dnf utilities\n"
 sudo dnf -y update && sudo dnf -y install 'dnf-command(config-manager)'
 sudo dnf -y config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
 sudo dnf -y update && sudo dnf -y install \
@@ -39,9 +48,9 @@ sudo dnf -y update && sudo dnf -y install \
 {{- end }}
 
 {{ if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
-# Install fonts
 if [ ! -d ~/.local/share/fonts/FiraCode ]
 then
+    printf "\n# Install fonts\n"
     mkdir -p ~/.local/share/fonts/FiraCode
     curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip --output FiraCode.zip
     unzip FiraCode.zip -d ~/.local/share/fonts/FiraCode "Fira*Mono.ttf"
@@ -49,7 +58,7 @@ then
     fc-cache -f
 fi
 
-# Login to GitHub
+printf "\n# Checking GitHub account status\n"
 {{ if eq .chezmoi.osRelease.id "ubuntu" -}}
 sudo apt install gh -y
 {{- end }}
@@ -60,15 +69,15 @@ then
 fi
 {{- end }}
 
-# Make Zsh default shell
 if [ $SHELL != "/usr/bin/zsh" ]
 then
+    printf "\n# Make Zsh default shell\n"
     chsh -s /usr/bin/zsh
 fi
 
-# Create Zsh history file
 if [ ! -f ~/.cache/zsh/history ]
 then
+    printf "\n# Create Zsh history file\n"
     mkdir -p ~/.cache/zsh
     touch ~/.cache/zsh/history
 fi
