@@ -1,5 +1,14 @@
 {{ if eq .chezmoi.os "linux" -}}
 {{ if eq .chezmoi.osRelease.id "ubuntu" -}}
+[".local/bin/delta"]
+    type = "file"
+    url = "https://github.com/dandavison/delta/releases/latest/download/delta-0.13.0-x86_64-unknown-linux-gnu.tar.gz"
+    executable = true
+    refreshPeriod = "168h"
+    [".local/bin/delta".filter]
+        command = "tar"
+        args = ["--extract", "--file", "/dev/stdin", "--gzip", "--wildcards", "*/delta", "--strip-components", "1", "--to-stdout"]
+
 [".local/bin/starship"]
     type = "file"
     url = "https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz"
