@@ -1,6 +1,6 @@
 # dotfiles
 
-My cross-platform, cross-shell configuration files and installation scripts managed using [chezmoi](https://www.chezmoi.io/):
+My cross-platform, cross-shell configuration files and installation scripts managed with [chezmoi](https://www.chezmoi.io/):
 - Zsh on Windows 11 WSL 2 Ubuntu 22.04
 - Zsh on Ubuntu 22.04
 - Zsh on Fedora 36
