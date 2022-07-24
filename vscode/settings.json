@@ -1,0 +1,117 @@
+{
+    // Python
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--max-line-length=120",
+        "--ignore=E741"
+    ],
+
+    // Editor
+    "editor.rulers": [100, 120],
+    "editor.wordWrap": "on",
+    "editor.lineNumbers": "relative",
+    "editor.renderWhitespace": "trailing",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs":"active",
+    "editor.minimap.enabled": false,  // code preview beside scrollbar takes too much space
+    "editor.fontSize": 12,
+    "editor.suggestSelection": "first",
+    "[plaintext]": {"editor.wordBasedSuggestions": false},
+    "[javascript]": {"editor.fontLigatures": true},
+
+    // Terminal
+    "terminal.integrated.allowChords": false,
+    "terminal.integrated.sendKeybindingsToShell": true,  // enable terminal keyboard shortcuts
+    "terminal.integrated.scrollback": 10000,
+    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+
+    // vim
+    /* Misc tips
+        - <operator>ii - d/c/y current indentation level
+        - <operator>ai - d/c/y current indentation level and line above (I for line below as well)
+        - gc - toggles line comment (gc2j to toggle comments for current and next 2 lines)
+        - gd - jump to definition
+        - gh - equivalent to hovering mouse over wherever the cursor is
+     */
+    "vim.vimrc.enable": true,
+    "vim.leader": " ",
+    "vim.useSystemClipboard": true,
+    "vim.hlsearch": true,
+    "vim.whichwrap": "b,w,h,l",
+    "vim.easymotion": true,  // <leader><leader> f <char> - search for <char> forwards (F for backwards)
+    "vim.surround": true,  // cs"' - change surrounding double to single quotes
+    "vim.normalModeKeyBindings": [
+        // Move current tab to another group
+        {
+            "before": ["<C-w>", "<C-l>"],
+            "commands": [
+                "workbench.action.moveEditorToNextGroup",
+            ]
+        },
+        {
+            "before": ["<C-w>", "<C-h>"],
+            "commands": [
+                "workbench.action.moveEditorToPreviousGroup",
+            ]
+        },
+        {
+            "before": ["<C-w>", "<C-k>"],
+            "commands": [
+                "workbench.action.moveEditorToAboveGroup",
+            ]
+        },
+        {
+            "before": ["<C-w>", "<C-j>"],
+            "commands": [
+                "workbench.action.moveEditorToBelowGroup",
+            ]
+        },
+        {
+            "before": ["<S-t>"],
+            "commands": [
+                "workbench.action.toggleEditorWidths",
+            ]
+        },
+        {
+            "before": ["<S-z>"],
+            "commands": [
+                "workbench.action.toggleZenMode",
+            ]
+        },
+        {
+            "before": ["<S-e>"],
+            "commands": [
+                "workbench.action.toggleSidebarVisibility",
+            ]
+        },
+    ],
+
+    // vim related
+    "zenMode.hideLineNumbers": false,
+    "zenMode.hideTabs": false,
+    "zenMode.hideStatusBar": false,
+
+    // Misc
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"  //  vscode doesn't automatically recognize this
+    },
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "window.title": "${remoteName}${separator}${dirty}${rootPath}${separator}${activeEditorMedium}${separator}${appName}",
+    "window.titleBarStyle": "custom",  // saves space by replacing the native operating system's title bar
+    "workbench.sideBar.location": "right",  // sidebar doesn't move code as much
+    "git.autofetch": "all",
+    "notebook.lineNumbers": "on",
+    "redhat.telemetry.enabled": false,
+    "explorer.confirmDragAndDrop": false,
+    "githubPullRequests.fileListLayout": "tree",
+    "cSpell.enabled": false,  // enable in workspace settings
+    "markdownlint.ignore": [
+        ".github/ISSUE_TEMPLATE/**"
+    ],
+}

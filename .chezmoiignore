@@ -1,5 +1,6 @@
 install.ps1
 README.md
+vscode
 
 {{ if ne .chezmoi.os "windows" -}}
 Documents
