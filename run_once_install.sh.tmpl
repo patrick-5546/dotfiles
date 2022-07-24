@@ -1,6 +1,20 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 
+if [ ! -f ~/.cache/zsh/history ]
+then
+    printf "\n# Create Zsh history file\n"
+    mkdir -p ~/.cache/zsh
+    touch ~/.cache/zsh/history
+fi
+
+read -p "The rest of run_once_install.sh requires root access, do you wish to proceed? " yn
+case $yn in
+    [Yy]* ) break;;
+    [Nn]* ) exit;;
+    * ) echo "Please answer yes or no.";;
+esac
+
 printf "\n# Install rust utilities\n"
 if ! command -v rustup > /dev/null 2>&1
 then
@@ -26,7 +40,6 @@ then
     printf "\n# Symlink fd-find to fd\n"
     ln -s $(which fdfind) ~/.local/bin/fd
 fi
-
 {{- else if eq .chezmoi.osRelease.id "fedora" -}}
 printf "\n# Install dnf utilities\n"
 sudo dnf -y update && sudo dnf -y install 'dnf-command(config-manager)'
@@ -74,12 +87,5 @@ if [ $SHELL != "/usr/bin/zsh" ]
 then
     printf "\n# Make Zsh default shell\n"
     chsh -s /usr/bin/zsh
-fi
-
-if [ ! -f ~/.cache/zsh/history ]
-then
-    printf "\n# Create Zsh history file\n"
-    mkdir -p ~/.cache/zsh
-    touch ~/.cache/zsh/history
 fi
 {{- end }}
