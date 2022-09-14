@@ -33,7 +33,7 @@ function git_main_branch() {
   local ref
   for ref in refs/{heads,remotes/{origin,upstream}}/{main,trunk}; do
     if command git show-ref -q --verify $ref; then
-      echo ${ref:t}
+      echo ${ref#refs/heads/}
       return
     fi
   done
