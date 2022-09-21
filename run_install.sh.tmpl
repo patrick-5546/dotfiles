@@ -1,4 +1,4 @@
-{{ if or (eq .chezmoi.os "linux") (eq .chezmoi.os "darwin") -}}
+{{ if ne .chezmoi.os "windows" -}}
 #!/bin/sh
 
 if ! command -v brew > /dev/null 2>&1
@@ -42,6 +42,7 @@ checkBeforeInstall()
 }
 checkBeforeInstall bpytop   bpytop
 checkBeforeInstall delta    git-delta
+checkBeforeInstall gh       gh
 checkBeforeInstall dust     dust
 checkBeforeInstall fd       fd
 checkBeforeInstall fzf      fzf
@@ -51,12 +52,11 @@ checkBeforeInstall rg       ripgrep
 checkBeforeInstall starship starship
 checkBeforeInstall tmux     tmux
 checkBeforeInstall zsh      zsh
+printf "# Install zsh-syntax-highlighting (does nothing if already installed)\n"
+brew install zsh-syntax-highlighting
 
-# checkBeforeInstall gh       gh
-# checkBeforeInstall zsh-syntax-highlighting zsh-syntax-highlighting
-
+{{ if or (eq .chezmoi.os "darwin") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}}
 {{ if eq .chezmoi.os "linux" -}}
-{{ if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
 {{ if eq .chezmoi.osRelease.id "fedora" -}}
 printf "\n# Install dnf utilities\n"
 sudo dnf -y update && sudo dnf -y install \
@@ -77,17 +77,6 @@ else
         printf "\n# Fonts already installed\n"
 fi
 
-printf "\n# Checking GitHub account status\n"
-{{ if eq .chezmoi.osRelease.id "ubuntu" -}}
-{{- end }}
-gh auth status
-if [ $? -ne 0 ]
-then
-   gh auth login
-fi
-{{- end }}
-{{- end }}
-
 if [ $SHELL != "/usr/bin/zsh" ]
 then
     printf "\n# Make Zsh default shell\n"
@@ -97,4 +86,13 @@ else
 fi
 {{- end }}
 
-printf "\n# Script finished successfully, run zsh if not already using it\n"
+printf "\n# Checking GitHub account status\n"
+gh auth status
+if [ $? -ne 0 ]
+then
+   gh auth login
+fi
+{{- end }}
+
+printf "\n# Script finished successfully, open a new terminal to use new configuration\n"
+{{- end }}
