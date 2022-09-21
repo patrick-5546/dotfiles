@@ -40,6 +40,7 @@ checkBeforeInstall()
         printf "# $2 already installed at\t\t$(which $1)\n"
     fi
 }
+checkBeforeInstall bat      bat
 checkBeforeInstall bpytop   bpytop
 checkBeforeInstall delta    git-delta
 checkBeforeInstall gh       gh
