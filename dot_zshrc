@@ -1,3 +1,5 @@
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 # Enable colors and change prompt:
 autoload -U colors && colors
 
@@ -76,6 +78,7 @@ export DOCKER_BUILDKIT=1
 
 # Other Zsh scripts
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+# source #{HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOME/.local/share/zsh-nvm/zsh-nvm.plugin.zsh
 
 # Prompt

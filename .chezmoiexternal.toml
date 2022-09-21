@@ -1,32 +1,4 @@
 {{ if eq .chezmoi.os "linux" -}}
-{{ if eq .chezmoi.osRelease.id "ubuntu" -}}
-[".local/bin/delta"]
-    type = "file"
-    url = "https://github.com/dandavison/delta/releases/download/0.14.0/delta-0.14.0-x86_64-unknown-linux-gnu.tar.gz"
-    executable = true
-    refreshPeriod = "168h"
-    [".local/bin/delta".filter]
-        command = "tar"
-        args = ["--extract", "--file", "/dev/stdin", "--gzip", "--wildcards", "*/delta", "--strip-components", "1", "--to-stdout"]
-
-[".local/bin/starship"]
-    type = "file"
-    url = "https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz"
-    executable = true
-    refreshPeriod = "168h"
-    [".local/bin/starship".filter]
-        command = "tar"
-        args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout"]
-{{ end }}
-[".local/bin/lf"]
-    type = "file"
-    url = "https://github.com/gokcehan/lf/releases/latest/download/lf-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
-    executable = true
-    refreshPeriod = "168h"
-    [".local/bin/lf".filter]
-        command = "tar"
-        args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout"]
-
 [".local/share/zsh-nvm"]
     type = "git-repo"
     url = "https://github.com/lukechilds/zsh-nvm.git"
