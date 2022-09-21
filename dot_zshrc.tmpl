@@ -1,10 +1,11 @@
+{{ if eq .chezmoi.os "linux" -}}
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{- else if eq .chezmoi.os "darwin" -}}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{- end }}
+
 # Enable colors and change prompt:
 autoload -U colors && colors
-
-# History in cache directory:
-export HISTSIZE=10000
-export SAVEHIST=10000
-export HISTFILE=~/.cache/zsh/history
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -12,6 +13,9 @@ zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
+
+# History configuration
+source $HOME/.config/zsh/history.zsh
 
 # Functions
 source $HOME/.config/zsh/functions.zsh
@@ -69,14 +73,18 @@ export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 source $HOME/.config/zsh/aliases.zsh
 
 # Environment Variables
-export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export DOCKER_BUILDKIT=1
 
 # Other Zsh scripts
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+{{ if eq .chezmoi.os "linux" -}}
 source $HOME/.local/share/zsh-nvm/zsh-nvm.plugin.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+{{- else if eq .chezmoi.os "darwin" -}}
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+{{- end }}
 
 # Prompt
 eval "$(starship init zsh)"

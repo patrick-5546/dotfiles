@@ -1,0 +1,98 @@
+{{ if ne .chezmoi.os "windows" -}}
+#!/bin/sh
+
+if ! command -v brew > /dev/null 2>&1
+then
+    printf "\n# Install HomeBrew\n"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    {{ if eq .chezmoi.os "linux" -}}
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    {{ if eq .chezmoi.osRelease.id "ubuntu" -}}
+    sudo apt-get update && sudo apt-get install build-essential
+    {{- end }}
+    {{- end }}
+else
+    printf "\n# HomeBrew already installed\n"
+fi
+
+printf "\n# Update HomeBrew packages\n"
+brew update
+brew upgrade
+
+printf "\n# Install dotfile dependencies using HomeBrew\n"
+checkBeforeInstall()
+{
+    if ! command -v $1 > /dev/null 2>&1
+    then
+        {{ if eq .chezmoi.os "linux" -}}
+        if [ "$1" = dust ]
+        then
+            printf "# Install dust repo\n"
+            brew tap tgotwig/linux-dust
+        fi
+        {{- end }}
+
+        printf "# Install $2\n"
+        brew install $2
+
+    else
+        printf "# $2 already installed at\t\t$(which $1)\n"
+    fi
+}
+checkBeforeInstall bpytop   bpytop
+checkBeforeInstall delta    git-delta
+checkBeforeInstall gh       gh
+checkBeforeInstall dust     dust
+checkBeforeInstall fd       fd
+checkBeforeInstall fzf      fzf
+checkBeforeInstall lf       lf
+checkBeforeInstall nvim     neovim
+checkBeforeInstall rg       ripgrep
+checkBeforeInstall starship starship
+checkBeforeInstall tmux     tmux
+checkBeforeInstall zsh      zsh
+printf "# Install zsh-syntax-highlighting (does nothing if already installed)\n"
+brew install zsh-syntax-highlighting
+
+{{ if or (eq .chezmoi.os "darwin") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}}
+{{ if eq .chezmoi.os "linux" -}}
+{{ if eq .chezmoi.osRelease.id "fedora" -}}
+printf "\n# Install dnf utilities\n"
+sudo dnf -y update && sudo dnf -y install \
+    fontconfig \
+    unzip \
+    util-linux-user \
+{{- end -}}
+
+if [ ! -d ~/.local/share/fonts/FiraCode ]
+then
+    printf "\n# Install fonts\n"
+    mkdir -p ~/.local/share/fonts/FiraCode
+    curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip --output FiraCode.zip
+    unzip FiraCode.zip -d ~/.local/share/fonts/FiraCode "Fira*Mono.ttf"
+    rm FiraCode.zip
+    fc-cache -f
+else
+        printf "\n# Fonts already installed\n"
+fi
+
+if [ $SHELL != "/usr/bin/zsh" ]
+then
+    printf "\n# Make Zsh default shell\n"
+    chsh -s /usr/bin/zsh
+else
+    printf "\n# Zsh already default shell\n"
+fi
+{{- end }}
+
+printf "\n# Checking GitHub account status\n"
+gh auth status
+if [ $? -ne 0 ]
+then
+   gh auth login
+fi
+{{- end }}
+
+printf "\n# Script finished successfully, open a new terminal to use new configuration\n"
+{{- end }}

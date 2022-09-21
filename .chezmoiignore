@@ -8,7 +8,7 @@ AppData
 #.config/icons
 {{- end }}
 
-{{ if ne .chezmoi.os "linux" -}}
+{{ if eq .chezmoi.os "windows" -}}
 .config/bpytop
 .config/fzf
 .config/lf
