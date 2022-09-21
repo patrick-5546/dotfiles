@@ -2,12 +2,13 @@
 
 My cross-platform, cross-shell configuration files and installation scripts managed with [chezmoi](https://www.chezmoi.io/):
 - Zsh on Windows 11 WSL 2 Ubuntu 22.04
+- Zsh on MacOS
 - Zsh on Ubuntu 22.04
 - Zsh on Fedora 36
 - Powershell 7 on Windows 11
 
 ## Installation
-### Zsh on Linux
+### Zsh on Linux or MacOs
 1. Install chezmoi in `~/.local/bin`, pulling and applying the latest changes
     ```
     mkdir -p ~/.local/bin
