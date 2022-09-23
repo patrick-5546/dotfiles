@@ -3,7 +3,6 @@ Set-Alias ... Set-LocationUp2
 Set-Alias c chezmoi
 Set-Alias cls clear
 #Set-Alias e 'exit'
-Set-Alias grep rg
 Set-Alias l Get-ChildItemAll
 Set-Alias ll Get-ChildItemVisible
 Set-Alias ls Get-ChildItemSimple
