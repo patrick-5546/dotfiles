@@ -1,5 +1,10 @@
 {{ if ne .chezmoi.os "windows" -}}
-#!/bin/sh
+#!/bin/bash
+
+printf "\n# Update Chezmoi\n"
+pushd ~/.local
+sh -c "$(curl -fsLS chezmoi.io/get)"
+popd
 
 if ! command -v brew > /dev/null 2>&1
 then

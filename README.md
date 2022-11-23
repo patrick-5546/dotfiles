@@ -45,12 +45,3 @@ My cross-platform, cross-shell configuration files and installation scripts mana
     exit
     chezmoi apply
     ```
-## Update
-
-### Zsh on Linux or MacOS
-1. Grab the latest binary
-    ```
-    pushd ~/.local
-    sh -c "$(curl -fsLS chezmoi.io/get)"
-    popd
-    ```
