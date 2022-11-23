@@ -41,7 +41,8 @@ checkBeforeInstall()
     fi
 }
 checkBeforeInstall bat      bat
-checkBeforeInstall bpytop   bpytop
+# bpytop is very large, only install if needed
+# checkBeforeInstall bpytop   bpytop
 checkBeforeInstall delta    git-delta
 checkBeforeInstall gh       gh
 checkBeforeInstall dust     dust
