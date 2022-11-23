@@ -8,6 +8,11 @@ My cross-platform, cross-shell configuration files and installation scripts mana
 - Powershell 7 on Windows 11
 
 ## Installation
+
+### Prerequisites
+
+- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+
 ### Zsh on Linux or MacOS
 1. Install chezmoi in `~/.local/bin`, pulling and applying the latest changes
     ```
