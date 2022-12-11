@@ -1,6 +1,6 @@
 {{ if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
 [credential]
-    helper = /mnt/c/Program\\ Files/Git/mingw64/libexec/git-core/git-credential-wincred.exe
+    helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager-core.exe
 {{- end }}
 [user]
     email = pcreighton429@gmail.com
