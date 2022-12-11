@@ -82,14 +82,6 @@ then
 else
         printf "\n# Fonts already installed\n"
 fi
-
-if [ $SHELL != "/usr/bin/zsh" ]
-then
-    printf "\n# Make Zsh default shell\n"
-    chsh -s /usr/bin/zsh
-else
-    printf "\n# Zsh already default shell\n"
-fi
 {{- end }}
 
 printf "\n# Checking GitHub account status\n"
@@ -100,6 +92,15 @@ then
    gh auth login
 fi
 {{- end }}
+
+if [ basename $SHELL != "zsh" ]
+then
+    printf "\n# Make Zsh default shell\n"
+    command -v zsh | sudo tee -a /etc/shells
+    chsh -s $(which zsh)
+else
+    printf "\n# Zsh already default shell\n"
+fi
 
 printf "\n# Script finished successfully, open a new terminal to use new configuration\n"
 {{- end }}
