@@ -49,7 +49,6 @@ checkBeforeInstall bat      bat
 # bpytop is very large, only install if needed
 # checkBeforeInstall bpytop   bpytop
 checkBeforeInstall delta    git-delta
-checkBeforeInstall gh       gh
 checkBeforeInstall dust     dust
 checkBeforeInstall fd       fd
 checkBeforeInstall fzf      fzf
@@ -94,6 +93,7 @@ fi
 {{- end }}
 
 printf "\n# Checking GitHub account status\n"
+checkBeforeInstall gh       gh
 gh auth status
 if [ $? -ne 0 ]
 then
