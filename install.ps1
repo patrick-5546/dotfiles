@@ -1,4 +1,4 @@
-# Run with admin priviledges
+#Requires -RunAsAdministrator
 
 # Update installed packages
 choco upgrade all -y
