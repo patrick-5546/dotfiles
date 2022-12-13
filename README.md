@@ -9,11 +9,8 @@ My cross-platform, cross-shell configuration files and installation scripts mana
 
 ## Installation
 
-### Prerequisites
-
-- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-
 ### Zsh on Linux or MacOS
+0. Install git if not installed (check by running `git --version`)
 1. Install chezmoi in `~/.local/bin`, pulling and applying the latest changes
     ```
     mkdir -p ~/.local/bin
@@ -37,9 +34,9 @@ My cross-platform, cross-shell configuration files and installation scripts mana
 1. Install PowerShell 7 from the Microsoft Store
 2. [Install Chocolately](https://docs.chocolatey.org/en-us/choco/setup)
     - Running [winutil](https://github.com/ChrisTitusTech/winutil) installs Chocolately as part of the initialization process
-3. Install chezmoi in PowerShell **with** administrator priviledges
+3. Install chezmoi and git in PowerShell **with** administrator priviledges
     ```
-    choco install chezmoi -y
+    choco install chezmoi git -y
     ```
 4. Clone this repository in PowerShell **without** administrator priviledges
     ```
