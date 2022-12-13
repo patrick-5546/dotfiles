@@ -18,6 +18,8 @@ $ProfilePath=Split-Path -parent $profile
 # PSReadLine configuration
 Set-PSReadLineOption -EditMode Vi
 Set-PSReadLineKeyHandler -vimode insert -Chord "j" -ScriptBlock { mapTwoLetterNormal 'j' 'k' }
+# Shows navigable menu of all options when hitting Tab
+Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 
 # PsFzf configuration
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory 'Ctrl+r'
