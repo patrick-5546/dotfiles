@@ -34,12 +34,19 @@ My cross-platform, cross-shell configuration files and installation scripts mana
         ```
 
 ### PowerShell 7 on Windows
-1. Install PowerShell 7 and open it with administrator priviledges
+1. Install PowerShell 7 from the Microsoft Store
 2. [Install Chocolately](https://docs.chocolatey.org/en-us/choco/setup)
-3. Install chezmoi, pull the latest changes, run the installation script, then apply the latest changes
+    - Running [winutil](https://github.com/ChrisTitusTech/winutil) installs Chocolately as part of the initialization process
+3. Install chezmoi in PowerShell **with** administrator priviledges
     ```
     choco install chezmoi -y
+    ```
+4. Clone this repository in PowerShell **without** administrator priviledges
+    ```
     chezmoi init https://github.com/patrick-5546/dotfiles.git
+    ```
+5. Run the installation script and apply the dotfiles in PowerShell **with** administrator priviledges
+    ```
     chezmoi cd
     .\install.ps1
     exit
