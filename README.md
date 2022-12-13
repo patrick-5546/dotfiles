@@ -32,17 +32,21 @@ My cross-platform, cross-shell configuration files and installation scripts mana
 
 ### PowerShell 7 on Windows
 1. Install PowerShell 7 from the Microsoft Store
-2. [Install Chocolately](https://docs.chocolatey.org/en-us/choco/setup)
+2. Install Git using winget
+    ```
+    winget install Git.Git
+    ```
+3. [Install Chocolately](https://docs.chocolatey.org/en-us/choco/setup)
     - Running [winutil](https://github.com/ChrisTitusTech/winutil) installs Chocolately as part of the initialization process
-3. Install chezmoi and git in PowerShell **with** administrator priviledges
+4. Install chezmoi in PowerShell **with** administrator priviledges
     ```
-    choco install chezmoi git -y
+    choco install chezmoi -y
     ```
-4. Clone this repository in PowerShell **without** administrator priviledges
+5. Clone this repository in PowerShell **without** administrator priviledges
     ```
     chezmoi init https://github.com/patrick-5546/dotfiles.git
     ```
-5. Run the installation script and apply the dotfiles in PowerShell **with** administrator priviledges
+6. Run the installation script and apply the dotfiles in PowerShell **with** administrator priviledges
     ```
     chezmoi cd
     .\install.ps1
