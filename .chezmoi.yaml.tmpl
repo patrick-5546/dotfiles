@@ -1,7 +1,3 @@
-age:
-    identity: "{{ .chezmoi.homeDir }}/.chezmoikey.txt"
-    recipient: "age1tqerfm7h83nl3d6ewcmhze8jmndfaaznrt84e8r0cd9rux9l5cwq72c992"
-
 {{ if eq .chezmoi.os "windows" -}}
 cd:
     command: "pwsh"
@@ -17,3 +13,6 @@ diff:
 edit:
     command: "vim"
 encryption: "age"
+age:
+    identity: "{{ .chezmoi.homeDir }}/.chezmoikey.txt"
+    recipient: "age1tqerfm7h83nl3d6ewcmhze8jmndfaaznrt84e8r0cd9rux9l5cwq72c992"
