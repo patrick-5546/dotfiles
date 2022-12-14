@@ -14,6 +14,7 @@ $ProfilePath=Split-Path -parent $profile
 
 # Functions
 . $ProfilePath/functions.ps1
+. $ProfilePath/ssh.autocomplete.ps1
 
 # PSReadLine configuration
 Set-PSReadLineOption -EditMode Vi
