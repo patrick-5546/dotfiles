@@ -225,26 +225,3 @@ function Get-ChildItemAll {
         Get-ChildItem -Path @Path -Force @hashtable
     }
 }
-
-# From https://github.com/gokcehan/lf/blob/master/etc/lfcd.ps1
-function lfcd {
-    $tmp = [System.IO.Path]::GetTempFileName()
-    lf -last-dir-path="$tmp" $args
-    if (Test-Path -PathType Leaf "$tmp") {
-        $dir = Get-Content "$tmp"
-        Remove-Item -Force "$tmp"
-        if (Test-Path -PathType Container "$dir") {
-            if ("$dir" -ne "$pwd") {
-                cd "$dir"
-            }
-        }
-    }
-}
-
-function gswm {
-    git switch main
-}
-
-function ssh-copy-id($remote) {
-    cat ~/.ssh/id_rsa.pub | ssh $remote "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"
-}
