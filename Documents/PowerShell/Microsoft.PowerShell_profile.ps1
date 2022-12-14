@@ -4,11 +4,11 @@
 # Imports
 # - Slowest imports are posh-git, PsFzf, Terminal-Icons
 Import-Module git-aliases -DisableNameChecking
-Import-Module posh-git
+#Import-Module posh-git
 # must import PSReadLine before PSFzf
 Import-Module PSReadLine
 Import-Module PsFzf
-Import-Module Terminal-Icons
+#Import-Module Terminal-Icons
 
 $ProfilePath=Split-Path -parent $profile
 
