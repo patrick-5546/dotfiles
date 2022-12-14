@@ -2,10 +2,8 @@
 #!/bin/sh
 
 if [ ! -f "{{ .chezmoi.homeDir }}/.chezmoikey.txt" ]; then
-    printf "create ~/.chezmoikey.txt\n"
+    printf "# create ~/.chezmoikey.txt\n"
     age --decrypt --output "{{ .chezmoi.homeDir }}/.chezmoikey.txt" "{{ .chezmoi.sourceDir }}/key.txt.age"
     chmod 600 "{{ .chezmoi.homeDir }}/.chezmoikey.txt"
-else
-    printf "~/.chezmoikey.txt already exists\n"
 fi
 {{- end }}
