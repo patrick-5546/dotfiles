@@ -1,4 +1,3 @@
-{{ if eq .chezmoi.os "windows" -}}
 #Requires -RunAsAdministrator
 
 Write-Host "# Update packages and modules"
@@ -16,4 +15,3 @@ Install-Module -Name Terminal-Icons -Repository PSGallery
 
 Write-Host "# Set execution policy"
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-{{- end }}

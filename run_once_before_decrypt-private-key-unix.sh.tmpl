@@ -1,4 +1,3 @@
-{{ if ne .chezmoi.os "windows" -}}
 #!/bin/sh
 
 if [ ! -f "{{ .chezmoi.homeDir }}/.chezmoikey.txt" ]; then
@@ -6,4 +5,3 @@ if [ ! -f "{{ .chezmoi.homeDir }}/.chezmoikey.txt" ]; then
     age --decrypt --output "{{ .chezmoi.homeDir }}/.chezmoikey.txt" "{{ .chezmoi.sourceDir }}/key.txt.age"
     chmod 600 "{{ .chezmoi.homeDir }}/.chezmoikey.txt"
 fi
-{{- end }}

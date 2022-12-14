@@ -1,6 +1,4 @@
-{{ if eq .chezmoi.os "windows" -}}
 if (-Not (Test-Path {{ .chezmoi.homeDir }}/.chezmoikey.txt -PathType Leaf)) {
     Write-Host "# create ~/.chezmoikey.txt"
     age --decrypt --output "{{ .chezmoi.homeDir }}/.chezmoikey.txt" "{{ .chezmoi.sourceDir }}/key.txt.age"
 }
-{{- end }}

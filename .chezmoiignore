@@ -4,9 +4,10 @@ reference_dotfiles
 
 # windows files
 {{ if ne .chezmoi.os "windows" -}}
-Documents
 AppData
-#.config/icons
+Documents
+decrypt-private-key-windows.ps1
+install-windows.ps1
 {{- end }}
 
 # unix files
@@ -17,6 +18,8 @@ AppData
 .config/zsh
 .tmux.conf
 .zshrc
+decrypt-private-key-unix.sh
+install-unix.sh
 {{- end }}
 
 # linux without WSL files
