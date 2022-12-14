@@ -93,7 +93,7 @@ then
 fi
 {{- end }}
 
-if [ basename $SHELL != "zsh" ]
+if [ $(basename $SHELL) != "zsh" ]
 then
     printf "\n# Make Zsh default shell\n"
     command -v zsh | sudo tee -a /etc/shells
