@@ -9,4 +9,3 @@ Set-Alias ls Get-ChildItemSimple
 Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
 #Set-Alias md mkdir
 #Set-Alias rd rmdir  # works but md doesn't
-Set-Alias vim nvim
