@@ -1,3 +1,4 @@
+{{ if eq .chezmoi.os "windows" -}}
 #Requires -RunAsAdministrator
 
 # Update installed packages
@@ -8,7 +9,8 @@ Update-Module
 choco install bat delta dust fd fzf git lf ripgrep starship vim -y
 Install-Module git-aliases -Scope CurrentUser -Allowclobber
 Install-Module -Name PSFzf
-Install-Module posh-git -Scope CurrentUser -Force -AllowClobber
+Install-Module posh-git -Scope CurrentUser -AllowClobber
 Install-Module -Name Terminal-Icons -Repository PSGallery
 
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+{{- end }}

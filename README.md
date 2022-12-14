@@ -38,18 +38,15 @@ My cross-platform, cross-shell configuration files and installation scripts mana
     ```
 3. [Install Chocolately](https://docs.chocolatey.org/en-us/choco/setup)
     - Running [winutil](https://github.com/ChrisTitusTech/winutil) installs Chocolately as part of the initialization process
-4. Install chezmoi in PowerShell **with** administrator priviledges
+4. Install chezmoi in PowerShell **with** administrator privileges
     ```
     choco install chezmoi -y
     ```
-5. Clone this repository in PowerShell **without** administrator priviledges
+5. Clone this repository in PowerShell **without** administrator privileges
     ```
     chezmoi init https://github.com/patrick-5546/dotfiles.git
     ```
-6. Run the installation script and apply the dotfiles in PowerShell **with** administrator priviledges
+6. Run the installation script and apply the dotfiles in PowerShell **with** administrator privileges
     ```
-    chezmoi cd
-    .\install.ps1
-    exit
     chezmoi apply
     ```
