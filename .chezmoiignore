@@ -13,10 +13,12 @@ AppData
 .config/bpytop
 .config/fzf
 .config/lf
+.config/zsh
 .tmux.conf
 .zshrc
 {{- end }}
 
 {{ if or (ne .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
- .alacritty.yml
+.alacritty.yml
+.config/zsh/openvpn3.zsh
 {{- end }}

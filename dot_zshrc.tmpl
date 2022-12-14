@@ -79,6 +79,9 @@ export DOCKER_BUILDKIT=1
 {{ if eq .chezmoi.os "linux" -}}
 source $HOME/.local/share/zsh-nvm/zsh-nvm.plugin.zsh
 source /home/linuxbrew/.linuxbrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+{{- if (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}}
+source $HOME/.config/zsh/openvpn3.zsh
+{{- end -}}
 {{- else if eq .chezmoi.os "darwin" -}}
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 {{- end }}
