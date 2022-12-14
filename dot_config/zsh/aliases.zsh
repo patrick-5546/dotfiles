@@ -13,7 +13,6 @@ alias ls='ls --color=auto'
 alias lt='ls -alhrt'
 alias md='mkdir -p'
 alias rd='rmdir'
-alias vim='nvim'
 
 # git - from https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
 alias g='git'
