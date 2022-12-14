@@ -6,6 +6,10 @@ age:
 cd:
     command: "pwsh"
     args: ["-NoLogo", "-NoExit", "-Command", "& {Set-Location $env:HOMEPATH/.local/share/chezmoi}"]
+interpreters:
+    ps1:
+        command: "pwsh"
+        args: ["-NoLogo"]
 {{ end -}}
 
 diff:
