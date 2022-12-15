@@ -25,7 +25,7 @@ brew update
 brew upgrade
 
 printf "\n# Install dotfile dependencies using HomeBrew\n"
-checkBeforeInstall()
+brewInstallIfNotInstalled()
 {
     if ! command -v $1 > /dev/null 2>&1
     then
@@ -44,19 +44,19 @@ checkBeforeInstall()
         printf "# $2 already installed at\t\t$(which $1)\n"
     fi
 }
-checkBeforeInstall bat      bat
+brewInstallIfNotInstalled bat      bat
 # bpytop is very large, only install if needed
-# checkBeforeInstall bpytop   bpytop
-checkBeforeInstall delta    git-delta
-checkBeforeInstall dust     dust
-checkBeforeInstall fd       fd
-checkBeforeInstall fzf      fzf
-checkBeforeInstall lf       lf
-checkBeforeInstall rg       ripgrep
-checkBeforeInstall starship starship
-checkBeforeInstall tmux     tmux
-checkBeforeInstall vim      vim
-checkBeforeInstall zsh      zsh
+# brewInstallIfNotInstalled bpytop   bpytop
+brewInstallIfNotInstalled delta    git-delta
+brewInstallIfNotInstalled dust     dust
+brewInstallIfNotInstalled fd       fd
+brewInstallIfNotInstalled fzf      fzf
+brewInstallIfNotInstalled lf       lf
+brewInstallIfNotInstalled rg       ripgrep
+brewInstallIfNotInstalled starship starship
+brewInstallIfNotInstalled tmux     tmux
+brewInstallIfNotInstalled vim      vim
+brewInstallIfNotInstalled zsh      zsh
 printf "# Install zsh-syntax-highlighting (does nothing if already installed)\n"
 brew install zsh-syntax-highlighting
 
@@ -84,7 +84,7 @@ fi
 {{- end }}
 
 printf "\n# Checking GitHub account status\n"
-checkBeforeInstall gh       gh
+brewInstallIfNotInstalled gh       gh
 gh auth status
 if [ $? -ne 0 ]
 then

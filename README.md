@@ -39,18 +39,19 @@ My cross-platform, cross-shell configuration files and installation scripts mana
 ### PowerShell 7 on Windows
 
 1. Install PowerShell 7 from the Microsoft Store
-2. Install Git using winget
+2. Install git and gsudo using winget in PowerShell
 
     ```
-    winget install Git.Git
+    winget install --exact --id Git.Git --interactive
+    winget install --exact --id gerardog.gsudo --interactive
     ```
 
 3. [Install Chocolately](https://docs.chocolatey.org/en-us/choco/setup)
     - Running [winutil](https://github.com/ChrisTitusTech/winutil) installs Chocolately as part of the initialization process
-4. Install age, chezmoi, and gsudo in PowerShell **with** administrator privileges
+4. Install age and chezmoi in PowerShell **with** administrator privileges
 
     ```
-    choco install age.portable chezmoi gsudo -y
+    choco install age.portable chezmoi -y
     ```
 
 5. Clone this repository in PowerShell **without** administrator privileges
