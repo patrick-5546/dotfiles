@@ -12,9 +12,9 @@ My cross-platform, cross-shell configuration files and installation scripts mana
 
 ### Zsh on Linux or MacOS
 
-0. Install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [age](https://github.com/FiloSottile/age#installation)
+1. Install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [age](https://github.com/FiloSottile/age#installation)
    if not installed
-1. Install chezmoi in `~/.local/bin`, pulling and applying the latest changes
+2. Install chezmoi in `~/.local/bin`, pulling and applying the latest changes
 
     ```
     mkdir -p ~/.local/bin
@@ -23,9 +23,9 @@ My cross-platform, cross-shell configuration files and installation scripts mana
     popd
     ```
 
-2. Additional setup for GUI distros
+3. Additional setup for GUI distros
     1. [Install alacritty](https://github.com/alacritty/alacritty/blob/master/INSTALL.md)
-3. Additional setup for Fedora
+4. Additional setup for Fedora
     1. [Enable RPM Fusion repositories](https://docs.fedoraproject.org/en-US/quick-docs/setup_rpmfusion/)
     2. [Install multimedia plugins](https://docs.fedoraproject.org/en-US/quick-docs/assembly_installing-plugins-for-playing-movies-and-music/)
     3. Configure dnf (run `man dnf.conf` to see options and defaults): append the following lines to `/etc/dnf/dnf.conf`
