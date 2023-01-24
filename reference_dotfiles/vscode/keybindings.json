@@ -67,6 +67,6 @@
   {
     "key": "shift+e",
     "command": "workbench.action.toggleSidebarVisibility",
-    "when": "!editorTextFocus && !terminalFocus"
+    "when": "!inputFocus && !terminalFocus"
   },
 ]
