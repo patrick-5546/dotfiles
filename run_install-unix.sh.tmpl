@@ -2,7 +2,7 @@
 
 printf "\n# Update Chezmoi\n"
 pushd ~/.local
-sh -c "$(curl -fsLS chezmoi.io/get)"
+sh -c "$(curl -fsLS get.chezmoi.io)"
 popd
 
 if ! command -v brew > /dev/null 2>&1
