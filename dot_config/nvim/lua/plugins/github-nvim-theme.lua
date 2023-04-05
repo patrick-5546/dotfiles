@@ -1,3 +1,5 @@
+if true then return {} end
+
 return {
   {
     -- https://github.com/projekt0n/github-nvim-theme
