@@ -9,7 +9,7 @@ return {
         "docker-compose-language-service",
         "dockerfile-language-server",
         "lua-language-server",
-        "python-lsp-server",
+        "pyright",
 
         -- formatters that LSPs use
         "stylua",
