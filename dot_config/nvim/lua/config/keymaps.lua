@@ -10,9 +10,6 @@ vim.keymap.set(
   { noremap = true, silent = true, desc = "Resume" }
 )
 
--- can use <C-c> to save edits to multiple rows
-vim.keymap.set("i", "<C-c>", "<Esc>")
-
 -- overwrite lazyvim mappings with vim-tmux-navigator mappings
 -- https://github.com/christoomey/vim-tmux-navigator/blob/master/plugin/tmux_navigator.vim
 -- https://github.com/LazyVim/LazyVim/discussions/277#discussioncomment-5004092
