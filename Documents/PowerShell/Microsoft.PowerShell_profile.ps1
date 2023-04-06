@@ -28,6 +28,12 @@ $env:FZF_DEFAULT_OPTS = '--height 40% --layout=reverse --info=inline'
 # https://github.com/junegunn/fzf/wiki/Windows#relative-filepaths
 $env:FZF_DEFAULT_COMMAND = 'rg --files . 2> nul'
 
+# Zoxide: https://github.com/ajeetdsouza/Zoxide
+Invoke-Expression (& {
+    $hook = if ($PSVersionTable.PSVersion.Major -lt 6) { 'prompt' } else { 'pwd' }
+    (zoxide init --hook $hook powershell | Out-String)
+})
+
 # Aliases
 . $ProfilePath/aliases.ps1
 

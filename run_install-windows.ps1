@@ -26,6 +26,7 @@ function wingetInstallIfNotInstalled($id) {
     winget list --exact --id $id || winget install --exact --id $id --interactive
     Write-Host("")
 }
+wingetInstallIfNotInstalled("ajeetdsouza.zoxide")
 wingetInstallIfNotInstalled("Bitwarden.Bitwarden")
 wingetInstallIfNotInstalled("code52.Carnac")
 wingetInstallIfNotInstalled("Discord.Discord")
