@@ -1,0 +1,6 @@
+[template]
+name = "Patrick Creighton"
+email = "pcreighton429@gmail.com"
+
+[template.plugins.default]
+ci = true
