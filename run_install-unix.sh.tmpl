@@ -35,12 +35,14 @@ nixInstallIfNotInstalled()
     fi
 }
 nixInstallIfNotInstalled bat      bat
+# TODO: remove
 # bpytop is very large, only install if needed
 # nixInstallIfNotInstalled bpytop   bpytop
 nixInstallIfNotInstalled delta    delta
 nixInstallIfNotInstalled dust     du-dust
 nixInstallIfNotInstalled fd       fd
 nixInstallIfNotInstalled fzf      fzf
+# TODO: remove and aliases (replaced by zoxide)
 nixInstallIfNotInstalled lf       lf
 nixInstallIfNotInstalled lsd      lsd
 nixInstallIfNotInstalled nvim     neovim
