@@ -4,3 +4,6 @@ email = "pcreighton429@gmail.com"
 
 [template.plugins.default]
 ci = true
+
+[dirs.env]
+virtual = ".venv"
