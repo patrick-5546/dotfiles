@@ -1,10 +1,3 @@
-# Homebrew
-{{ if eq .chezmoi.os "linux" -}}
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-{{- else if eq .chezmoi.os "darwin" -}}
-eval "$(/opt/homebrew/bin/brew shellenv)"
-{{- end }}
-
 # Enable colors and change prompt:
 autoload -U colors && colors
 
@@ -78,13 +71,15 @@ export DOCKER_BUILDKIT=1
 
 # Other Zsh scripts
 {{ if eq .chezmoi.os "linux" -}}
+# TODO: move outside if statement
 source $HOME/.local/share/zsh-nvm/zsh-nvm.plugin.zsh
-source /home/linuxbrew/.linuxbrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/.nix-profile/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 {{ if (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}}
 source $HOME/.config/zsh/openvpn3.zsh
 {{- end -}}
 {{- else if eq .chezmoi.os "darwin" -}}
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# TODO: verify
+source /root/.nix-profile/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 {{- end }}
 
 # Zoxide: https://github.com/ajeetdsouza/zoxide

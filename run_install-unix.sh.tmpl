@@ -5,62 +5,54 @@ pushd ~/.local
 sh -c "$(curl -fsLS get.chezmoi.io)"
 popd
 
-if ! command -v brew > /dev/null 2>&1
+if ! command -v nix-env > /dev/null 2>&1
 then
-    printf "\n# Install HomeBrew\n"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-    {{ if eq .chezmoi.os "linux" -}}
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-    {{ if eq .chezmoi.osRelease.id "ubuntu" -}}
-    sudo apt-get update && sudo apt-get install -y build-essential
-    {{- end }}
+    printf "\n# Install Nix\n"
+    {{ if eq .chezmoi.os "darwin" -}}
+    sh <(curl -L https://nixos.org/nix/install)
+    {{- else if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
+    sh <(curl -L https://nixos.org/nix/install) --daemon
+    {{- else -}}
+    sh <(curl -L https://nixos.org/nix/install) --no-daemon
     {{- end }}
 else
-    printf "\n# HomeBrew already installed\n"
+    printf "\n# Nix already installed\n"
 fi
 
-printf "\n# Update HomeBrew packages\n"
-brew update
-brew upgrade
+printf "\n# Update Nix packages\n"
+nix-env -u
 
-printf "\n# Install dotfile dependencies using HomeBrew\n"
-brewInstallIfNotInstalled()
+printf "\n# Install dotfile dependencies using Nix\n"
+nixInstallIfNotInstalled()
 {
     if ! command -v $1 > /dev/null 2>&1
     then
-        {{ if eq .chezmoi.os "linux" -}}
-        if [ "$1" = dust ]
-        then
-            printf "# Install dust repo\n"
-            brew tap tgotwig/linux-dust
-        fi
-        {{- end }}
-
         printf "# Install $2\n"
-        brew install $2
+        nix-env -iA nixpkgs.$2
 
     else
         printf "# $2 already installed at\t\t$(which $1)\n"
     fi
 }
-brewInstallIfNotInstalled bat      bat
+nixInstallIfNotInstalled bat      bat
+# TODO: remove
 # bpytop is very large, only install if needed
-# brewInstallIfNotInstalled bpytop   bpytop
-brewInstallIfNotInstalled delta    git-delta
-brewInstallIfNotInstalled dust     dust
-brewInstallIfNotInstalled fd       fd
-brewInstallIfNotInstalled fzf      fzf
-brewInstallIfNotInstalled lf       lf
-brewInstallIfNotInstalled lsd      lsd
-brewInstallIfNotInstalled nvim     neovim
-brewInstallIfNotInstalled rg       ripgrep
-brewInstallIfNotInstalled starship starship
-brewInstallIfNotInstalled tmux     tmux
-brewInstallIfNotInstalled zoxide   zoxide
-brewInstallIfNotInstalled zsh      zsh
+# nixInstallIfNotInstalled bpytop   bpytop
+nixInstallIfNotInstalled delta    delta
+nixInstallIfNotInstalled dust     du-dust
+nixInstallIfNotInstalled fd       fd
+nixInstallIfNotInstalled fzf      fzf
+# TODO: remove and aliases (replaced by zoxide)
+nixInstallIfNotInstalled lf       lf
+nixInstallIfNotInstalled lsd      lsd
+nixInstallIfNotInstalled nvim     neovim
+nixInstallIfNotInstalled rg       ripgrep
+nixInstallIfNotInstalled starship starship
+nixInstallIfNotInstalled tmux     tmux
+nixInstallIfNotInstalled zoxide   zoxide
+nixInstallIfNotInstalled zsh      zsh
 printf "# Install zsh-syntax-highlighting (does nothing if already installed)\n"
-brew install zsh-syntax-highlighting
+nix-env -iA nixpkgs.zsh-syntax-highlighting
 
 {{ if or (eq .chezmoi.os "darwin") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}}
 {{ if eq .chezmoi.os "linux" -}}
@@ -86,7 +78,7 @@ fi
 {{- end }}
 
 printf "\n# Checking GitHub account status\n"
-brewInstallIfNotInstalled gh       gh
+nixInstallIfNotInstalled gh       gh
 gh auth status
 if [ $? -ne 0 ]
 then
