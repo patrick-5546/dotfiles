@@ -10,10 +10,8 @@ then
     printf "\n# Install Nix\n"
     {{ if eq .chezmoi.os "darwin" -}}
     sh <(curl -L https://nixos.org/nix/install)
-    {{- else if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
-    sh <(curl -L https://nixos.org/nix/install) --daemon
     {{- else -}}
-    sh <(curl -L https://nixos.org/nix/install) --no-daemon
+    sh <(curl -L https://nixos.org/nix/install) --daemon
     {{- end }}
 else
     printf "\n# Nix already installed\n"
