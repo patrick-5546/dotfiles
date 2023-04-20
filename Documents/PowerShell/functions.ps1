@@ -1,30 +1,5 @@
-# map jk to escape insert mode: https://stackoverflow.com/a/62426108
-function mapTwoLetterNormal($a, $b){
-  mapTwoLetterFunc $a $b -func $function:setViCommandMode
-}
-
 function setViCommandMode{
     [Microsoft.PowerShell.PSConsoleReadLine]::ViCommandMode()
-}
-
-function mapTwoLetterFunc($a,$b,$func) {
-  if ([Microsoft.PowerShell.PSConsoleReadLine]::InViInsertMode()) {
-    $key = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-    if ($key.Character -eq $b) {
-        &$func
-    } else {
-      [Microsoft.Powershell.PSConsoleReadLine]::Insert("$a")
-      # Representation of modifiers (like shift) when ReadKey uses IncludeKeyDown
-      if ($key.Character -eq 0x00) {
-        return
-      } else {
-        # Insert func above converts escape characters to their literals, e.g.
-        # converts return to ^M. This doesn't.
-        $wshell = New-Object -ComObject wscript.shell
-        $wshell.SendKeys("{$($key.Character)}")
-      }
-    }
-  }
 }
 
 # aliased: https://github.com/renemarc/dotfiles/blob/master/dot_config/powershell/functions.ps1
