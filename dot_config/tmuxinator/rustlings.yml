@@ -1,6 +1,6 @@
-# /home/pcrei/.config/tmuxinator/default.yml
+# /home/pcrei/.config/tmuxinator/rustlings.yml
 
-name: default
+name: rustlings
 root: ~/
 
 # Optional tmux socket
@@ -53,12 +53,4 @@ windows:
       # synchronize: after
       panes:
         - rustlings watch
-        - nvim
-  - nvim-config:
-      root: ~/.config/nvim
-      panes:
-        - nvim
-  - dotfiles:
-      root: ~/.local/share/chezmoi
-      panes:
         - nvim

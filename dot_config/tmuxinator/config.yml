@@ -1,6 +1,6 @@
-# /home/pcrei/.config/tmuxinator/default.yml
+# /home/pcrei/.config/tmuxinator/config.yml
 
-name: default
+name: config
 root: ~/
 
 # Optional tmux socket
@@ -46,11 +46,13 @@ root: ~/
 
 windows:
   - home:
-  - nvim-config:
+  - nvim:
       root: ~/.config/nvim
       panes:
         - nvim
-  - dotfiles:
+  - chezmoi:
       root: ~/.local/share/chezmoi
+      layout: main-vertical
       panes:
         - nvim
+        - git status
