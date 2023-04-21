@@ -32,19 +32,19 @@ nixInstallIfNotInstalled()
         printf "# $2 already installed at\t\t$(which $1)\n"
     fi
 }
-nixInstallIfNotInstalled bat      bat
-# nixInstallIfNotInstalled bpytop   bpytop
-nixInstallIfNotInstalled delta    delta
-nixInstallIfNotInstalled dust     du-dust
-nixInstallIfNotInstalled fd       fd
-nixInstallIfNotInstalled fzf      fzf
-nixInstallIfNotInstalled lsd      lsd
-nixInstallIfNotInstalled nvim     neovim
-nixInstallIfNotInstalled rg       ripgrep
-nixInstallIfNotInstalled starship starship
-nixInstallIfNotInstalled tmux     tmux
-nixInstallIfNotInstalled zoxide   zoxide
-nixInstallIfNotInstalled zsh      zsh
+nixInstallIfNotInstalled bat        bat
+nixInstallIfNotInstalled delta      delta
+nixInstallIfNotInstalled dust       du-dust
+nixInstallIfNotInstalled fd         fd
+nixInstallIfNotInstalled fzf        fzf
+nixInstallIfNotInstalled lsd        lsd
+nixInstallIfNotInstalled nvim       neovim
+nixInstallIfNotInstalled rg         ripgrep
+nixInstallIfNotInstalled starship   starship
+nixInstallIfNotInstalled tmux       tmux
+nixInstallIfNotInstalled tmuxinator tmuxinator
+nixInstallIfNotInstalled zoxide     zoxide
+nixInstallIfNotInstalled zsh        zsh
 printf "# Install zsh-syntax-highlighting (does nothing if already installed)\n"
 nix-env -iA nixpkgs.zsh-syntax-highlighting
 

@@ -15,6 +15,7 @@ install-windows.ps1
 .config/bpytop
 .config/fzf
 .config/lf
+.config/tmuxinator
 .config/zsh
 .tmux.conf
 .zshrc
