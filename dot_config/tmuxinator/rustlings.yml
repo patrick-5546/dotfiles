@@ -1,7 +1,7 @@
 # /home/pcrei/.config/tmuxinator/rustlings.yml
 
 name: rustlings
-root: ~/
+root: ~/git/rust-lang/rustlings
 
 # Optional tmux socket
 # socket_name: foo
@@ -46,7 +46,6 @@ root: ~/
 
 windows:
   - rustlings:
-      root: ~/git/rust-lang/rustlings
       layout: even-horizontal
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
@@ -54,3 +53,10 @@ windows:
       panes:
         - rustlings watch
         - nvim
+  - sandbox:
+      layout: even-horizontal
+      panes:
+        # use vi to prevent overwriting rustlings' nvim session
+        - vi sandbox.rs
+        - ./sandbox
+  - git:
