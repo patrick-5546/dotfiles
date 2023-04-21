@@ -81,6 +81,10 @@ source $HOME/.config/zsh/openvpn3.zsh
 source /root/.nix-profile/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 {{- end }}
 
+# Nix completions
+fpath=($HOME/.nix-profile/share/zsh/site-functions $fpath)
+autoload -Uz compinit && compinit
+
 # Zoxide: https://github.com/ajeetdsouza/zoxide
 eval "$(zoxide init zsh)"
 
