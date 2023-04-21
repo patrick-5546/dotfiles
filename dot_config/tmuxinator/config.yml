@@ -45,14 +45,14 @@ root: ~/
 # attach: false
 
 windows:
-  - home:
-  - nvim:
-      root: ~/.config/nvim
-      panes:
-        - nvim
   - chezmoi:
       root: ~/.local/share/chezmoi
       layout: main-vertical
       panes:
         - nvim
         - git status
+  - nvim:
+      root: ~/.config/nvim
+      panes:
+        - nvim
+  - home:
