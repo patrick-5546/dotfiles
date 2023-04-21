@@ -67,7 +67,7 @@ then
     rm FiraCode.zip
     fc-cache -f
 else
-        printf "\n# Fonts already installed\n"
+    printf "\n# Fonts already installed\n"
 fi
 {{- end }}
 
@@ -76,9 +76,20 @@ nixInstallIfNotInstalled gh       gh
 gh auth status
 if [ $? -ne 0 ]
 then
-   gh auth login
+    gh auth login
 fi
 {{- end }}
+
+if [ ! -d ~/.vim/pack/plugins/start/vim-tmux-navigator ]
+then
+    printf "\n# Install tmux-navigator for vim\n"
+    git clone https://github.com/christoomey/vim-tmux-navigator.git ~/.vim/pack/plugins/start/vim-tmux-navigator
+else
+    printf "\n# Update tmux-navigator for vim\n"
+    pushd ~/.vim/pack/plugins/start/vim-tmux-navigator
+    git pull
+    popd
+fi
 
 if [ $(basename $SHELL) != "zsh" ]
 then

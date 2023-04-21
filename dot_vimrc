@@ -48,7 +48,8 @@ au FocusGained,BufEnter * checktime
 let mapleader=" "
 
 " Fast saving
-nmap <leader>w :w<cr>
+"comment out, not part of LazyVim
+"nmap <leader>w :w<cr>
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
@@ -212,7 +213,8 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 " map <C-space> ?
 
 " Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
+"comment out, not part of LazyVim
+"map <silent> <leader><cr> :noh<cr>
 
 " " Smart way to move between windows
 map <C-j> <C-W>j
@@ -464,10 +466,12 @@ set relativenumber
 set list
 
 " esc in insert mode (Insert mode mappings will not work in VSCode, need to add to keybindings.json)
-inoremap jk <esc>
+"comment out, not part of LazyVim
+"inoremap jk <esc>
 
 " esc in command mode
-cnoremap jk <C-C>
+"comment out, not part of LazyVim
+"cnoremap jk <C-C>
 
 " Use clipboard as default register
 if system('uname -s') == "Linux\n"
@@ -505,24 +509,22 @@ nnoremap <leader>X X
 vnoremap <leader>X X
 
 " Delete and paste in one click
-map R diwP
+"comment out, not part of LazyVim
+"map R diwP
 
 " Save register to clipboard even after vim session is closed. Requires
 " install of xsel. Eg. `sudo apt-get install xsel`
 " autocmd VimLeave * call system("echo -n $'" . escape(getreg(), "'") . "' | xsel -ib")
 
 " Add blank lines with enter in command mode
-map <Enter> o<ESC>
+"comment out, not part of LazyVim
+"map <Enter> o<ESC>
 
 
 
 " personal configurations
 "
-" Fast quiting
-nmap <leader>q :q<cr>
-
 " Use a line cursor within insert mode and a block cursor everywhere else.
-"
 " Reference chart of values:
 "   Ps = 0  -> blinking block.
 "   Ps = 1  -> blinking block (default).
@@ -537,3 +539,8 @@ let &t_EI = "\e[2 q"
 " Tab navigation
 nmap <Tab> :tabnext<cr>
 nmap <S-Tab> :tabprev<cr>
+
+" LazyVim keybindings
+" https://www.lazyvim.org/keymaps
+" https://www.lazyvim.org/configuration/general#keymaps
+map <silent> <leader>ur :noh<cr>
