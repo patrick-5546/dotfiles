@@ -4,19 +4,31 @@ return {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
+        -- registry: https://mason-registry.dev/registry/list
+
         -- LSPs
         "bash-language-server",
         "docker-compose-language-service",
         "dockerfile-language-server",
         "lua-language-server",
         "pyright",
+        "ruff-lsp",
+        "rust-analyzer",
+        "taplo",
+        "yaml-language-server",
 
-        -- non-python linters
+        -- linters
+        "actionlint",
         "markdownlint",
+        "ruff",
+        "yamllint",
 
-        -- non-python formatters
+        -- formatters
+        "black",
+        "rustfmt",
         "shfmt",
         "stylua",
+        "yamlfmt",
       },
     },
   },
