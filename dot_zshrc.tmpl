@@ -2,7 +2,8 @@
 autoload -U colors && colors
 
 # Basic auto/tab complete:
-autoload -U compinit
+fpath=($HOME/.nix-profile/share/zsh/site-functions $fpath)
+autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
@@ -83,10 +84,6 @@ source $HOME/.config/zsh/openvpn3.zsh
 # TODO: verify
 source /root/.nix-profile/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 {{- end }}
-
-# Nix completions
-fpath=($HOME/.nix-profile/share/zsh/site-functions $fpath)
-autoload -Uz compinit && compinit
 
 # Zoxide: https://github.com/ajeetdsouza/zoxide
 eval "$(zoxide init zsh)"
