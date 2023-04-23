@@ -75,7 +75,7 @@ export NVM_LAZY_LOAD_EXTRA_COMMANDS=("nvim")
 # Other Zsh scripts
 source $HOME/.local/share/zsh-nvm/zsh-nvm.plugin.zsh
 {{ if eq .chezmoi.os "linux" -}}
-source $HOME/.nix-profile/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/.local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 {{- if (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}}
 source $HOME/.config/zsh/openvpn3.zsh
 {{- end -}}

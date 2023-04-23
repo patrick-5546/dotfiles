@@ -45,8 +45,6 @@ nixInstallIfNotInstalled tmux       tmux
 nixInstallIfNotInstalled tmuxinator tmuxinator
 nixInstallIfNotInstalled zoxide     zoxide
 nixInstallIfNotInstalled zsh        zsh
-printf "# Install zsh-syntax-highlighting (does nothing if already installed)\n"
-nix-env -iA nixpkgs.zsh-syntax-highlighting
 
 {{ if or (eq .chezmoi.os "darwin") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}}
 {{ if eq .chezmoi.os "linux" -}}
