@@ -10,17 +10,6 @@ vim.keymap.set(
   { noremap = true, silent = true, desc = "Resume" }
 )
 
--- overwrite lazyvim mappings with vim-tmux-navigator mappings
--- https://github.com/christoomey/vim-tmux-navigator/blob/master/plugin/tmux_navigator.vim
--- https://github.com/LazyVim/LazyVim/discussions/277#discussioncomment-5004092
-vim.cmd([[
-  noremap <silent> <C-h> :<C-U>TmuxNavigateLeft<cr>
-  noremap <silent> <C-j> :<C-U>TmuxNavigateDown<cr>
-  noremap <silent> <C-k> :<C-U>TmuxNavigateUp<cr>
-  noremap <silent> <C-l> :<C-U>TmuxNavigateRight<cr>
-  noremap <silent> <C-\> :<C-U>TmuxNavigatePrevious<cr>
-]])
-
 -- Shortcut to use blackhole register by default
 vim.keymap.set("n", "d", '"_d', { noremap = true })
 vim.keymap.set("v", "d", '"_d', { noremap = true })
