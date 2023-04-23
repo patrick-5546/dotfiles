@@ -1,4 +1,4 @@
-{{ if eq .chezmoi.os "linux" -}}
+{{ if or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux") -}}
 [".local/share/zsh-nvm"]
     type = "git-repo"
     url = "https://github.com/lukechilds/zsh-nvm.git"

@@ -67,13 +67,15 @@ export PATH=$HOME/.local/bin:$PATH
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export DOCKER_BUILDKIT=1
+# https://github.com/lukechilds/zsh-nvm
+export NVM_LAZY_LOAD=true
+export NVM_COMPLETION=true
 
 # Other Zsh scripts
-{{ if eq .chezmoi.os "linux" -}}
-# TODO: move outside if statement
 source $HOME/.local/share/zsh-nvm/zsh-nvm.plugin.zsh
+{{ if eq .chezmoi.os "linux" -}}
 source $HOME/.nix-profile/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-{{ if (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}}
+{{- if (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}}
 source $HOME/.config/zsh/openvpn3.zsh
 {{- end -}}
 {{- else if eq .chezmoi.os "darwin" -}}
