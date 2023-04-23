@@ -80,17 +80,6 @@ then
 fi
 {{- end }}
 
-if [ ! -d ~/.vim/pack/plugins/start/vim-tmux-navigator ]
-then
-    printf "\n# Install tmux-navigator for vim\n"
-    git clone https://github.com/christoomey/vim-tmux-navigator.git ~/.vim/pack/plugins/start/vim-tmux-navigator
-else
-    printf "\n# Update tmux-navigator for vim\n"
-    pushd ~/.vim/pack/plugins/start/vim-tmux-navigator
-    git pull
-    popd
-fi
-
 if [ $(basename $SHELL) != "zsh" ]
 then
     printf "\n# Make Zsh default shell\n"
