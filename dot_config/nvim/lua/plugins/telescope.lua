@@ -7,6 +7,9 @@ return {
     keys = {
       -- mimic vs code quick open
       { "<C-p>", Util.telescope("find_files") },
+
+      -- resume telescope search
+      { "<leader>sx", require("telescope.builtin").resume, noremap = true, silent = true, desc = "Resume" },
     },
   },
 }
