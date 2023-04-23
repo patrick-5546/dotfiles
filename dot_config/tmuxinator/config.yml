@@ -53,8 +53,10 @@ windows:
         - git status
   - nvim:
       root: ~/.config/nvim
+      layout: main-vertical
       panes:
         - nvim
+        - ls -la
   - home:
       layout: main-vertical
       panes:
