@@ -54,9 +54,9 @@ windows:
         - nvim
         - rustlings watch
   - sandbox:
+      root: ~/git/rust-lang/rustlings/sandbox
       layout: main-vertical
       panes:
-        # use vi to prevent overwriting rustlings' nvim session
-        - vi sandbox.rs
+        - nvim sandbox.rs
         - ./sandbox
   - git:
