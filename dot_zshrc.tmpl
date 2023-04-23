@@ -68,8 +68,9 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 export DOCKER_BUILDKIT=1
 # https://github.com/lukechilds/zsh-nvm
-export NVM_LAZY_LOAD=true
 export NVM_COMPLETION=true
+export NVM_LAZY_LOAD=true
+export NVM_LAZY_LOAD_EXTRA_COMMANDS=("nvim")
 
 # Other Zsh scripts
 source $HOME/.local/share/zsh-nvm/zsh-nvm.plugin.zsh
