@@ -536,10 +536,6 @@ vnoremap <leader>X X
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
-" Tab navigation
-nmap <Tab> :tabnext<cr>
-nmap <S-Tab> :tabprev<cr>
-
 " LazyVim keybindings
 " https://www.lazyvim.org/keymaps
 " https://www.lazyvim.org/configuration/general#keymaps
