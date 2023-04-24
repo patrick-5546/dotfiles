@@ -8,6 +8,30 @@ My cross-platform, cross-shell configuration files and installation scripts mana
 - Zsh on Fedora 36
 - Powershell 7 on Windows 11
 
+## Highlights
+
+Documentation for my setup can be found on my notes website: [Setup](https://patrick-5546.github.io/notes/setup/).
+
+The files I think are most notable are listed below:
+
+- Neovim configuration, based off [LazyVim](https://www.lazyvim.org): [`dot_config/nvim`](./dot_config/nvim)
+- Tmux configuration: [`dot_tmux.conf`](./dot_tmux.conf)
+    - Integrated with neovim: uses same theme, seamless navigation between tmux and neovim splits
+    - Complex tmux sessions are managed easily using [tmuxinator](https://github.com/tmuxinator/tmuxinator):
+      [`dot_config/tmuxinator`](./dot_config/tmuxinator)
+- Installation scripts: improve and standardize the CLI across operating systems
+    - [`.chezmoiexternal.toml`](./.chezmoiexternal.toml)
+        - To see what software is installed, search for `url`
+    - Unix-specific: [`run_install-unix.sh.tmpl`](./run_install-unix.sh.tmpl)
+        - To see what software is installed, search for `nixInstallIfNotInstalled`
+    - Windows-specific: [`run_install-windows.ps1`](./run_install-windows.ps1)
+        - To see what software is installed, search for `wingetInstallIfNotInstalled`, `choco install`, and `Install-Module`
+- Encryption scripts: files with sensitive information are
+  [encrypted using age](https://www.chezmoi.io/user-guide/encryption/age/)
+    - Unix-specific: [`run_before_decrypt-private-key-unix.sh.tmpl`](./run_before_decrypt-private-key-unix.sh.tmpl)
+    - Windows-specific: [`run_before_decrypt-private-key-windows.ps1.tmpl`](./run_before_decrypt-private-key-windows.ps1.tmpl)
+- Configuration files for software that is not managed with chezmoi: [`reference_dotfiles`](./reference_dotfiles)
+
 ## Installation
 
 ### Zsh on Linux or MacOS
