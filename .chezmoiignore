@@ -4,7 +4,6 @@ reference_dotfiles
 
 # windows files
 {{ if ne .chezmoi.os "windows" -}}
-AppData
 Documents
 decrypt-private-key-windows.ps1
 install-windows.ps1
