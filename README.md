@@ -12,9 +12,9 @@ My cross-platform, cross-shell configuration files and installation scripts mana
 
 ### Zsh on Linux or MacOS
 
-1. Install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git),
-   [age](https://github.com/FiloSottile/age#installation), and
-   [xz-utils](https://repology.org/project/xz/versions)
+1. Ensure that [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and
+   [age](https://github.com/FiloSottile/age#installation) are installed
+      1. On Linux, [xz-utils](https://repology.org/project/xz/versions) also needs to be installed
 2. Install chezmoi in `~/.local/bin`, pulling and applying the latest changes
 
     ```
