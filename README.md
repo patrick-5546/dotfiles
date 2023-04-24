@@ -27,7 +27,7 @@ The files I think are most notable are listed below:
     - Windows-specific: [`run_install-windows.ps1`](./run_install-windows.ps1)
         - To see what software is installed, search for `wingetInstallIfNotInstalled`, `choco install`, and `Install-Module`
 - Encryption scripts: files with sensitive information are
-  [encrypted using age](https://www.chezmoi.io/user-guide/encryption/age/)
+  [encrypted](https://www.chezmoi.io/user-guide/frequently-asked-questions/encryption/)
     - Unix-specific: [`run_before_decrypt-private-key-unix.sh.tmpl`](./run_before_decrypt-private-key-unix.sh.tmpl)
     - Windows-specific: [`run_before_decrypt-private-key-windows.ps1.tmpl`](./run_before_decrypt-private-key-windows.ps1.tmpl)
 - Configuration files for software that is not managed with chezmoi: [`reference_dotfiles`](./reference_dotfiles)
