@@ -5,7 +5,7 @@ gsudo {
     Update-Module
 
     Write-Host "`nInstall choco packages"
-    choco install bat delta dust fd fzf lf ripgrep starship -y
+    choco install bat delta dust fd fzf lf mingw ripgrep starship -y
 
     Write-Host "`nInstall modules"
     Install-Module git-aliases -Scope CurrentUser -Allowclobber
@@ -26,6 +26,7 @@ function wingetInstallIfNotInstalled($id) {
     winget list --exact --id $id || winget install --exact --id $id --interactive
     Write-Host("")
 }
+wingetInstallIfNotInstalled("7zip.7zip")
 wingetInstallIfNotInstalled("ajeetdsouza.zoxide")
 wingetInstallIfNotInstalled("Bitwarden.Bitwarden")
 wingetInstallIfNotInstalled("code52.Carnac")
@@ -40,6 +41,7 @@ wingetInstallIfNotInstalled("Logitech.OptionsPlus")
 wingetInstallIfNotInstalled("Logitech.UnifyingSoftware")
 wingetInstallIfNotInstalled("Neovim.Neovim")
 wingetInstallIfNotInstalled("Nextcloud.NextcloudDesktop")
+wingetInstallIfNotInstalled("OpenJS.NodeJS.LTS")
 wingetInstallIfNotInstalled("OpenVPNTechnologies.OpenVPNConnect")
 wingetInstallIfNotInstalled("Poly.PlantronicsHub")
 wingetInstallIfNotInstalled("SlackTechnologies.Slack")
