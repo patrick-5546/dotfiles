@@ -15,6 +15,11 @@ gsudo {
 
     Write-Host "`nSet execution policy"
     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+    if (!(Test-Path -Path \"$env:LOCALAPPDATA\nvim\")) {
+        Write-Host "`nCreate symbolic link for Neovim's configuration directory"
+        New-Item -ItemType SymbolicLink -Path $env:LOCALAPPDATA\nvim -Target $env:USERPROFILE\.config\nvim
+    }
 }
 
 Write-Host "Update winget packages"
