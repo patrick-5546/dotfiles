@@ -12,7 +12,6 @@ return {
         "dockerfile-language-server",
         "lua-language-server",
         "pyright",
-        "ruff-lsp",
         "rust-analyzer",
         "taplo",
         "yaml-language-server",
@@ -20,6 +19,7 @@ return {
         -- linters
         "actionlint",
         "markdownlint",
+        "mypy",
         "ruff",
         "yamllint",
 

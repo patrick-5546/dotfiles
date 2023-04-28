@@ -11,11 +11,13 @@ return {
           -- linters
           nls.builtins.diagnostics.actionlint,
           nls.builtins.diagnostics.markdownlint,
+          nls.builtins.diagnostics.mypy,
           nls.builtins.diagnostics.ruff,
           nls.builtins.diagnostics.yamllint,
 
           -- formatters
           nls.builtins.formatting.black,
+          nls.builtins.formatting.markdownlint,
           nls.builtins.formatting.ruff,
           nls.builtins.formatting.rustfmt,
           nls.builtins.formatting.shfmt,
