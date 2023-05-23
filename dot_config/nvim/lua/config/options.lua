@@ -3,4 +3,4 @@
 -- Add any additional options here
 
 -- Show signs, absolute line numbers, and relative line numbers
-vim.opt.statuscolumn = "%s%l %r"
+vim.opt.statuscolumn = "%s%l %r "
