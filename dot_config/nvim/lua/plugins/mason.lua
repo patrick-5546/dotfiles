@@ -14,6 +14,7 @@ return {
         "pyright",
         "rust-analyzer",
         "taplo",
+        "verible",
         "yaml-language-server",
 
         -- linters

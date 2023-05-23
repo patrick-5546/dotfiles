@@ -22,6 +22,7 @@ return {
           nls.builtins.formatting.rustfmt,
           nls.builtins.formatting.shfmt,
           nls.builtins.formatting.stylua,
+          nls.builtins.formatting.verible_verilog_format,
           nls.builtins.formatting.yamlfmt,
         },
       }
