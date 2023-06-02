@@ -29,3 +29,13 @@ vim.keymap.set("n", "<leader>x", "x", { noremap = true, desc = "which_key_ignore
 vim.keymap.set("v", "<leader>x", "x", { noremap = true, desc = "which_key_ignore" })
 vim.keymap.set("n", "<leader>X", "X", { noremap = true, desc = "which_key_ignore" })
 vim.keymap.set("v", "<leader>X", "X", { noremap = true, desc = "which_key_ignore" })
+
+-- Ctrl+backspace deletes entire word
+vim.keymap.set("i", "<C-H>", "<C-W>", { noremap = true, desc = "which_key_ignore" })
+
+-- Center line after skipping
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true, desc = "which_key_ignore" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true, desc = "which_key_ignore" })
+
+-- So that cursor does not jump back to where you started selection
+vim.keymap.set("v", "y", "ygv<Esc>", { noremap = true, desc = "which_key_ignore" })
