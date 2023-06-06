@@ -540,3 +540,13 @@ let &t_EI = "\e[2 q"
 " https://www.lazyvim.org/keymaps
 " https://www.lazyvim.org/configuration/general#keymaps
 map <silent> <leader>ur :noh<cr>
+
+" Ctrl+backspace deletes entire word
+inoremap <C-H> <C-W>
+
+" Center line after skipping
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+
+" So that cursor does not jump back to where you started selection
+vnoremap y ygv<Esc>
