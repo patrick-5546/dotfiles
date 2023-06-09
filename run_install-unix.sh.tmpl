@@ -18,7 +18,9 @@ else
 fi
 
 printf "\n# Update Nix packages\n"
-nix-env -u
+nix-channel --update
+nix-env -qc  # see what version updates are available
+nix-env --upgrade # perform upgrades
 
 printf "\n# Install dotfile dependencies using Nix\n"
 nixInstallIfNotInstalled()
