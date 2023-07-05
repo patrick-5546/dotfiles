@@ -26,7 +26,6 @@ return {
 
         -- formatters
         "black",
-        "rustfmt",
         "shfmt",
         "stylua",
         "yamlfmt",
