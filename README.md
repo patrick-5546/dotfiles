@@ -36,9 +36,10 @@ The files I think are most notable are listed below:
 
 ### Zsh on Linux or MacOS
 
-1. Ensure that [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and
-   [age](https://github.com/FiloSottile/age#installation) are installed
-      1. On Linux, [xz-utils](https://repology.org/project/xz/versions) also needs to be installed
+1. Install prerequisites
+      1. [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+      2. [age](https://github.com/FiloSottile/age#installation)
+      3. On Linux, [xz-utils](https://repology.org/project/xz/versions)
 2. Install chezmoi in `~/.local/bin`, pulling and applying the latest changes
 
     ```
@@ -48,8 +49,9 @@ The files I think are most notable are listed below:
     popd
     ```
 
-3. Additional setup for GUI distros
-    1. [Install alacritty](https://github.com/alacritty/alacritty/blob/master/INSTALL.md)
+3. If desired, manually install software with unique installation instructions
+    - [Alacritty](https://github.com/alacritty/alacritty/blob/master/INSTALL.md)
+    - [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim)
 4. Additional setup for Fedora
     1. [Enable RPM Fusion repositories](https://docs.fedoraproject.org/en-US/quick-docs/setup_rpmfusion/)
     2. [Install multimedia plugins](https://docs.fedoraproject.org/en-US/quick-docs/assembly_installing-plugins-for-playing-movies-and-music/)
