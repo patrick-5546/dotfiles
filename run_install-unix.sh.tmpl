@@ -13,6 +13,7 @@ then
     {{- else -}}
     sh <(curl -L https://nixos.org/nix/install) --daemon
     {{- end }}
+    nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
 else
     printf "\n# Nix already installed\n"
 fi
@@ -20,7 +21,8 @@ fi
 printf "\n# Update Nix packages\n"
 nix-channel --update
 nix-env -qc  # see what version updates are available
-nix-env --upgrade # perform upgrades
+nix-env --upgrade '*' # perform upgrades
+nix-collect-garbage --delete-old # remove unused packages
 
 printf "\n# Install dotfile dependencies using Nix\n"
 nixInstallIfNotInstalled()
