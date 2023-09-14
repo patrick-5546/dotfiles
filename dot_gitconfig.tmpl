@@ -37,3 +37,39 @@
     autoStash = true
 [log]
     date = local
+[alias]
+    # from https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
+    a = add
+    b = branch
+    bD = branch --delete --force
+    cl = clone --recurse-submodules
+    c = commit --verbose
+    cmsg = commit --verbose --message
+    d = diff
+    dca = diff --cached
+    l = pull
+    lg = log --stat
+    p = push
+    rb = rebase
+    rbc = rebase --continue
+    ra = remote add
+    rv = remote --verbose
+    rrm = remote remove
+    rh = reset
+    rhh = reset --hard
+    rs = restore
+    rst = restore --staged
+    rm = rm
+    rmc = rm --cached
+    sta = stash push
+    stp = stash pop
+    st = status
+    su = submodule update
+    sw = switch
+    swc = switch --create
+    wt = worktree
+    wtls = worktree list
+    wtmv = worktree move
+    wtrm = worktree remove
+    # from myself
+    rhs = reset --soft
