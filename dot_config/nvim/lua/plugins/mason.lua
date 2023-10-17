@@ -8,6 +8,7 @@ return {
 
         -- LSPs
         "bash-language-server",
+        "clangd",
         "docker-compose-language-service",
         "dockerfile-language-server",
         "lua-language-server",
@@ -26,6 +27,7 @@ return {
 
         -- formatters
         "black",
+        "clang-format",
         "shfmt",
         "stylua",
         "yamlfmt",
