@@ -4,3 +4,4 @@
 
 -- Show signs, absolute line numbers, and relative line numbers
 vim.opt.statuscolumn = "%s%l %r "
+vim.g.autoformat = false
