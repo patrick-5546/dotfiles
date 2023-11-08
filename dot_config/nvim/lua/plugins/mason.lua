@@ -6,6 +6,9 @@ return {
       ensure_installed = {
         -- registry: https://mason-registry.dev/registry/list
 
+        -- LSPs and linters and formatters
+        "verible",
+
         -- LSPs
         "bash-language-server",
         "clangd",
@@ -15,19 +18,20 @@ return {
         "pyright",
         "rust-analyzer",
         "taplo",
-        "verible",
         "yaml-language-server",
 
-        -- linters
-        "actionlint",
+        -- linters and formatters
         "markdownlint",
+
+        -- linters
+        "flake8",
         "mypy",
-        "ruff",
         "yamllint",
 
         -- formatters
         "black",
         "clang-format",
+        "isort",
         "shfmt",
         "stylua",
         "yamlfmt",
