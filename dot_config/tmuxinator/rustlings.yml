@@ -1,7 +1,7 @@
 # /home/pcrei/.config/tmuxinator/rustlings.yml
 
 name: rustlings
-root: ~/git/rust-lang/rustlings
+root: ~/git/forks/rustlings
 
 # Optional tmux socket
 # socket_name: foo
@@ -54,7 +54,7 @@ windows:
         - nvim
         - rustlings watch
   - sandbox:
-      root: ~/git/rust-lang/rustlings/sandbox
+      root: ~/git/forks/rustlings/sandbox
       layout: main-vertical
       panes:
         - nvim sandbox.rs
