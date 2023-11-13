@@ -65,7 +65,7 @@ then
     printf "\n# Install fonts\n"
     mkdir -p ~/.local/share/fonts/FiraCode
     curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip --output FiraCode.zip
-    unzip FiraCode.zip -d ~/.local/share/fonts/FiraCode "Fira*Mono.ttf"
+    unzip FiraCode.zip -d ~/.local/share/fonts/FiraCode "Fira*Mono*.ttf"
     rm FiraCode.zip
     fc-cache -f
 else
