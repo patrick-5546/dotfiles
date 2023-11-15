@@ -64,10 +64,6 @@ windows:
           - cd tracer
           - clear
           - ls -l gen*.sh
-        - traces:
-          - cd tracer/traces
-          - clear
-          - ls -l
         - ls -l run*.sh
   - result:
       root: ~/school/cpen411/assignment3/ChampSim/results
