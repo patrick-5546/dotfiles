@@ -65,8 +65,8 @@ windows:
           - clear
           - ls -l gen*.sh
         - ls -l run*.sh
-  - result:
-      root: ~/school/cpen411/assignment3/ChampSim/results
+  - results:
+      root: results
       layout: main-vertical
       panes:
         - nvim

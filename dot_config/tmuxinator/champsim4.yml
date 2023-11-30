@@ -1,7 +1,7 @@
-# /home/pcrei/.config/tmuxinator/champsim2.yml
+# /home/pcrei/.config/tmuxinator/champsim4.yml
 
-name: champsim2
-root: ~/school/cpen411/assignment2/ChampSim-Intel
+name: champsim4
+root: ~/school/cpen411/assignment4/ChampSim-Intel
 
 # Optional tmux socket
 # socket_name: foo
@@ -52,8 +52,10 @@ windows:
   - buildnrun:
       layout: even-horizontal
       panes:
-        -
-        - cd simscript-testing && cls
+        - ls -l build*.sh
+        - run:
+          - cd simscript
+          - ls -l runall*.sh
   - results:
       root: results
       layout: main-vertical
