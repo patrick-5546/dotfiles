@@ -57,7 +57,7 @@ windows:
           - cd simscript
           - ls -l runall*.sh
   - results:
-      root: results
+      root: ~/school/cpen411/assignment4/ChampSim-Intel/results
       layout: main-vertical
       panes:
         - nvim

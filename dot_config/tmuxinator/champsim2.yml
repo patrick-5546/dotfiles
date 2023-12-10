@@ -55,7 +55,7 @@ windows:
         -
         - cd simscript-testing && cls
   - results:
-      root: results
+      root: ~/courses/cpen411/assignment2/ChampSim-Intel/results
       layout: main-vertical
       panes:
         - nvim
