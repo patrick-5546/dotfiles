@@ -14,6 +14,7 @@ return {
         "clangd",
         "docker-compose-language-service",
         "dockerfile-language-server",
+        "gopls",
         "lua-language-server",
         "pyright",
         "rust-analyzer",

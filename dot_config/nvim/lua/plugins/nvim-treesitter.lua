@@ -7,6 +7,7 @@ return {
         -- defaults: https://www.lazyvim.org/plugins/treesitter#nvim-treesitter
         "bash",
         "c",
+        "go",
         "html",
         "javascript",
         "json",
