@@ -68,25 +68,19 @@ The files I think are most notable are listed below:
 2. Install git and gsudo using winget in PowerShell
 
     ```
+    winget install --exact --id FiloSottile.age --interactive
+    winget install --exact --id twpayne.chezmoi --interactive
     winget install --exact --id Git.Git --interactive
     winget install --exact --id gerardog.gsudo --interactive
     ```
 
-3. [Install Chocolately](https://docs.chocolatey.org/en-us/choco/setup)
-    - Running [winutil](https://github.com/ChrisTitusTech/winutil) installs Chocolately as part of the initialization process
-4. Install age and chezmoi in PowerShell **with** administrator privileges
-
-    ```
-    choco install age.portable chezmoi -y
-    ```
-
-5. Clone this repository in PowerShell **without** administrator privileges
+3. Clone this repository in PowerShell
 
     ```
     chezmoi init https://github.com/patrick-5546/dotfiles.git
     ```
 
-6. Run the installation script and apply the dotfiles in PowerShell **with** administrator privileges
+4. Run the installation script and apply the dotfiles in PowerShell **with** administrator privileges
 
     ```
     chezmoi apply
