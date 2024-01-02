@@ -43,9 +43,8 @@ The files I think are most notable are listed below:
 2. Install chezmoi in `~/.local/bin`, pulling and applying the latest changes
 
     ```
-    mkdir -p ~/.local/bin
-    pushd ~/.local
-    sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply patrick-5546
+    pushd ~
+    sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply patrick-5546
     popd
     ```
 
