@@ -3,6 +3,7 @@
 printf "\n# Update Chezmoi\n"
 pushd ~
 sh -c "$(curl -fsLS get.chezmoi.io/lb)"
+popd
 
 if ! command -v nix-env > /dev/null 2>&1
 then
@@ -21,7 +22,7 @@ printf "\n# Update Nix packages\n"
 nix-channel --update
 nix-env -qc  # see what version updates are available
 nix-env --upgrade '*' # perform upgrades
-nix-collect-garbage --delete-old # remove unused packages
+nix-collect-garbage --delete-old --quiet # remove unused packages
 
 printf "\n# Install dotfile dependencies using Nix\n"
 nixInstallIfNotInstalled()
