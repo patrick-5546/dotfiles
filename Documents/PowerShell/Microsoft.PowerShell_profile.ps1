@@ -36,8 +36,8 @@ $ProfilePath=Split-Path -parent $profile
 # Aliases
 . $ProfilePath/aliases.ps1
 
-## Prompt
-#Invoke-Expression (&starship init powershell)
+# Prompt
+Invoke-Expression (&starship init powershell)
 
 #}
 #Write-Host "$PSCommandPath execution time: $executionTime"
