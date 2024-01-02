@@ -73,19 +73,13 @@ The files I think are most notable are listed below:
     winget install --exact --id Git.Git --interactive
     ```
 
-3. Clone this repository in PowerShell
+3. Clone this repository in PowerShell, pulling and applying the latest changes
 
     ```
-    chezmoi init https://github.com/patrick-5546/dotfiles.git
+    chezmoi init --apply patrick-5546
     ```
 
-4. Run the installation script and apply the dotfiles in PowerShell **with** administrator privileges
-
-    ```
-    chezmoi apply
-    ```
-
-5. Optional: run [`run_install-windows.ps1`](./reference_dotfiles/run_install-windows.ps1) to match my unix developer experience
+4. Optional: run [`run_install-windows.ps1`](./reference_dotfiles/run_install-windows.ps1) to match my unix developer experience
     - Prerequisite: `winget install --exact --id gerardog.gsudo --interactive`
     - Note: I do not run this automatically anymore because I do most of my development through WSL or VS Code.
       Instead, I now manage the software I want through [WingetUI](https://github.com/marticliment/WingetUI) whenever possible
