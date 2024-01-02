@@ -71,7 +71,6 @@ The files I think are most notable are listed below:
     winget install --exact --id FiloSottile.age --interactive
     winget install --exact --id twpayne.chezmoi --interactive
     winget install --exact --id Git.Git --interactive
-    winget install --exact --id gerardog.gsudo --interactive
     ```
 
 3. Clone this repository in PowerShell
@@ -85,3 +84,8 @@ The files I think are most notable are listed below:
     ```
     chezmoi apply
     ```
+
+5. Optional: run [`run_install-windows.ps1`](./reference_dotfiles/run_install-windows.ps1) to match my unix developer experience
+    - Prerequisite: `winget install --exact --id gerardog.gsudo --interactive`
+    - Note: I do not run this automatically anymore because I do most of my development through WSL or VS Code.
+      Instead, I now manage the software I want through [WingetUI](https://github.com/marticliment/WingetUI) whenever possible
