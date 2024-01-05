@@ -13,7 +13,7 @@ then
     {{- else -}}
     sh <(curl -L https://nixos.org/nix/install) --daemon
     {{- end }}
-    # nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+    # nix-channel --add https://nixos.org/channels/nixpkgs-unstable usrpkgs
 else
     printf "\n# Nix already installed\n"
 fi
