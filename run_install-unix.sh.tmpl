@@ -18,11 +18,11 @@ else
     printf "\n# Nix already installed\n"
 fi
 
-printf "\n# Update Nix packages\n"
-nix-channel --update
-nix-env -qc  # see what version updates are available
-nix-env --upgrade '*' # perform upgrades
-nix-collect-garbage --delete-old --quiet # remove unused packages
+#printf "\n# Update Nix packages\n"
+#nix-channel --update
+#nix-env -qc  # see what version updates are available
+#nix-env --upgrade '*' # perform upgrades
+#nix-collect-garbage --delete-old --quiet # remove unused packages
 
 printf "\n# Install dotfile dependencies using Nix\n"
 nixInstallIfNotInstalled()
@@ -36,19 +36,6 @@ nixInstallIfNotInstalled()
         printf "# $2 already installed at\t\t$(which $1)\n"
     fi
 }
-nixInstallIfNotInstalled bat        bat
-nixInstallIfNotInstalled delta      delta
-nixInstallIfNotInstalled dust       du-dust
-nixInstallIfNotInstalled fd         fd
-nixInstallIfNotInstalled fzf        fzf
-nixInstallIfNotInstalled lazygit    lazygit
-nixInstallIfNotInstalled lsd        lsd
-nixInstallIfNotInstalled rg         ripgrep
-nixInstallIfNotInstalled starship   starship
-nixInstallIfNotInstalled tmux       tmux
-nixInstallIfNotInstalled tmuxinator tmuxinator
-nixInstallIfNotInstalled zoxide     zoxide
-nixInstallIfNotInstalled zsh        zsh
 
 {{ if or (eq .chezmoi.os "darwin") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}}
 {{ if eq .chezmoi.os "linux" -}}
@@ -74,7 +61,7 @@ fi
 {{- end }}
 
 printf "\n# Checking GitHub account status\n"
-nixInstallIfNotInstalled gh       gh
+#nixInstallIfNotInstalled gh       gh
 gh auth status
 if [ $? -ne 0 ]
 then
