@@ -4,6 +4,7 @@ Set-Alias c chezmoi
 Set-Alias cat 'C:\Program Files\Git\usr\bin\cat.exe'
 Set-Alias cls clear
 #Set-Alias e 'exit'
+Set-Alias g git
 Set-Alias l Get-ChildItemAll
 Set-Alias ll Get-ChildItemVisible
 Set-Alias ls Get-ChildItemSimple
