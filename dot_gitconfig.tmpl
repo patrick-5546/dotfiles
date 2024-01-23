@@ -52,6 +52,7 @@
 [alias]
     # from https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
     a = add
+    au = add --update
     b = branch
     bD = branch --delete --force
     cl = clone --recurse-submodules
@@ -64,7 +65,9 @@
     p = push
     pf = push --force
     rb = rebase
+    rba = rebase --abort
     rbc = rebase --continue
+    rbi = rebase --interactive
     ra = remote add
     rv = remote --verbose
     rrm = remote remove
@@ -84,5 +87,10 @@
     wtls = worktree list
     wtmv = worktree move
     wtrm = worktree remove
-    # from myself
+    # from myself or tweaked from ohmyzsh
+    cna = commit --verbose --no-edit --amend
+    psup = push --set-upstream origin
+    rbm = rebase main
+    rbom = rebase origin/main
     rhs = reset --soft
+    swm = switch main
