@@ -1,0 +1,34 @@
+[cursor]
+vi_mode_style = "Block"
+
+[font]
+size = 11.0
+
+[font.bold]
+family = "FiraCode Nerd Font Mono"
+style = "Bold"
+
+[font.bold_italic]
+family = "FiraCode Nerd Font Mono"
+style = "Bold Italic"
+
+[font.italic]
+family = "FiraCode Nerd Font Mono"
+style = "Italic"
+
+[font.normal]
+family = "FiraCode Nerd Font Mono"
+style = "Regular"
+
+[font.offset]
+x = 1
+y = 1
+
+[window]
+decorations = "full"
+opacity = 0.9
+startup_mode = "Maximized"
+
+[window.padding]
+x = 10
+y = 10
