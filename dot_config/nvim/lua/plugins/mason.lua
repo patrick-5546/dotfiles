@@ -15,6 +15,7 @@ return {
         "docker-compose-language-service",
         "dockerfile-language-server",
         "gopls",
+        "jdtls",
         "lua-language-server",
         "pyright",
         "rust-analyzer",
@@ -25,6 +26,7 @@ return {
         "markdownlint",
 
         -- linters
+        "checkstyle",
         "flake8",
         "mypy",
         "yamllint",
@@ -32,6 +34,7 @@ return {
         -- formatters
         "black",
         "clang-format",
+        "google-java-format",
         "isort",
         "shfmt",
         "stylua",

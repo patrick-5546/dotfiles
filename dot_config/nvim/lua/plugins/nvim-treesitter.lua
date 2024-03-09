@@ -27,6 +27,7 @@ return {
 
         -- additional
         "dockerfile",
+        "java",
         "jsonc",
         "rust",
         "verilog",
