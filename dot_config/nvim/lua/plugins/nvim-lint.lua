@@ -2,6 +2,7 @@ return {
   {
     -- https://github.com/mfussenegger/nvim-lint
     "mfussenegger/nvim-lint",
+    -- enabled = false,
     opts = {
       linters_by_ft = {
         -- Use the "*" filetype to run linters on all filetypes.

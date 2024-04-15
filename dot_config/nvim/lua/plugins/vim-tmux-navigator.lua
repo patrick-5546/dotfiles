@@ -2,6 +2,7 @@ return {
   {
     -- https://github.com/christoomey/vim-tmux-navigator
     "christoomey/vim-tmux-navigator",
+    -- enabled = false,
     keys = {
       -- overwrite lazyvim mappings with vim-tmux-navigator mappings
       -- https://github.com/christoomey/vim-tmux-navigator/blob/master/plugin/tmux_navigator.vim

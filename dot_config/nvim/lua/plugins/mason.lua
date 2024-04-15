@@ -2,6 +2,7 @@ return {
   {
     -- https://github.com/williamboman/mason.nvim
     "williamboman/mason.nvim",
+    -- enabled = false,
     opts = {
       ensure_installed = {
         -- registry: https://mason-registry.dev/registry/list
