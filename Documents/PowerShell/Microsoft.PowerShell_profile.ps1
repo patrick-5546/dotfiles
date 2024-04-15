@@ -6,7 +6,7 @@
 # Import-Module git-aliases -DisableNameChecking
 #Import-Module posh-git
 # must import PSReadLine before PSFzf
-# Import-Module PSReadLine
+Import-Module PSReadLine
 # Import-Module PsFzf
 #Import-Module Terminal-Icons
 
@@ -17,9 +17,9 @@ $ProfilePath=Split-Path -parent $profile
 . $ProfilePath/ssh.autocomplete.ps1
 
 ## PSReadLine configuration
-#Set-PSReadLineOption -EditMode Vi
-## Shows navigable menu of all options when hitting Tab
-#Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
+Set-PSReadLineOption -EditMode Vi
+# Shows navigable menu of all options when hitting Tab
+Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 
 ## PsFzf configuration
 #Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory 'Ctrl+r'
