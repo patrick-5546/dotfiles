@@ -20,6 +20,13 @@ $ProfilePath=Split-Path -parent $profile
 Set-PSReadLineOption -EditMode Vi
 # Shows navigable menu of all options when hitting Tab
 Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
+# Search history for commands that start with the currently entered text
+Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+Set-PSReadLineOption -HistorySearchCursorMovesToEnd
+Set-PSReadlineKeyHandler -Chord 'Ctrl+r' -Function SwitchPredictionView
+Set-PSReadlineKeyHandler -Chord 'Ctrl+j' -Function NextSuggestion
+Set-PSReadlineKeyHandler -Chord 'Ctrl+k' -Function PreviousSuggestion
 
 ## PsFzf configuration
 #Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory 'Ctrl+r'
