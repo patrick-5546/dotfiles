@@ -20,9 +20,10 @@ check_installed() {
         exit 1
     fi
 }
-check_installed zsh
-check_installed tmux
+check_installed nvim
 check_installed ruby
+check_installed tmux
+check_installed zsh
 
 printf "\n# Install/update GRM dotfile dependencies\n"
 $HOME/.local/bin/grm install sharkdp/bat
