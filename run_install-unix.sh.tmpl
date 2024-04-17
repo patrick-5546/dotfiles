@@ -14,7 +14,6 @@ printf "\n# Check Prerequisites\n"
 check_installed() {
     if command -v $1 &>/dev/null; then
         printf "# $1 is installed at\t\t$(which $1)\n"
-        printf "# $1 already installed at\t\t$(which $1)\n"
     else
         printf "# $1 is NOT installed\n"
         exit 1
