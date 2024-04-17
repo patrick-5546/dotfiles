@@ -63,18 +63,18 @@ rubyinstallorupdate tmuxinator
 printf "\n# Install/update completions\n"
 mkdir -p $HOME/.config/zsh/completions
 pushd $HOME/.config/zsh/completions
-curl https://raw.githubusercontent.com/sharkdp/bat/master/assets/completions/bat.zsh.in -o _bat  # doesn't work
+curl -o _bat https://raw.githubusercontent.com/sharkdp/bat/master/assets/completions/bat.zsh.in  # doesn't work
 chezmoi completion zsh >> _chezmoi
 delta --generate-completion zsh >> _delta  # needs to be sourced manually
-curl https://raw.githubusercontent.com/bootandy/dust/master/completions/_dust -o _dust
-curl https://raw.githubusercontent.com/sharkdp/fd/master/contrib/completion/_fd -o _fd
+curl -o _dust https://raw.githubusercontent.com/bootandy/dust/master/completions/_dust
+curl -o _fd https://raw.githubusercontent.com/sharkdp/fd/master/contrib/completion/_fd
 fzf --zsh >> _fzf  # doesn't work
 grm completion zsh >> _grm  # needs to be sourced manually
 # could not find zsh completion for lsd
 rg --generate=complete-zsh >> _rg
 starship completions zsh >> _starship
-curl https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh -o _tmuxinator
-curl https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/contrib/completions/_zoxide -o _zoxide
+curl -o _tmuxinator https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh
+curl -o _zoxide https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/contrib/completions/_zoxide
 popd
 
 {{ if or (eq .chezmoi.os "darwin") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}}
