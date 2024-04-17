@@ -64,7 +64,10 @@ export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 source $HOME/.config/zsh/aliases.zsh
 
 # Environment Variables
-export PATH=$HOME/.local/bin:/usr/local/go/bin:$PATH
+export GEM_HOME="$HOME/.local/gems"
+export PATH=/usr/local/go/bin:$PATH
+export PATH="$GEM_HOME/bin:$PATH"
+export PATH=$HOME/.local/bin:$PATH
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export DOCKER_BUILDKIT=1

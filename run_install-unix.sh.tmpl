@@ -1,55 +1,63 @@
 #!/bin/bash
 
-printf "\n# Update Chezmoi\n"
 pushd ~
+printf "\n# Install/update Chezmoi\n"
 sh -c "$(curl -fsLS get.chezmoi.io/lb)"
+
+printf "\n# Install/update GRM\n"
+curl -s https://api.github.com/repos/patrick-5546/grm/releases/latest \
+  | grep -oP '"browser_download_url": "\K[^"]+' | head -n 1 \
+  | xargs curl -LOs && chmod +x grm && mv grm $HOME/.local/bin/
 popd
 
-if ! command -v nix-env > /dev/null 2>&1
-then
-    printf "\n# Install Nix\n"
-    {{ if eq .chezmoi.os "darwin" -}}
-    sh <(curl -L https://nixos.org/nix/install)
-    {{- else -}}
-    sh <(curl -L https://nixos.org/nix/install) --daemon
-    {{- end }}
+printf "\n# Check Prerequisites\n"
+check_installed() {
+    if command -v $1 &>/dev/null; then
+        printf "# $1 is installed at\t\t$(which $1)\n"
+        printf "# $1 already installed at\t\t$(which $1)\n"
+    else
+        printf "# $1 is NOT installed\n"
+        exit 1
+    fi
+}
+check_installed zsh
+check_installed tmux
+check_installed ruby
 
-    nix-channel --add https://nixos.org/channels/nixpkgs-unstable usrpkgs  # add channel to user
-else
-    printf "\n# Nix already installed\n"
+printf "\n# Install/update GRM dotfile dependencies\n"
+$HOME/.local/bin/grm install sharkdp/bat
+$HOME/.local/bin/grm install dandavison/delta
+$HOME/.local/bin/grm install bootandy/dust
+$HOME/.local/bin/grm install sharkdp/fd
+$HOME/.local/bin/grm install junegunn/fzf
+$HOME/.local/bin/grm install jesseduffield/lazygit
+$HOME/.local/bin/grm install lsd-rs/lsd
+$HOME/.local/bin/grm install BurntSushi/ripgrep
+$HOME/.local/bin/grm install starship/starship
+$HOME/.local/bin/grm install ajeetdsouza/zoxide
+
+printf "\n# Install/update Ruby dotfile dependencies\n"
+if [ -z "$GEM_HOME" ]; then
+    export GEM_HOME="$HOME/.local/gems"
+    printf "# Set GEM_HOME to $GEM_HOME\n"
 fi
-
-printf "\n# Update Nix packages\n"
-nix-channel --update
-nix-env -qc  # see what version updates are available
-nix-env --upgrade '*' # perform upgrades
-nix-collect-garbage --delete-old --quiet # remove unused packages
-
-printf "\n# Install dotfile dependencies using Nix\n"
-nixInstallIfNotInstalled()
+if [[ ":$PATH:" != *":$GEM_HOME/bin:"* ]]; then
+    export PATH="$GEM_HOME/bin:$PATH"
+    printf "# Added $GEM_HOME/bin to PATH\n"
+fi
+rubyinstallorupdate()
 {
     if ! command -v $1 > /dev/null 2>&1
     then
-        printf "# Install $2\n"
-        nix-env -iA nixpkgs.$2
+        printf "# Install $1\n"
+        gem install $1
 
     else
-        printf "# $2 already installed at\t\t$(which $1)\n"
+        printf "# Check updates for $1\n"
+        gem update $1
     fi
 }
-nixInstallIfNotInstalled bat        bat
-nixInstallIfNotInstalled delta      delta
-nixInstallIfNotInstalled dust       du-dust
-nixInstallIfNotInstalled fd         fd
-nixInstallIfNotInstalled fzf        fzf
-nixInstallIfNotInstalled lazygit    lazygit
-nixInstallIfNotInstalled lsd        lsd
-nixInstallIfNotInstalled rg         ripgrep
-nixInstallIfNotInstalled starship   starship
-nixInstallIfNotInstalled tmux       tmux
-nixInstallIfNotInstalled tmuxinator tmuxinator
-nixInstallIfNotInstalled zoxide     zoxide
-nixInstallIfNotInstalled zsh        zsh
+rubyinstallorupdate tmuxinator
 
 {{ if or (eq .chezmoi.os "darwin") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}}
 {{ if eq .chezmoi.os "linux" -}}
@@ -75,7 +83,7 @@ fi
 {{- end }}
 
 printf "\n# Checking GitHub account status\n"
-nixInstallIfNotInstalled gh       gh
+$HOME/.local/bin/grm install cli/cli
 gh auth status
 if [ $? -ne 0 ]
 then
