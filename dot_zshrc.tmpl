@@ -2,7 +2,7 @@
 autoload -U colors && colors
 
 # Basic auto/tab complete:
-fpath=($HOME/.nix-profile/share/zsh/site-functions $fpath)
+fpath=($HOME/.config/zsh/completions $fpath)
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
@@ -39,7 +39,6 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
 # fzf configuration
-source $HOME/.config/fzf/completion.zsh
 source $HOME/.config/fzf/key-bindings.zsh
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find command for listing path candidates.
@@ -82,6 +81,10 @@ source $HOME/.local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 {{- if and (eq .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
 source $HOME/.config/zsh/openvpn3.zsh
 {{- end }}
+
+# Some completions are broken and need to be sourced manually
+. $HOME/.config/zsh/completions/_delta
+. $HOME/.config/zsh/completions/_grm
 
 # Zoxide: https://github.com/ajeetdsouza/zoxide
 eval "$(zoxide init zsh)"
