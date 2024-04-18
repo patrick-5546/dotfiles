@@ -40,6 +40,12 @@ The files I think are most notable are listed below:
       1. [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
       2. [age](https://github.com/FiloSottile/age#installation)
       3. On Linux, [xz-utils](https://repology.org/project/xz/versions)
+      4. On a fresh Ubuntu install, this is how I install the above prerequisites and other packages I uses
+
+          ```
+          sudo add-apt-repository ppa:neovim-ppa/unstable -y && sudo apt install git age xz-utils curl neovim ruby tmux zsh -y
+          ```
+
 2. Install chezmoi in `~/.local/bin`, pulling and applying the latest changes
 
     ```
