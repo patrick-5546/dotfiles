@@ -56,6 +56,8 @@ The files I think are most notable are listed below:
     popd
     ```
 
+    - To install without encrypted files, add `--branch no-encryption` to the init command
+
 3. If desired, manually install software with unique installation instructions
     - [Alacritty](https://github.com/alacritty/alacritty/blob/master/INSTALL.md)
     - [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim)
