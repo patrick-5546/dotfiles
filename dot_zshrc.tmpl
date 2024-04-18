@@ -90,9 +90,6 @@ export NVM_LAZY_LOAD_EXTRA_COMMANDS=("nvim")
 # Other Zsh scripts
 source $HOME/.local/share/zsh-nvm/zsh-nvm.plugin.zsh
 source $HOME/.local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-{{- if and (eq .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
-source $HOME/.config/zsh/openvpn3.zsh
-{{- end }}
 
 # Some completions are broken and need to be sourced manually
 . $HOME/.config/zsh/completions/_delta

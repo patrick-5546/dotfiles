@@ -1,11 +1,9 @@
-key.txt.age
 README.md
 reference_dotfiles
 
 # windows files
 {{ if ne .chezmoi.os "windows" -}}
 Documents
-decrypt-private-key-windows.ps1
 install-windows.ps1
 {{- end }}
 
@@ -18,12 +16,10 @@ install-windows.ps1
 .config/zsh
 .tmux.conf
 .zshrc
-decrypt-private-key-unix.sh
 install-unix.sh
 {{- end }}
 
 # linux without WSL files
 {{ if or (ne .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
 .alacritty.yml
-.config/zsh/openvpn3.zsh
 {{- end }}
