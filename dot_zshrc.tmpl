@@ -2,12 +2,24 @@
 autoload -U colors && colors
 
 # Basic auto/tab complete:
-fpath=($HOME/.nix-profile/share/zsh/site-functions $fpath)
-autoload -Uz compinit && compinit
-zstyle ':completion:*' menu select
+fpath=($HOME/.config/zsh/completions $fpath)
+autoload -Uz compinit
 zmodload zsh/complist
 compinit
-_comp_options+=(globdots)		# Include hidden files.
+# can't get caching to work
+#typeset -i USE_CACHE
+#(( $+commands[compaudit] && $+commands[compinit] )) && compaudit | read -ra USE_CACHE
+#if (( USE_CACHE )); then
+#  compinit
+#else
+#  compinit -C
+#fi
+
+# Set completion style
+zstyle ':completion:*' menu select
+
+# Include hidden files in completions
+_comp_options+=(globdots)
 
 # History configuration
 source $HOME/.config/zsh/history.zsh
@@ -39,7 +51,6 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
 # fzf configuration
-source $HOME/.config/fzf/completion.zsh
 source $HOME/.config/fzf/key-bindings.zsh
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find command for listing path candidates.
@@ -64,7 +75,10 @@ export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 source $HOME/.config/zsh/aliases.zsh
 
 # Environment Variables
-export PATH=$HOME/.local/bin:/usr/local/go/bin:$PATH
+export GEM_HOME="$HOME/.local/gems"
+export PATH=/usr/local/go/bin:$PATH
+export PATH="$GEM_HOME/bin:$PATH"
+export PATH=$HOME/.local/bin:$PATH
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export DOCKER_BUILDKIT=1
@@ -79,6 +93,10 @@ source $HOME/.local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 {{- if and (eq .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
 source $HOME/.config/zsh/openvpn3.zsh
 {{- end }}
+
+# Some completions are broken and need to be sourced manually
+. $HOME/.config/zsh/completions/_delta
+. $HOME/.config/zsh/completions/_grm
 
 # Zoxide: https://github.com/ajeetdsouza/zoxide
 eval "$(zoxide init zsh)"
