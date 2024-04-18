@@ -1,14 +1,7 @@
 {{ if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
 [credential]
     helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
-{{- else if ne .chezmoi.os "windows" -}}
-[credential "https://github.com"]
-    helper =
-    helper = !/home/patrick/.nix-profile/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-    helper =
-    helper = !/home/patrick/.nix-profile/bin/gh auth git-credential
-{{- end }}
+{{- end -}}
 [user]
     email = pcreighton429@gmail.com
     name = Patrick Creighton
