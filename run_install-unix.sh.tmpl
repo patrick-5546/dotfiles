@@ -21,7 +21,7 @@ sh -c "$(curl -fsLS get.chezmoi.io/lb)"
 
 printf "\n# Install/update GRM\n"
 curl -s https://api.github.com/repos/patrick-5546/grm/releases/latest \
-  | grep -oP '"browser_download_url": "\K[^"]+' | head -n 1 \
+  | awk -F'"' '/"browser_download_url":/{print $4}' | head -n 1 \
   | xargs curl -LOs && chmod +x grm && mv grm $HOME/.local/bin/
 popd
 
