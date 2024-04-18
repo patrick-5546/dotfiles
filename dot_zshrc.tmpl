@@ -3,11 +3,23 @@ autoload -U colors && colors
 
 # Basic auto/tab complete:
 fpath=($HOME/.config/zsh/completions $fpath)
-autoload -Uz compinit && compinit
-zstyle ':completion:*' menu select
+autoload -Uz compinit
 zmodload zsh/complist
 compinit
-_comp_options+=(globdots)		# Include hidden files.
+# can't get caching to work
+#typeset -i USE_CACHE
+#(( $+commands[compaudit] && $+commands[compinit] )) && compaudit | read -ra USE_CACHE
+#if (( USE_CACHE )); then
+#  compinit
+#else
+#  compinit -C
+#fi
+
+# Set completion style
+zstyle ':completion:*' menu select
+
+# Include hidden files in completions
+_comp_options+=(globdots)
 
 # History configuration
 source $HOME/.config/zsh/history.zsh
