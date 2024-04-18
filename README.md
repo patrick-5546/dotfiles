@@ -23,9 +23,11 @@ The files I think are most notable are listed below:
     - [`.chezmoiexternal.toml`](./.chezmoiexternal.toml)
         - To see what software is installed, search for `url`
     - Unix-specific: [`run_install-unix.sh.tmpl`](./run_install-unix.sh.tmpl)
-        - To see what software is installed, search for `nixInstallIfNotInstalled`
-    - Windows-specific: [`run_install-windows.ps1`](./run_install-windows.ps1)
+        - To see what software is installed, search for `dependencies`
+        - Does not require Sudo privileges
+    - Windows-specific: [`run_install-windows.ps1`](./reference_dotfiles/run_install-windows.ps1)
         - To see what software is installed, search for `wingetInstallIfNotInstalled`, `choco install`, and `Install-Module`
+        - I don't use this script anymore, in favor of [WingetUI](https://github.com/marticliment/WingetUI): [`wingetui/`](./reference_dotfiles/wingetui/)
 - Encryption scripts: files with sensitive information are
   [encrypted](https://www.chezmoi.io/user-guide/frequently-asked-questions/encryption/)
     - Unix-specific: [`run_before_decrypt-private-key-unix.sh.tmpl`](./run_before_decrypt-private-key-unix.sh.tmpl)
