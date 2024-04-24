@@ -24,6 +24,8 @@ BINARY=grm_{{.chezmoi.os}}_{{.chezmoi.arch}}.tar.gz
 curl -s https://api.github.com/repos/patrick-5546/grm/releases/latest \
   | awk -F'"' '/"browser_download_url":/{print $4}' | grep $BINARY \
   | xargs curl -LOs && tar -xf $BINARY && rm $BINARY && mv grm $HOME/.local/bin/
+echo "info found version $($HOME/.local/bin/grm version) for latest/{{.chezmoi.os}}/{{.chezmoi.arch}}"
+echo "info installed .local/bin/grm"
 popd
 
 printf "\n# Install/update GRM dotfile dependencies\n"
