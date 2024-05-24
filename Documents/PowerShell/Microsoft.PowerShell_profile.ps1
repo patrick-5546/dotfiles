@@ -46,5 +46,8 @@ Set-PSReadlineKeyHandler -Chord 'Ctrl+k' -Function PreviousSuggestion
 # Prompt
 Invoke-Expression (&starship init powershell)
 
+# Zoxide
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
 #}
 #Write-Host "$PSCommandPath execution time: $executionTime"
