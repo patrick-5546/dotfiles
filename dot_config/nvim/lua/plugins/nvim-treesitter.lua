@@ -2,36 +2,11 @@ return {
   {
     -- https://github.com/nvim-treesitter/nvim-treesitter
     "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        -- defaults: https://www.lazyvim.org/plugins/treesitter#nvim-treesitter
-        "bash",
-        "c",
-        "go",
-        "html",
-        "javascript",
-        "json",
-        "lua",
-        "luadoc",
-        "luap",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "query",
-        "regex",
-        "tsx",
-        "typescript",
-        "vim",
-        "vimdoc",
-        "yaml",
-
-        -- additional
-        "dockerfile",
-        "java",
-        "jsonc",
-        "rust",
-        "verilog",
-      },
-    },
+    -- defaults: https://www.lazyvim.org/plugins/treesitter#nvim-treesitter
+    -- opts = function(_, opts)
+    --   if type(opts.ensure_installed) == "table" then
+    --     vim.list_extend(opts.ensure_installed, { "verilog" })
+    --   end
+    -- end,
   },
 }
