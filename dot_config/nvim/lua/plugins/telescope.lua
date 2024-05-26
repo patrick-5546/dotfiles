@@ -12,5 +12,22 @@ return {
       -- mimic vs code quick open
       { "<C-p>", Util.telescope("files", { hidden = true }), desc = "Find Files (root dir)" },
     },
+    opts = {
+      defaults = {
+        -- search contents of hidden files
+        vimgrep_arguments = {
+          "rg",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          "--hidden",
+          "--glob",
+          "!{**/.git/*,**/node_modules/*,**/pkg/mod/*,**/yarn.lock,**/.local/*}",
+        },
+      },
+    },
   },
 }
