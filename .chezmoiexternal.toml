@@ -11,8 +11,8 @@
     type = "git-repo"
     url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
     refreshPeriod = "168h"
+{{- end }}
 [".config/yazi/flavors/tokyo-night.yazi"]
     type = "git-repo"
     url = "https://github.com/BennyOe/tokyo-night.yazi.git"
     refreshPeriod = "168h"
-{{- end }}

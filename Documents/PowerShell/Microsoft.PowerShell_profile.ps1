@@ -43,6 +43,10 @@ Set-PSReadlineKeyHandler -Chord 'Ctrl+k' -Function PreviousSuggestion
 # Aliases
 . $ProfilePath/aliases.ps1
 
+# Environment variables
+$env:YAZI_FILE_ONE = "C:\Program Files\Git\usr\bin\file.exe"
+$env:YAZI_CONFIG_HOME = Join-Path $HOME ".config\yazi"
+
 # Prompt
 Invoke-Expression (&starship init powershell)
 
