@@ -29,6 +29,7 @@ echo "info installed .local/bin/grm"
 popd
 
 printf "\n# Install/update GRM dotfile dependencies\n"
+$HOME/.local/bin/grm install atuinsh/atuin
 $HOME/.local/bin/grm install sharkdp/bat
 $HOME/.local/bin/grm install dandavison/delta
 $HOME/.local/bin/grm install bootandy/dust
@@ -67,6 +68,7 @@ rubyinstallorupdate tmuxinator
 printf "\n# Install/update completions\n"
 mkdir -p $HOME/.config/zsh/completions
 pushd $HOME/.config/zsh/completions
+atuin gen-completions --shell zsh -o .
 curl -o _bat https://raw.githubusercontent.com/sharkdp/bat/master/assets/completions/bat.zsh.in  # doesn't work
 chezmoi completion zsh >> _chezmoi
 delta --generate-completion zsh >> _delta  # needs to be sourced manually
