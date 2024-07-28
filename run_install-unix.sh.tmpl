@@ -68,17 +68,17 @@ rubyinstallorupdate tmuxinator
 printf "\n# Install/update completions\n"
 mkdir -p $HOME/.config/zsh/completions
 pushd $HOME/.config/zsh/completions
-atuin gen-completions --shell zsh -o .
+$HOME/.local/bin/atuin gen-completions --shell zsh -o .
 curl -o _bat https://raw.githubusercontent.com/sharkdp/bat/master/assets/completions/bat.zsh.in  # doesn't work
-chezmoi completion zsh >> _chezmoi
-delta --generate-completion zsh >> _delta  # needs to be sourced manually
+$HOME/.local/bin/chezmoi completion zsh >> _chezmoi
+$HOME/.local/bin/delta --generate-completion zsh >> _delta  # needs to be sourced manually
 curl -o _dust https://raw.githubusercontent.com/bootandy/dust/master/completions/_dust
 curl -o _fd https://raw.githubusercontent.com/sharkdp/fd/master/contrib/completion/_fd
-fzf --zsh >> _fzf  # doesn't work
-grm completion zsh >> _grm  # needs to be sourced manually
+$HOME/.local/bin/fzf --zsh >> _fzf  # doesn't work
+$HOME/.local/bin/grm completion zsh >> _grm  # needs to be sourced manually
 # could not find zsh completion for lsd
-rg --generate=complete-zsh >> _rg
-starship completions zsh >> _starship
+$HOME/.local/bin/rg --generate=complete-zsh >> _rg
+$HOME/.local/bin/starship completions zsh >> _starship
 curl -o _tmuxinator https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh
 curl -o _zoxide https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/contrib/completions/_zoxide
 popd
