@@ -9,7 +9,6 @@ gsudo {
 
     Write-Host "`nInstall modules"
     Install-Module git-aliases -Scope CurrentUser -Allowclobber
-    Install-Module -Name PSFzf
     Install-Module posh-git -Scope CurrentUser -AllowClobber
     Install-Module -Name Terminal-Icons -Repository PSGallery
 

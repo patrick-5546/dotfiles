@@ -12,7 +12,6 @@ install-windows.ps1
 # unix files
 {{ if eq .chezmoi.os "windows" -}}
 .config/bpytop
-.config/fzf
 .config/lf
 .config/tmuxinator
 .config/zsh

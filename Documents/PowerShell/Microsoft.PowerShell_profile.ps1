@@ -2,12 +2,10 @@
 #{
 
 # Imports
-# - Slowest imports are posh-git, PsFzf, Terminal-Icons
+# - Slowest imports are posh-git, Terminal-Icons
 # Import-Module git-aliases -DisableNameChecking
 #Import-Module posh-git
-# must import PSReadLine before PSFzf
 Import-Module PSReadLine
-# Import-Module PsFzf
 #Import-Module Terminal-Icons
 
 $ProfilePath=Split-Path -parent $profile
@@ -27,12 +25,6 @@ Set-PSReadLineOption -HistorySearchCursorMovesToEnd
 Set-PSReadlineKeyHandler -Chord 'Ctrl+r' -Function SwitchPredictionView
 Set-PSReadlineKeyHandler -Chord 'Ctrl+j' -Function NextSuggestion
 Set-PSReadlineKeyHandler -Chord 'Ctrl+k' -Function PreviousSuggestion
-
-## PsFzf configuration
-#Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory 'Ctrl+r'
-#$env:FZF_DEFAULT_OPTS = '--height 40% --layout=reverse --info=inline'
-## https://github.com/junegunn/fzf/wiki/Windows#relative-filepaths
-#$env:FZF_DEFAULT_COMMAND = 'rg --files . 2> nul'
 
 ## Zoxide: https://github.com/ajeetdsouza/Zoxide
 #Invoke-Expression (& {
