@@ -11,8 +11,8 @@ install-windows.ps1
 
 # unix files
 {{ if eq .chezmoi.os "windows" -}}
+.config/atuin
 .config/bpytop
-.config/lf
 .config/tmuxinator
 .config/zsh
 .tmux.conf
@@ -23,6 +23,6 @@ install-unix.sh
 
 # linux without WSL files
 {{ if or (ne .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
-.alacritty.yml
+.alacritty.toml
 .config/zsh/openvpn3.zsh
 {{- end }}
