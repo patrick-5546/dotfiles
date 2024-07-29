@@ -36,6 +36,7 @@ Set-PSReadlineKeyHandler -Chord 'Ctrl+k' -Function PreviousSuggestion
 . $ProfilePath/aliases.ps1
 
 # Environment variables
+$env:KOMOREBI_CONFIG_HOME = Join-Path $HOME ".config\komorebi"
 $env:YAZI_FILE_ONE = "C:\Program Files\Git\usr\bin\file.exe"
 $env:YAZI_CONFIG_HOME = Join-Path $HOME ".config\yazi"
 $env:XDG_CONFIG_HOME = Join-Path $HOME ".config"

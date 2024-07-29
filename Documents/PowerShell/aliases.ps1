@@ -34,6 +34,10 @@ function cup {
     Invoke-Chezmoi -SubCommand update @args
 }
 
+function gswm {
+    git switch main
+}
+
 # Prevent conflict with built-in aliases
 Remove-Alias ls -Force -ErrorAction SilentlyContinue
 
@@ -57,12 +61,12 @@ function lt {
     ls -alhrt @args
 }
 
-function Invoke-Exit {
-    exit
+function kstart {
+    komorebic start --whkd
 }
 
-function gswm {
-    git switch main
+function kstop {
+    komorebic stop --whkd
 }
 
 function ssh-copy-id($remote) {

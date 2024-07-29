@@ -75,3 +75,6 @@ function Invoke-Chezmoi {
     & chezmoi $SubCommand @Arguments
 }
 
+function Invoke-Exit {
+    exit
+}

@@ -4,6 +4,8 @@ reference_dotfiles
 
 # windows files
 {{ if ne .chezmoi.os "windows" -}}
+.config/komorebi
+.config/whkdrc
 Documents
 decrypt-private-key-windows.ps1
 install-windows.ps1
