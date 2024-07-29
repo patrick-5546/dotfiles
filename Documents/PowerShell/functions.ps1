@@ -63,151 +63,15 @@ function Set-LocationUp2 {
     }
 }
 
-function Get-ChildItemSimple {
-    <#
-    .SYNOPSIS
-        Lists visible files in wide format.
-    .PARAMETER Path
-        The directory to list from.
-    .INPUTS
-        System.String[]
-    .OUTPUTS
-        System.IO.FileInfo
-        System.IO.DirectoryInfo
-    .LINK
-        Get-ChildItem
-    #>
-    [CmdletBinding()]
+function Invoke-Chezmoi {
     param(
-        [Parameter(
-            Mandatory=$false,
-            ValueFromPipeline=$true
-        )]
-        [string[]]$Path = ".",
+        [Parameter(Mandatory=$true)]
+        [string]$SubCommand,
 
-        [Parameter(ValueFromRemainingArguments=$true)]
-        $Params
+        [Parameter(Mandatory=$false)]
+        [string[]]$Arguments
     )
 
-    begin {
-        # https://stackoverflow.com/a/33302472
-        $hashtable = @{}
-        if ($Params) {
-            $Params | ForEach-Object {
-                if ($_ -match "^-") {
-                    $hashtable.$($_ -replace "^-") = $null
-                }
-                else {
-                    $hashtable.$(([string[]]$hashtable.Keys)[-1]) = $_
-                }
-            }
-        }
-    }
-
-    process {
-        Get-ChildItem -Path @Path @hashtable | Format-Wide
-    }
+    & chezmoi $SubCommand @Arguments
 }
 
-function Get-ChildItemVisible {
-    <#
-    .SYNOPSIS
-        Lists visible files in long format.
-    .PARAMETER Path
-        The directory to list from.
-    .INPUTS
-        System.String[]
-    .OUTPUTS
-        System.IO.FileInfo
-        System.IO.DirectoryInfo
-    .LINK
-        Get-ChildItem
-    #>
-    [CmdletBinding()]
-    param(
-        [Parameter(
-            Mandatory=$false,
-            ValueFromPipeline=$true
-        )]
-        [string[]]$Path = ".",
-
-        [Parameter(ValueFromRemainingArguments=$true)]
-        $Params
-    )
-
-    begin {
-        # https://stackoverflow.com/a/33302472
-        $hashtable = @{}
-        if ($Params) {
-            $Params | ForEach-Object {
-                if ($_ -match "^-") {
-                    $hashtable.$($_ -replace "^-") = $null
-                }
-                else {
-                    $hashtable.$(([string[]]$hashtable.Keys)[-1]) = $_
-                }
-            }
-        }
-    }
-
-    process {
-        Get-ChildItem -Path @Path @hashtable
-    }
-}
-
-function Get-ChildItemAll {
-    <#
-    .SYNOPSIS
-        Lists all files in long format, excluding `.` and `..`.
-    .PARAMETER Path
-        The directory to list from.
-    .INPUTS
-        System.String[]
-    .OUTPUTS
-        System.IO.FileInfo
-        System.IO.DirectoryInfo
-    .LINK
-        Get-ChildItem
-    #>
-    [CmdletBinding()]
-    param(
-        [Parameter(
-            Mandatory=$false,
-            ValueFromPipeline=$true
-        )]
-        [string[]]$Path = ".",
-
-        [Parameter(ValueFromRemainingArguments=$true)]
-        $Params
-    )
-
-    begin {
-        # https://stackoverflow.com/a/33302472
-        $hashtable = @{}
-        if ($Params) {
-            $Params | ForEach-Object {
-                if ($_ -match "^-") {
-                    $hashtable.$($_ -replace "^-") = $null
-                }
-                else {
-                    $hashtable.$(([string[]]$hashtable.Keys)[-1]) = $_
-                }
-            }
-        }
-    }
-
-    process {
-        Get-ChildItem -Path @Path -Force @hashtable
-    }
-}
-
-# yazi
-function yy {
-    $tmp = [System.IO.Path]::GetTempFileName()
-    yazi $args --cwd-file="$tmp"
-    $cwd = Get-Content -Path $tmp
-    if (-not [String]::IsNullOrEmpty($cwd) -and $cwd -ne $PWD.Path) {
-        Set-Location -LiteralPath $cwd
-    }
-    Remove-Item -Path $tmp
-}

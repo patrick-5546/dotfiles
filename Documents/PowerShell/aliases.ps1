@@ -5,25 +5,10 @@ Set-Alias cat 'C:\Program Files\Git\usr\bin\cat.exe'
 Set-Alias cls clear
 Set-Alias e Invoke-Exit
 Set-Alias g git
-Set-Alias l Get-ChildItemAll
-Set-Alias ll Get-ChildItemVisible
-Set-Alias ls Get-ChildItemSimple
 Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
 # The aliases below already exist
 #Set-Alias md mkdir
 #Set-Alias rd rmdir
-
-function Invoke-Chezmoi {
-    param(
-        [Parameter(Mandatory=$true)]
-        [string]$SubCommand,
-
-        [Parameter(Mandatory=$false)]
-        [string[]]$Arguments
-    )
-
-    & chezmoi $SubCommand @Arguments
-}
 
 function cad {
     Invoke-Chezmoi -SubCommand add @args
@@ -49,6 +34,29 @@ function cup {
     Invoke-Chezmoi -SubCommand update @args
 }
 
+# Prevent conflict with built-in aliases
+Remove-Alias ls -Force -ErrorAction SilentlyContinue
+
+function ls {
+    lsd @args
+}
+
+function l {
+    ll -alh @args
+}
+
+function ll {
+    ls -lh @args
+}
+
+function llt {
+    ll -lhrt @args
+}
+
+function lt {
+    ls -alhrt @args
+}
+
 function Invoke-Exit {
     exit
 }
@@ -57,21 +65,6 @@ function gswm {
     git switch main
 }
 
-## From https://github.com/gokcehan/lf/blob/master/etc/lfcd.ps1
-#function lfcd {
-#    $tmp = [System.IO.Path]::GetTempFileName()
-#    lf -last-dir-path="$tmp" $args
-#    if (Test-Path -PathType Leaf "$tmp") {
-#        $dir = Get-Content "$tmp"
-#        Remove-Item -Force "$tmp"
-#        if (Test-Path -PathType Container "$dir") {
-#            if ("$dir" -ne "$pwd") {
-#                cd "$dir"
-#            }
-#        }
-#    }
-#}
-
 function ssh-copy-id($remote) {
     cat ~/.ssh/id_rsa.pub | ssh $remote "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"
 }
@@ -79,4 +72,15 @@ function ssh-copy-id($remote) {
 function which($name)
 {
         Get-Command $name | Select-Object -ExpandProperty Definition
+}
+
+# yazi
+function yy {
+    $tmp = [System.IO.Path]::GetTempFileName()
+    yazi $args --cwd-file="$tmp"
+    $cwd = Get-Content -Path $tmp
+    if (-not [String]::IsNullOrEmpty($cwd) -and $cwd -ne $PWD.Path) {
+        Set-Location -LiteralPath $cwd
+    }
+    Remove-Item -Path $tmp
 }
