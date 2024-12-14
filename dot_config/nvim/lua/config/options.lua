@@ -5,3 +5,4 @@
 -- Show signs, relative line numbers, and absolute line numbers
 vim.opt.statuscolumn = "%s%r %l "
 vim.g.autoformat = false
+vim.g.snacks_animate = false
