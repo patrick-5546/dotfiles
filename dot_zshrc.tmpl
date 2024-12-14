@@ -50,6 +50,27 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
+# fzf configuration
+source $HOME/.config/fzf/key-bindings.zsh
+
+# Use fd (https://github.com/sharkdp/fd) instead of the default find command for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
+# Options to fzf command
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --info=inline'
+export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude '.git'"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+
 # Aliases
 source $HOME/.config/zsh/aliases.zsh
 
