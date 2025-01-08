@@ -30,7 +30,7 @@ popd
 
 printf "\n# Install/update GRM dotfile dependencies\n"
 $HOME/.local/bin/grm install atuinsh/atuin
-$HOME/.local/bin/grm install sharkdp/bat
+$HOME/.local/bin/grm install sharkdp/bat -f tar.gz
 $HOME/.local/bin/grm install dandavison/delta
 $HOME/.local/bin/grm install bootandy/dust
 $HOME/.local/bin/grm install sharkdp/fd
@@ -69,7 +69,7 @@ printf "\n# Install/update completions\n"
 mkdir -p $HOME/.config/zsh/completions
 pushd $HOME/.config/zsh/completions
 $HOME/.local/bin/atuin gen-completions --shell zsh -o .
-curl -o _bat https://raw.githubusercontent.com/sharkdp/bat/master/assets/completions/bat.zsh.in  # doesn't work
+$HOME/.local/bin/bat --completion zsh >> _bat  # doesn't work
 $HOME/.local/bin/chezmoi completion zsh >> _chezmoi
 $HOME/.local/bin/delta --generate-completion zsh >> _delta  # needs to be sourced manually
 curl -o _dust https://raw.githubusercontent.com/bootandy/dust/master/completions/_dust
