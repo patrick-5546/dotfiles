@@ -29,18 +29,18 @@ echo "info installed .local/bin/grm"
 popd
 
 printf "\n# Install/update GRM dotfile dependencies\n"
-$HOME/.local/bin/grm install atuinsh/atuin
-$HOME/.local/bin/grm install sharkdp/bat -f tar.gz
-$HOME/.local/bin/grm install dandavison/delta
-$HOME/.local/bin/grm install bootandy/dust
-$HOME/.local/bin/grm install sharkdp/fd
-$HOME/.local/bin/grm install junegunn/fzf
-$HOME/.local/bin/grm install jesseduffield/lazygit
-$HOME/.local/bin/grm install lsd-rs/lsd
-$HOME/.local/bin/grm install BurntSushi/ripgrep
-$HOME/.local/bin/grm install starship/starship
-# $HOME/.local/bin/grm install sxyazi/yazi
-$HOME/.local/bin/grm install ajeetdsouza/zoxide
+$HOME/.local/bin/grm install -f tar.gz atuinsh/atuin
+$HOME/.local/bin/grm install -f tar.gz sharkdp/bat
+$HOME/.local/bin/grm install -f tar.gz dandavison/delta
+$HOME/.local/bin/grm install -f tar.gz bootandy/dust
+$HOME/.local/bin/grm install -f tar.gz sharkdp/fd
+$HOME/.local/bin/grm install -f tar.gz junegunn/fzf
+$HOME/.local/bin/grm install -f tar.gz jesseduffield/lazygit
+$HOME/.local/bin/grm install -f tar.gz lsd-rs/lsd
+$HOME/.local/bin/grm install -f tar.gz BurntSushi/ripgrep
+$HOME/.local/bin/grm install -f tar.gz starship/starship
+# $HOME/.local/bin/grm install -f tar.gz sxyazi/yazi
+$HOME/.local/bin/grm install -f tar.gz ajeetdsouza/zoxide
 
 printf "\n# Install/update Ruby dotfile dependencies\n"
 if [ -z "$GEM_HOME" ]; then
