@@ -11,7 +11,6 @@ check_installed() {
 }
 check_installed curl
 check_installed nvim
-check_installed ruby
 check_installed tmux
 check_installed zsh
 
@@ -42,29 +41,6 @@ $HOME/.local/bin/grm install -f tar.gz starship/starship
 # $HOME/.local/bin/grm install -f tar.gz sxyazi/yazi
 $HOME/.local/bin/grm install -f tar.gz ajeetdsouza/zoxide
 
-printf "\n# Install/update Ruby dotfile dependencies\n"
-if [ -z "$GEM_HOME" ]; then
-    export GEM_HOME="$HOME/.local/gems"
-    printf "# Set GEM_HOME to $GEM_HOME\n"
-fi
-if [[ ":$PATH:" != *":$GEM_HOME/bin:"* ]]; then
-    export PATH="$GEM_HOME/bin:$PATH"
-    printf "# Added $GEM_HOME/bin to PATH\n"
-fi
-rubyinstallorupdate()
-{
-    if ! command -v $1 > /dev/null 2>&1
-    then
-        printf "# Install $1\n"
-        gem install $1
-
-    else
-        printf "# Check updates for $1\n"
-        gem update $1
-    fi
-}
-rubyinstallorupdate tmuxinator
-
 printf "\n# Install/update completions\n"
 mkdir -p $HOME/.config/zsh/completions
 pushd $HOME/.config/zsh/completions
@@ -79,7 +55,6 @@ $HOME/.local/bin/grm completion zsh >> _grm  # needs to be sourced manually
 # could not find zsh completion for lsd
 $HOME/.local/bin/rg --generate=complete-zsh >> _rg
 $HOME/.local/bin/starship completions zsh >> _starship
-curl -o _tmuxinator https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh
 curl -o _zoxide https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/contrib/completions/_zoxide
 popd
 
