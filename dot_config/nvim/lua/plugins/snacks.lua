@@ -1,6 +1,10 @@
 return {
   {
     "folke/snacks.nvim",
+    keys = {
+      -- mimic vs code quick open
+      { "<C-p>", LazyVim.pick("files"), desc = "Find Files (Root Dir)" },
+    },
     opts = {
       dashboard = {
         preset = {
@@ -20,6 +24,22 @@ return {
       --     width = 0.9,
       --   }
       -- },
+      picker = {
+        sources = {
+          files = { hidden = true },
+          grep = { hidden = true },
+          explorer = {
+            hidden = true,
+            layout = {
+              preset = "sidebar",
+              preview = false,
+              layout = {
+                position = "right",
+              },
+            },
+          },
+        },
+      },
     },
   },
 }
