@@ -19,11 +19,6 @@ return {
           ]],
         },
       },
-      -- zen = {
-      --   win = {
-      --     width = 0.9,
-      --   }
-      -- },
       picker = {
         sources = {
           files = { hidden = true },
