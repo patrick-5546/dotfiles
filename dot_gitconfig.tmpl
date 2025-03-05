@@ -4,7 +4,7 @@
 [push]
     autoSetupRemote = true
 [pull]
-    rebase = true
+    rebase = false
 [fetch]
     prune = true
 [core]
@@ -52,6 +52,7 @@
     d = diff
     dca = diff --cached
     l = pull
+    lr = pull --rebase
     lg = log --stat
     lgo = log --oneline
     p = push
