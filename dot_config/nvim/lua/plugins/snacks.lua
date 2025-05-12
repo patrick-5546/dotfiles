@@ -4,6 +4,7 @@ return {
     keys = {
       -- mimic vs code quick open
       { "<C-p>", LazyVim.pick("files"), desc = "Find Files (Root Dir)" },
+      -- { "<C-p>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
     },
     opts = {
       dashboard = {
@@ -26,13 +27,21 @@ return {
           explorer = {
             hidden = true,
             layout = {
-              preset = "sidebar",
-              preview = false,
               layout = {
                 position = "right",
               },
             },
           },
+        },
+        -- formatters = {
+        --   file = {
+        --     truncate = 60,
+        --   },
+        -- },
+      },
+      zen = {
+        toggles = {
+          dim = false,
         },
       },
     },
