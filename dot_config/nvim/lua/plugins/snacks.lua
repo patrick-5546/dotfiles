@@ -33,11 +33,11 @@ return {
             },
           },
         },
-        -- formatters = {
-        --   file = {
-        --     truncate = 60,
-        --   },
-        -- },
+        formatters = {
+          file = {
+            truncate = 60,
+          },
+        },
       },
       zen = {
         toggles = {
