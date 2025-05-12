@@ -1,6 +1,6 @@
 return {
   {
-    "folke/snacks.nvim",
+    "patrick-5546/snacks.nvim",
     keys = {
       -- mimic vs code quick open
       { "<C-p>", LazyVim.pick("files"), desc = "Find Files (Root Dir)" },
