@@ -1,3 +1,5 @@
+if true then return {} end
+
 return {
   {
     -- https://github.com/williamboman/mason.nvim

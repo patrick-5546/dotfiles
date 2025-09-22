@@ -1,3 +1,5 @@
+if true then return {} end
+
 return {
   {
     -- https://github.com/stevearc/conform.nvim
