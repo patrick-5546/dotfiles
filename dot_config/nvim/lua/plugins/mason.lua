@@ -1,7 +1,7 @@
 return {
   {
     -- https://github.com/williamboman/mason.nvim
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     -- enabled = false,
     -- registry: https://mason-registry.dev/registry/list
     -- opts = function(_, opts)
