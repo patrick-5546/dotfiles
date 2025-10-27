@@ -52,11 +52,9 @@ The files I think are most notable are listed below:
 
     ```
     pushd ~
-    sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply patrick-5546
+    sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply patrick-5546 --branch work
     popd
     ```
-
-    - To install without encrypted files, add `--branch no-encryption` to the init command
 
 3. If desired, manually install software with unique installation instructions
     - [Alacritty](https://github.com/alacritty/alacritty/blob/master/INSTALL.md)
