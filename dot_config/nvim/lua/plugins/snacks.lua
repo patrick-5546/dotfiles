@@ -39,11 +39,6 @@ return {
           },
         },
       },
-      zen = {
-        toggles = {
-          dim = false,
-        },
-      },
     },
   },
 }
