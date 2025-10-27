@@ -33,3 +33,4 @@ install-unix.sh
 # not for work
 .config/hatch
 .ideavimrc
+.ssh
