@@ -1,7 +1,7 @@
 # general
 alias ..='cd ..'
 alias ...='cd ../..'
-alias btop='bpytop'
+#alias btop='bpytop'
 alias c='chezmoi'
 alias cad='chezmoi add'
 alias cap='chezmoi apply'
