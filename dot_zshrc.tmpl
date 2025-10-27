@@ -75,10 +75,11 @@ export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 source $HOME/.config/zsh/aliases.zsh
 
 # Environment Variables
-export GEM_HOME="$HOME/.local/gems"
-export PATH=/usr/local/go/bin:$PATH
-export PATH="$GEM_HOME/bin:$PATH"
-export PATH=$HOME/.local/bin:$PATH
+#export GEM_HOME="$HOME/.local/gems"
+#export PATH=/usr/local/go/bin:$PATH
+#export PATH="$GEM_HOME/bin:$PATH"
+#export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.pixi/bin:$PATH
 {{- if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 export PATH="/mnt/c/Windows/System32:$PATH"
 {{- end }}
@@ -94,7 +95,7 @@ export NVM_LAZY_LOAD_EXTRA_COMMANDS=("nvim")
 source $HOME/.local/share/zsh-nvm/zsh-nvm.plugin.zsh
 source $HOME/.local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 {{- if and (eq .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
-source $HOME/.config/zsh/openvpn3.zsh
+#source $HOME/.config/zsh/openvpn3.zsh
 {{- end }}
 
 # Some completions are broken and need to be sourced manually
@@ -102,7 +103,7 @@ source $HOME/.config/zsh/openvpn3.zsh
 . $HOME/.config/zsh/completions/_grm
 
 # Atuin: https://github.com/atuinsh/atuin
-eval "$(atuin init zsh --disable-up-arrow)"
+#eval "$(atuin init zsh --disable-up-arrow)"
 
 # Zoxide: https://github.com/ajeetdsouza/zoxide
 eval "$(zoxide init zsh)"
