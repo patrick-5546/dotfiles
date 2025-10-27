@@ -16,45 +16,45 @@ check_installed zsh
 
 pushd ~
 printf "\n# Install/update Chezmoi\n"
-sh -c "$(curl -fsLS get.chezmoi.io/lb)"
+sh -c "$(curl -fsLS get.chezmoi.io)"
 
 printf "\n# Install/update GRM\n"
 BINARY=grm_{{.chezmoi.os}}_{{.chezmoi.arch}}.tar.gz
 curl -s https://api.github.com/repos/patrick-5546/grm/releases/latest \
   | awk -F'"' '/"browser_download_url":/{print $4}' | grep $BINARY \
-  | xargs curl -LOs && tar -xf $BINARY && rm $BINARY && mv grm $HOME/.local/bin/
-echo "info found version $($HOME/.local/bin/grm version) for latest/{{.chezmoi.os}}/{{.chezmoi.arch}}"
-echo "info installed .local/bin/grm"
+  | xargs curl -LOs && tar -xf $BINARY && rm $BINARY && mv grm $HOME/bin/
+echo "info found version $($HOME/bin/grm version) for latest/{{.chezmoi.os}}/{{.chezmoi.arch}}"
+echo "info installed bin/grm"
 popd
 
 printf "\n# Install/update GRM dotfile dependencies\n"
-#$HOME/.local/bin/grm install -f tar.gz atuinsh/atuin
-$HOME/.local/bin/grm install -f tar.gz sharkdp/bat
-$HOME/.local/bin/grm install -f tar.gz dandavison/delta
-$HOME/.local/bin/grm install -f tar.gz bootandy/dust
-$HOME/.local/bin/grm install -f tar.gz sharkdp/fd
-$HOME/.local/bin/grm install -f tar.gz junegunn/fzf
-$HOME/.local/bin/grm install -f tar.gz jesseduffield/lazygit
-$HOME/.local/bin/grm install -f tar.gz lsd-rs/lsd -f gnu
-$HOME/.local/bin/grm install -f tar.gz BurntSushi/ripgrep
-$HOME/.local/bin/grm install -f tar.gz starship/starship
-# $HOME/.local/bin/grm install -f tar.gz sxyazi/yazi
-$HOME/.local/bin/grm install -f tar.gz ajeetdsouza/zoxide
+#$HOME/bin/grm install -f tar.gz atuinsh/atuin
+$HOME/bin/grm install -f tar.gz sharkdp/bat
+$HOME/bin/grm install -f tar.gz dandavison/delta
+$HOME/bin/grm install -f tar.gz bootandy/dust
+$HOME/bin/grm install -f tar.gz sharkdp/fd
+$HOME/bin/grm install -f tar.gz junegunn/fzf
+$HOME/bin/grm install -f tar.gz jesseduffield/lazygit
+$HOME/bin/grm install -f tar.gz lsd-rs/lsd -f gnu
+$HOME/bin/grm install -f tar.gz BurntSushi/ripgrep
+$HOME/bin/grm install -f tar.gz starship/starship
+# $HOME/bin/grm install -f tar.gz sxyazi/yazi
+$HOME/bin/grm install -f tar.gz ajeetdsouza/zoxide
 
 printf "\n# Install/update completions\n"
 mkdir -p $HOME/.config/zsh/completions
 pushd $HOME/.config/zsh/completions
-#$HOME/.local/bin/atuin gen-completions --shell zsh -o .
-$HOME/.local/bin/bat --completion zsh >> _bat  # doesn't work
-$HOME/.local/bin/chezmoi completion zsh >> _chezmoi
-$HOME/.local/bin/delta --generate-completion zsh >> _delta  # needs to be sourced manually
+#$HOME/bin/atuin gen-completions --shell zsh -o .
+$HOME/bin/bat --completion zsh >> _bat  # doesn't work
+$HOME/bin/chezmoi completion zsh >> _chezmoi
+$HOME/bin/delta --generate-completion zsh >> _delta  # needs to be sourced manually
 curl -o _dust https://raw.githubusercontent.com/bootandy/dust/master/completions/_dust
 curl -o _fd https://raw.githubusercontent.com/sharkdp/fd/master/contrib/completion/_fd
-$HOME/.local/bin/fzf --zsh >> _fzf  # doesn't work
-$HOME/.local/bin/grm completion zsh >> _grm  # needs to be sourced manually
+$HOME/bin/fzf --zsh >> _fzf  # doesn't work
+$HOME/bin/grm completion zsh >> _grm  # needs to be sourced manually
 # could not find zsh completion for lsd
-$HOME/.local/bin/rg --generate=complete-zsh >> _rg
-$HOME/.local/bin/starship completions zsh >> _starship
+$HOME/bin/rg --generate=complete-zsh >> _rg
+$HOME/bin/starship completions zsh >> _starship
 curl -o _zoxide https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/contrib/completions/_zoxide
 popd
 
@@ -82,7 +82,7 @@ fi
 {{- end }}
 
 printf "\n# Checking GitHub account status\n"
-$HOME/.local/bin/grm install cli/cli
+$HOME/bin/grm install cli/cli
 gh auth status
 if [ $? -ne 0 ]
 then
