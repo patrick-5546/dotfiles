@@ -28,7 +28,7 @@ echo "info installed .local/bin/grm"
 popd
 
 printf "\n# Install/update GRM dotfile dependencies\n"
-$HOME/.local/bin/grm install -f tar.gz atuinsh/atuin
+#$HOME/.local/bin/grm install -f tar.gz atuinsh/atuin
 $HOME/.local/bin/grm install -f tar.gz sharkdp/bat
 $HOME/.local/bin/grm install -f tar.gz dandavison/delta
 $HOME/.local/bin/grm install -f tar.gz bootandy/dust
@@ -44,7 +44,7 @@ $HOME/.local/bin/grm install -f tar.gz ajeetdsouza/zoxide
 printf "\n# Install/update completions\n"
 mkdir -p $HOME/.config/zsh/completions
 pushd $HOME/.config/zsh/completions
-$HOME/.local/bin/atuin gen-completions --shell zsh -o .
+#$HOME/.local/bin/atuin gen-completions --shell zsh -o .
 $HOME/.local/bin/bat --completion zsh >> _bat  # doesn't work
 $HOME/.local/bin/chezmoi completion zsh >> _chezmoi
 $HOME/.local/bin/delta --generate-completion zsh >> _delta  # needs to be sourced manually
