@@ -1,0 +1,11 @@
+# Functions
+source $HOME/.config/zsh/functions.zsh
+
+# Aliases
+source $HOME/.config/zsh/aliases.zsh
+
+# Pixi: https://github.com/prefix-dev/pixi
+eval "$(pixi completion --shell bash)"
+
+# Zoxide: https://github.com/ajeetdsouza/zoxide
+eval "$(zoxide init bash)"
