@@ -77,6 +77,8 @@ source $HOME/.config/zsh/aliases.zsh
 # Environment Variables
 #export PATH=/usr/local/go/bin:$PATH
 #export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/bin:$PATH
+export PATH=$HOME/.pixi/bin:$PATH
 {{- if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 export PATH="/mnt/c/Windows/System32:$PATH"
 {{- end }}
@@ -94,6 +96,7 @@ source $HOME/.local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 {{- if and (eq .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
 #source $HOME/.config/zsh/openvpn3.zsh
 {{- end }}
+source $HOME/.zshrc.$USER
 
 # Some completions are broken and need to be sourced manually
 . $HOME/.config/zsh/completions/_delta
@@ -101,6 +104,9 @@ source $HOME/.local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Atuin: https://github.com/atuinsh/atuin
 #eval "$(atuin init zsh --disable-up-arrow)"
+
+# Pixi: https://github.com/prefix-dev/pixi
+eval "$(pixi completion --shell zsh)"
 
 # Zoxide: https://github.com/ajeetdsouza/zoxide
 eval "$(zoxide init zsh)"
