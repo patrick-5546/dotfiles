@@ -79,7 +79,8 @@ then
 else
     printf "\n# Fonts already installed\n"
 fi
-{{- end }}
+{{- end -}}
+{{- end -}}
 
 printf "\n# Checking GitHub account status\n"
 $HOME/.local/bin/grm install cli/cli
@@ -88,7 +89,6 @@ if [ $? -ne 0 ]
 then
     gh auth login
 fi
-{{- end }}
 
 if [ $(basename $SHELL) != "zsh" ]
 then
