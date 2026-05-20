@@ -1,3 +1,5 @@
+command_timeout = 3000
+
 [shell]
 unknown_indicator = "unknownsh"
 style = "cyan bold"
