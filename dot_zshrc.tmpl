@@ -121,4 +121,4 @@ eval "$(pixi completion --shell zsh)"
 eval "$(zoxide init zsh)"
 
 # Prompt
-eval "$(starship init zsh)"
+[[ "$STARSHIP_DISABLE" != "true" ]] && eval "$(starship init zsh)"
