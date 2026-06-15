@@ -150,11 +150,12 @@ bind -m emacs-standard '"\C-z": vi-editing-mode'
 
 if ((BASH_VERSINFO[0] < 4)); then
   # CTRL-F - Paste the selected file path into the command line
-  if [[ ${FZF_CTRL_T_COMMAND-x} != "" ]]; then
-    bind -m emacs-standard '"\C-f": " \C-b\C-k \C-u`__fzf_select__`\e\C-e\C-\e(\C-a\C-y\C-h\C-e\e \C-y\ey\C-x\C-x\C-f\C-y\ey\C-_"'
-    bind -m vi-command '"\C-f": "\C-z\C-f\C-z"'
-    bind -m vi-insert '"\C-f": "\C-z\C-f\C-z"'
-  fi
+  # conflicts with github copilot cli file picker
+  #if [[ ${FZF_CTRL_T_COMMAND-x} != "" ]]; then
+  #  bind -m emacs-standard '"\C-f": " \C-b\C-k \C-u`__fzf_select__`\e\C-e\C-\e(\C-a\C-y\C-h\C-e\e \C-y\ey\C-x\C-x\C-f\C-y\ey\C-_"'
+  #  bind -m vi-command '"\C-f": "\C-z\C-f\C-z"'
+  #  bind -m vi-insert '"\C-f": "\C-z\C-f\C-z"'
+  #fi
 
   # CTRL-R - Paste the selected command from history into the command line
   if [[ ${FZF_CTRL_R_COMMAND-x} != "" ]]; then
@@ -167,11 +168,12 @@ if ((BASH_VERSINFO[0] < 4)); then
   fi
 else
   # CTRL-F - Paste the selected file path into the command line
-  if [[ ${FZF_CTRL_T_COMMAND-x} != "" ]]; then
-    bind -m emacs-standard -x '"\C-f": fzf-file-widget'
-    bind -m vi-command -x '"\C-f": fzf-file-widget'
-    bind -m vi-insert -x '"\C-f": fzf-file-widget'
-  fi
+  # conflicts with github copilot cli file picker
+  #if [[ ${FZF_CTRL_T_COMMAND-x} != "" ]]; then
+  #  bind -m emacs-standard -x '"\C-f": fzf-file-widget'
+  #  bind -m vi-command -x '"\C-f": fzf-file-widget'
+  #  bind -m vi-insert -x '"\C-f": fzf-file-widget'
+  #fi
 
   # CTRL-R - Paste the selected command from history into the command line
   if [[ ${FZF_CTRL_R_COMMAND-x} != "" ]]; then
