@@ -86,8 +86,6 @@ source $HOME/.config/zsh/aliases.zsh
 # Environment Variables
 #export PATH=/usr/local/go/bin:$PATH
 #export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/bin:$PATH
-export PATH=$HOME/.pixi/bin:$PATH
 {{- if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 export PATH="/mnt/c/Windows/System32:$PATH"
 {{- end }}
@@ -96,7 +94,7 @@ export EDITOR="$VISUAL"
 export DOCKER_BUILDKIT=1
 # https://github.com/lukechilds/zsh-nvm
 export NVM_COMPLETION=true
-export NVM_LAZY_LOAD=true
+export NVM_LAZY_LOAD=false
 export NVM_LAZY_LOAD_EXTRA_COMMANDS=("nvim")
 
 # Other Zsh scripts
@@ -113,9 +111,6 @@ source $HOME/.zshrc.$USER
 
 # Atuin: https://github.com/atuinsh/atuin
 #eval "$(atuin init zsh --disable-up-arrow)"
-
-# Pixi: https://github.com/prefix-dev/pixi
-eval "$(pixi completion --shell zsh)"
 
 # Zoxide: https://github.com/ajeetdsouza/zoxide
 eval "$(zoxide init zsh)"
