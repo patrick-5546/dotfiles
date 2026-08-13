@@ -25,3 +25,5 @@ _fzf_compgen_dir() {
 }
 
 source $HOME/.config/fzf/key-bindings.bash
+
+[[ "$TERM_PROGRAM" == "vscode" ]] && source "$(code --locate-shell-integration-path bash)"
