@@ -25,21 +25,31 @@ curl -s https://api.github.com/repos/patrick-5546/grm/releases/latest \
   | xargs curl -LOs && tar -xf $BINARY && rm $BINARY && mv grm $HOME/bin/
 echo "info found version $($HOME/bin/grm version) for latest/{{.chezmoi.os}}/{{.chezmoi.arch}}"
 echo "info installed bin/grm"
+$HOME/bin/grm set bin_dir $HOME/bin
 popd
 
 printf "\n# Install/update GRM dotfile dependencies\n"
-#$HOME/bin/grm install -f tar.gz atuinsh/atuin
-$HOME/bin/grm install -f tar.gz sharkdp/bat
-$HOME/bin/grm install -f tar.gz dandavison/delta -f musl
-$HOME/bin/grm install -f tar.gz bootandy/dust
-$HOME/bin/grm install -f tar.gz sharkdp/fd
-$HOME/bin/grm install -f tar.gz junegunn/fzf
-$HOME/bin/grm install -f tar.gz jesseduffield/lazygit
-$HOME/bin/grm install -f tar.gz lsd-rs/lsd -f gnu
-$HOME/bin/grm install -f tar.gz BurntSushi/ripgrep
-$HOME/bin/grm install -f tar.gz starship/starship
-# $HOME/bin/grm install -f tar.gz sxyazi/yazi
-$HOME/bin/grm install -f tar.gz ajeetdsouza/zoxide
+# grm remembers selection flags from the first install, and passing them again
+# forces a reinstall, so they are only passed for packages that are not tracked
+grm_install() {
+    if $HOME/bin/grm list --flat | tr ' ' '\n' | grep -qxF "$1"; then
+        $HOME/bin/grm install --yes "$1"
+    else
+        $HOME/bin/grm install --yes "$@"
+    fi
+}
+#grm_install atuinsh/atuin -f tar.gz
+grm_install sharkdp/bat -f tar.gz
+grm_install dandavison/delta -f tar.gz -f musl
+grm_install bootandy/dust -f tar.gz
+grm_install sharkdp/fd -f tar.gz
+grm_install junegunn/fzf -f tar.gz
+grm_install jesseduffield/lazygit -f tar.gz
+grm_install lsd-rs/lsd -f tar.gz -f gnu
+grm_install BurntSushi/ripgrep -f tar.gz
+grm_install starship/starship -f tar.gz
+grm_install sxyazi/yazi -f zip{{ if eq .chezmoi.os "linux" }} -f musl{{ end }} --binary yazi --binary ya
+grm_install ajeetdsouza/zoxide -f tar.gz
 
 printf "\n# Install/update completions\n"
 mkdir -p $HOME/.config/zsh/completions
@@ -83,7 +93,7 @@ fi
 {{- end -}}
 
 printf "\n# Checking GitHub account status\n"
-$HOME/bin/grm install cli/cli
+grm_install cli/cli{{ if eq .chezmoi.os "linux" }} -f tar.gz{{ end }}
 gh auth status
 if [ $? -ne 0 ]
 then
