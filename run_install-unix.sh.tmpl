@@ -31,18 +31,30 @@ popd
 printf "\n# Install/update GRM dotfile dependencies\n"
 # grm remembers each package's filters and selected binaries. Changing a -f
 # filter or passing --asset or --binary makes it select and reinstall again.
+# With --yes grm installs the first asset matching every -f filter, and gnu
+# builds are listed before musl ones. Filter on the full Rust target so Linux
+# gets the static musl build, which also runs on older glibc. A filter that
+# matches nothing is ignored, so tools without that build still install. lsd
+# uses gnu because its musl build shows uid/gid instead of user/group names.
+{{- $arch := .chezmoi.arch | replace "amd64" "x86_64" | replace "arm64" "aarch64" }}
+{{- $target := printf "%s-apple-darwin" $arch }}
+{{- $gnuTarget := $target }}
+{{- if eq .chezmoi.os "linux" }}
+{{-   $target = printf "%s-unknown-linux-musl" $arch }}
+{{-   $gnuTarget = printf "%s-unknown-linux-gnu" $arch }}
+{{- end }}
 #$HOME/bin/grm install --yes -f tar.gz atuinsh/atuin
-$HOME/bin/grm install --yes -f tar.gz sharkdp/bat
-$HOME/bin/grm install --yes -f tar.gz dandavison/delta -f musl
-$HOME/bin/grm install --yes -f tar.gz bootandy/dust
-$HOME/bin/grm install --yes -f tar.gz sharkdp/fd
+$HOME/bin/grm install --yes -f tar.gz -f {{ $target }} sharkdp/bat
+$HOME/bin/grm install --yes -f tar.gz -f {{ $target }} dandavison/delta
+$HOME/bin/grm install --yes -f tar.gz -f {{ $target }} bootandy/dust
+$HOME/bin/grm install --yes -f tar.gz -f {{ $target }} sharkdp/fd
 $HOME/bin/grm install --yes -f tar.gz junegunn/fzf
 $HOME/bin/grm install --yes -f tar.gz jesseduffield/lazygit
-$HOME/bin/grm install --yes -f tar.gz lsd-rs/lsd -f gnu
-$HOME/bin/grm install --yes -f tar.gz BurntSushi/ripgrep
-$HOME/bin/grm install --yes -f tar.gz starship/starship
-$HOME/bin/grm install --yes -f zip{{ if eq .chezmoi.os "linux" }} -f musl{{ end }} sxyazi/yazi
-$HOME/bin/grm install --yes -f tar.gz ajeetdsouza/zoxide
+$HOME/bin/grm install --yes -f tar.gz -f {{ $gnuTarget }} lsd-rs/lsd
+$HOME/bin/grm install --yes -f tar.gz -f {{ $target }} BurntSushi/ripgrep
+$HOME/bin/grm install --yes -f tar.gz -f {{ $target }} starship/starship
+$HOME/bin/grm install --yes -f zip -f {{ $target }} sxyazi/yazi
+$HOME/bin/grm install --yes -f tar.gz -f {{ $target }} ajeetdsouza/zoxide
 
 printf "\n# Install/update completions\n"
 mkdir -p $HOME/.config/zsh/completions
