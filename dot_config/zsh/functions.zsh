@@ -12,6 +12,7 @@ function zle-keymap-select {
 
 zle-line-init() {
     zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+    zle set-local-history -n 1 # up/down skip commands shared from other shells; ctrl-r still finds them
     echo -ne "\e[5 q"
 }
 
