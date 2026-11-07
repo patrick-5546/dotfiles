@@ -43,7 +43,7 @@ printf "\n# Install/update GRM dotfile dependencies\n"
 {{-   $target = printf "%s-unknown-linux-musl" $arch }}
 {{-   $gnuTarget = printf "%s-unknown-linux-gnu" $arch }}
 {{- end }}
-#$HOME/bin/grm install --yes -f tar.gz atuinsh/atuin
+$HOME/bin/grm install --yes -f tar.gz -f atuin-{{ $target }} atuinsh/atuin  # atuin- skips atuin-server
 $HOME/bin/grm install --yes -f tar.gz -f {{ $target }} sharkdp/bat
 $HOME/bin/grm install --yes -f tar.gz -f {{ $target }} dandavison/delta
 $HOME/bin/grm install --yes -f tar.gz -f {{ $target }} bootandy/dust
@@ -59,7 +59,7 @@ $HOME/bin/grm install --yes -f tar.gz -f {{ $target }} ajeetdsouza/zoxide
 printf "\n# Install/update completions\n"
 mkdir -p $HOME/.config/zsh/completions
 pushd $HOME/.config/zsh/completions
-#$HOME/bin/atuin gen-completions --shell zsh -o .
+$HOME/bin/atuin gen-completions --shell zsh -o .
 $HOME/bin/bat --completion zsh >> _bat  # doesn't work
 $HOME/bin/chezmoi completion zsh >> _chezmoi
 $HOME/bin/delta --generate-completion zsh >> _delta  # needs to be sourced manually
