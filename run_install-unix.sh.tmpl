@@ -53,6 +53,9 @@ $HOME/bin/grm install --yes -f tar.gz jesseduffield/lazygit
 $HOME/bin/grm install --yes -f tar.gz -f {{ $gnuTarget }} lsd-rs/lsd
 $HOME/bin/grm install --yes -f tar.gz -f {{ $target }} BurntSushi/ripgrep
 $HOME/bin/grm install --yes -f tar.gz -f {{ $target }} starship/starship
+$HOME/bin/grm install --yes -f tar.gz -f {{ $target }} astral-sh/uv
+# Remove the standalone installer's receipt so uv self update can't replace grm's uv
+rm -f "${XDG_CONFIG_HOME:-$HOME/.config}/uv/uv-receipt.json"
 $HOME/bin/grm install --yes -f zip -f {{ $target }} sxyazi/yazi
 $HOME/bin/grm install --yes -f tar.gz -f {{ $target }} ajeetdsouza/zoxide
 
@@ -70,6 +73,8 @@ $HOME/bin/grm completion zsh >> _grm  # needs to be sourced manually
 # could not find zsh completion for lsd
 $HOME/bin/rg --generate=complete-zsh >> _rg
 $HOME/bin/starship completions zsh >> _starship
+$HOME/bin/uv generate-shell-completion zsh > _uv
+$HOME/bin/uvx --generate-shell-completion zsh > _uvx
 curl -o _zoxide https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/contrib/completions/_zoxide
 popd
 
