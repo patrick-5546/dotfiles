@@ -43,7 +43,7 @@ printf "\n# Install/update GRM dotfile dependencies\n"
 {{-   $target = printf "%s-unknown-linux-musl" $arch }}
 {{-   $gnuTarget = printf "%s-unknown-linux-gnu" $arch }}
 {{- end }}
-#$HOME/.local/bin/grm install --yes -f tar.gz atuinsh/atuin
+$HOME/.local/bin/grm install --yes -f tar.gz -f atuin-{{ $target }} atuinsh/atuin  # atuin- skips atuin-server
 $HOME/.local/bin/grm install --yes -f tar.gz -f {{ $target }} sharkdp/bat
 $HOME/.local/bin/grm install --yes -f tar.gz -f {{ $target }} dandavison/delta
 $HOME/.local/bin/grm install --yes -f tar.gz -f {{ $target }} bootandy/dust
