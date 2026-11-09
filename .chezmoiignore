@@ -12,10 +12,10 @@ install-windows.ps1
 {{- end }}
 
 # unix files
-.config/atuin
 .config/bpytop
 .config/tmuxinator
 {{ if eq .chezmoi.os "windows" -}}
+.config/atuin
 .config/fzf
 .config/zsh
 .tmux.conf
