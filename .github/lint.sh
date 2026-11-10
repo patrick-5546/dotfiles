@@ -8,9 +8,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 declare -A os_data=(
-    # Templates only read the kernel release to tell WSL apart from other Linux
-    [linux]='{"os":"linux","kernel":{"osrelease":"6.8.0-generic"}}'
-    [wsl]='{"os":"linux","kernel":{"osrelease":"5.15.167.4-microsoft-standard-WSL2"}}'
+    [linux]='{"os":"linux"}'
     [darwin]='{"os":"darwin"}'
     [windows]='{"os":"windows"}'
 )
@@ -34,7 +32,6 @@ check() {  # check OS TEMPLATE RENDERED
     case $2 in
         *.sh.tmpl) [ "$1" = windows ] || shellcheck "$3" ;;
         *.ps1.tmpl) [ "$1" != windows ] || ps1 "$3" ;;
-        dot_zshrc.tmpl) [ "$1" = windows ] || zsh -n "$3" ;;
         *.toml.tmpl | .chezmoiexternal.toml) toml "$3" ;;
         *.yaml.tmpl | *.yml.tmpl) yq . "$3" >/dev/null ;;
         dot_gitconfig.tmpl) git config --file "$3" --list >/dev/null ;;
@@ -62,7 +59,7 @@ done
 
 echo "# files that aren't templates"
 shellcheck .github/*.sh
-for file in dot_zshenv dot_config/zsh/*.zsh; do
+for file in dot_zshenv dot_zshrc dot_config/zsh/*.zsh; do
     zsh -n "$file"
 done
 for file in $(git ls-files '*.ps1'); do

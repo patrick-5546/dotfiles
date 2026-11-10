@@ -71,9 +71,6 @@ source $HOME/.config/zsh/aliases.zsh
 # Environment Variables
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
-{{- if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
-export PATH="/mnt/c/Windows/System32:$PATH"
-{{- end }}
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export DOCKER_BUILDKIT=1
