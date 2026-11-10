@@ -1,0 +1,77 @@
+#!/bin/bash
+# Installs the system packages the dotfiles need, adds fonts and makes zsh the
+# login shell. chezmoi runs this before applying files and again only when the
+# rendered script changes. sudo is only used when something is missing.
+set -euo pipefail
+
+as_root() {
+    if [ "$(id -u)" -eq 0 ]; then
+        "$@"
+    else
+        sudo "$@"
+    fi
+}
+
+{{ if eq .chezmoi.os "linux" -}}
+missing=()
+need() {  # need COMMAND [PACKAGE]
+    command -v "$1" >/dev/null 2>&1 || missing+=("${2:-$1}")
+}
+need curl
+need git
+need zsh
+{{- if eq .chezmoi.osRelease.id "fedora" }}
+need chsh /usr/bin/chsh  # dnf resolves the path; newer Fedora moved chsh to util-linux
+{{- end }}
+{{- if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+need fc-cache fontconfig
+need unzip
+{{- end }}
+
+if [ ${#missing[@]} -gt 0 ]; then
+    printf "\n# Install %s\n" "${missing[*]}"
+    if command -v apt-get >/dev/null 2>&1; then
+        as_root apt-get update
+        as_root apt-get install -y "${missing[@]}"
+    elif command -v dnf >/dev/null 2>&1; then
+        as_root dnf install -y "${missing[@]}"
+    else
+        echo "Install ${missing[*]}, then run chezmoi apply again" >&2
+        exit 1
+    fi
+fi
+{{- if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+
+font_dir="$HOME/.local/share/fonts/FiraCode"
+if [ ! -d "$font_dir" ]; then
+    printf "\n# Install FiraCode Nerd Font\n"
+    tmp=$(mktemp -d)
+    trap 'rm -rf "$tmp"' EXIT
+    curl -fsSL -o "$tmp/FiraCode.zip" https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip
+    unzip -q "$tmp/FiraCode.zip" 'Fira*Mono*.ttf' -d "$tmp/FiraCode"
+    mkdir -p "$(dirname "$font_dir")"
+    mv "$tmp/FiraCode" "$font_dir"
+    fc-cache -f
+fi
+{{- end }}
+
+{{ end -}}
+change_login_shell() {
+    grep -qxF "$1" /etc/shells || echo "$1" | as_root tee -a /etc/shells >/dev/null
+    as_root chsh -s "$1" "$(id -un)"
+}
+
+zsh_path=$(grep -m1 "/zsh$" /etc/shells || command -v zsh)
+{{- if eq .chezmoi.os "darwin" }}
+login_shell=$(dscl . -read "/Users/$(id -un)" UserShell | awk '{print $2}')
+{{- else }}
+login_shell=$(getent passwd "$(id -un)" | cut -d: -f7)
+{{- end }}
+case "$login_shell" in
+    */zsh) ;;
+    *)
+        printf "\n# Make zsh the login shell\n"
+        change_login_shell "$zsh_path" ||
+            echo "Could not make zsh the login shell, run: chsh -s $zsh_path" >&2
+        ;;
+esac

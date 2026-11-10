@@ -9,10 +9,8 @@ check_installed() {
         exit 1
     fi
 }
-check_installed curl
 check_installed nvim
 check_installed tmux
-check_installed zsh
 
 pushd ~
 printf "\n# Install/update Chezmoi\n"
@@ -78,45 +76,12 @@ $HOME/.local/bin/uvx --generate-shell-completion zsh > _uvx
 curl -o _zoxide https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/contrib/completions/_zoxide
 popd
 
-{{ if or (eq .chezmoi.os "darwin") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}}
-{{ if eq .chezmoi.os "linux" -}}
-{{ if eq .chezmoi.osRelease.id "fedora" -}}
-printf "\n# Install dnf utilities\n"
-sudo dnf -y update && sudo dnf -y install \
-    fontconfig \
-    unzip \
-    util-linux-user \
-{{- end -}}
-
-if [ ! -d ~/.local/share/fonts/FiraCode ]
-then
-    printf "\n# Install fonts\n"
-    mkdir -p ~/.local/share/fonts/FiraCode
-    curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip --output FiraCode.zip
-    unzip FiraCode.zip -d ~/.local/share/fonts/FiraCode "Fira*Mono*.ttf"
-    rm FiraCode.zip
-    fc-cache -f
-else
-    printf "\n# Fonts already installed\n"
-fi
-{{ end }}
-{{- end -}}
-
 printf "\n# Checking GitHub account status\n"
 $HOME/.local/bin/grm install --yes{{ if eq .chezmoi.os "linux" }} -f tar.gz{{ end }} cli/cli
 gh auth status
 if [ $? -ne 0 ]
 then
     gh auth login
-fi
-
-if [ $(basename $SHELL) != "zsh" ]
-then
-    printf "\n# Make Zsh default shell\n"
-    command -v zsh | sudo tee -a /etc/shells
-    chsh -s $(which zsh)
-else
-    printf "\n# Zsh already default shell\n"
 fi
 
 printf "\n# Script finished successfully, open a new terminal to use new configuration\n"

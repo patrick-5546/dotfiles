@@ -20,6 +20,7 @@ install-windows.ps1
 .tmux.conf
 .zshrc
 decrypt-private-key-unix.sh
+install-packages-unix.sh
 install-unix.sh
 {{- end }}
 
