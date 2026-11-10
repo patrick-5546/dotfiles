@@ -90,6 +90,28 @@
       }
     },
     {
+      "Id": "Microsoft.VisualStudioCode",
+      "Name": "Microsoft Visual Studio Code",
+      "Version": "1.144.0",
+      "Source": "winget",
+      "ManagerName": "Winget",
+      "InstallationOptions": {
+        "SkipHashCheck": false,
+        "InteractiveInstallation": false,
+        "RunAsAdministrator": false,
+        "Architecture": "",
+        "InstallationScope": "",
+        "CustomParameters": [],
+        "PreRelease": false,
+        "CustomInstallLocation": "",
+        "Version": ""
+      },
+      "Updates": {
+        "UpdatesIgnored": false,
+        "IgnoredVersion": ""
+      }
+    },
+    {
       "Id": "Microsoft.WindowsTerminal",
       "Name": "Windows Terminal",
       "Version": "1.19.10821.0",
@@ -118,12 +140,6 @@
       "Id": "Microsoft.PowerShell_8wekyb3d8bbwe",
       "Name": "PowerShell",
       "Version": "7.4.2.0",
-      "Source": "Local PC"
-    },
-    {
-      "Id": "Microsoft.VSCode_8te5zrwvmdcsm",
-      "Name": "Visual Studio Code",
-      "Version": "1.0.0.0",
       "Source": "Local PC"
     },
     {
