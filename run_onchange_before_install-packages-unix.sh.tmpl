@@ -17,11 +17,17 @@ missing=()
 need() {  # need COMMAND [PACKAGE]
     command -v "$1" >/dev/null 2>&1 || missing+=("${2:-$1}")
 }
+need_lib() {  # need_lib LIBRARY PACKAGE
+    /sbin/ldconfig -p | grep -F "$1" >/dev/null || missing+=("$2")
+}
 need curl
 need git
 need zsh
 {{- if eq .chezmoi.osRelease.id "fedora" }}
 need chsh /usr/bin/chsh  # dnf resolves the path; newer Fedora moved chsh to util-linux
+need_lib libatomic.so.1 libatomic  # Node.js from mise links against it
+{{- else }}
+need_lib libatomic.so.1 libatomic1  # Node.js from mise links against it
 {{- end }}
 {{- if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 need fc-cache fontconfig

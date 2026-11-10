@@ -1,4 +1,4 @@
-# Command-line tools, installed by run_onchange_after_install-tools-unix.sh.
+# Tools installed by run_onchange_after_install-tools-unix.sh.
 # Update them with `mise upgrade`. See https://mise.jdx.dev/configuration.html
 [tools]
 # On Linux, the glibc builds of atuin and yazi need glibc 2.39 (Ubuntu 24.04),
@@ -6,14 +6,17 @@
 # which matters for lsd: its musl build shows uid/gid instead of user names.
 atuin = { version = "latest", libc = "musl" }
 bat = "latest"
+copilot = "latest"
 delta = "latest"
 dust = "latest"
 fd = "latest"
 fzf = "latest"
 gh = "latest"
+go = "latest"
 lazygit = "latest"
 lsd = "latest"
 neovim = "latest"
+node = "lts"
 ripgrep = "latest"
 starship = "latest"
 tmux = "latest"

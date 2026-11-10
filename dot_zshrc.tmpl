@@ -65,7 +65,6 @@ bindkey "^[OB" down-line-or-beginning-search
 source $HOME/.config/zsh/aliases.zsh
 
 # Environment Variables
-export PATH=/usr/local/go/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 {{- if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
@@ -74,10 +73,6 @@ export PATH="/mnt/c/Windows/System32:$PATH"
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export DOCKER_BUILDKIT=1
-# https://github.com/lukechilds/zsh-nvm
-export NVM_COMPLETION=true
-export NVM_LAZY_LOAD=true
-export NVM_LAZY_LOAD_EXTRA_COMMANDS=('nvim' 'lazygit' 'copilot' 'make')
 
 # Tools installed by mise: https://mise.jdx.dev
 eval "$($HOME/.local/bin/mise activate zsh)"
@@ -112,7 +107,6 @@ bindkey -M vicmd '^T' undefined-key
 bindkey -M viins '^T' self-insert
 
 # Other Zsh scripts
-source $HOME/.local/share/zsh-nvm/zsh-nvm.plugin.zsh
 source $HOME/.local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 {{- if and (eq .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
 source $HOME/.config/zsh/openvpn3.zsh

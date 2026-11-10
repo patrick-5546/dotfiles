@@ -1,8 +1,4 @@
 {{ if or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux") -}}
-[".local/share/zsh-nvm"]
-    type = "git-repo"
-    url = "https://github.com/lukechilds/zsh-nvm.git"
-    refreshPeriod = "168h"
 [".vim/pack/plugins/start/vim-tmux-navigator"]
     type = "git-repo"
     url = "https://github.com/christoomey/vim-tmux-navigator.git"
