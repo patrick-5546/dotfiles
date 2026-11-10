@@ -44,6 +44,7 @@ copy_completion yazi _yazi
 copy_completion zoxide _zoxide
 curl -fsSL -o _dust "https://raw.githubusercontent.com/bootandy/dust/v$("$mise" current dust)/completions/_dust" \
     || echo "Couldn't download the dust completions" >&2
+rm -f "$HOME/.zcompdump"  # so that the next zsh loads the new completions
 
 if [ -t 0 ] && ! gh auth status >/dev/null 2>&1; then
     printf "\n# Log in to GitHub\n"

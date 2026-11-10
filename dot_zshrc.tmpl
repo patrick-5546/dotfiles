@@ -5,17 +5,21 @@ autoload -U colors && colors
 fpath=($HOME/.config/zsh/completions $fpath)
 autoload -Uz compinit
 zmodload zsh/complist
-compinit
+# A full compinit looks for new completions and runs a security check, which is
+# slow, so only run it when the dump is missing or a day old. Otherwise load the
+# dump as is. install-tools-unix.sh deletes the dump when it updates completions.
+() {
+    setopt local_options extended_glob
+    if [[ -n $HOME/.zcompdump(#qN.mh-24) ]]; then
+        compinit -C
+    else
+        compinit
+        # Start a new day even if compinit kept the dump because it was valid
+        touch -c $HOME/.zcompdump
+    fi
+}
 # zsh's SCCS completion also claims delta
 compdef _delta delta
-# can't get caching to work
-#typeset -i USE_CACHE
-#(( $+commands[compaudit] && $+commands[compinit] )) && compaudit | read -ra USE_CACHE
-#if (( USE_CACHE )); then
-#  compinit
-#else
-#  compinit -C
-#fi
 
 # Set completion style
 zstyle ':completion:*' menu select

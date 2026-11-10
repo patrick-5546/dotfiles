@@ -60,7 +60,7 @@ done
 
 echo "# files that aren't templates"
 shellcheck .github/*.sh
-for file in dot_config/zsh/*.zsh; do
+for file in dot_zshenv dot_config/zsh/*.zsh; do
     zsh -n "$file"
 done
 for file in $(git ls-files '*.toml' ':!:.chezmoiexternal.toml'); do

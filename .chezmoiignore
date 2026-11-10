@@ -16,6 +16,7 @@ decrypt-private-key-windows.ps1
 .config/mise
 .config/zsh
 .tmux.conf
+.zshenv
 .zshrc
 decrypt-private-key-unix.sh
 install-packages-unix.sh

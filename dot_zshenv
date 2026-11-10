@@ -1,0 +1,5 @@
+# Ubuntu's /etc/zsh/zshrc runs compinit before ~/.zshrc runs it again with the
+# dotfiles' completions. The two runs keep replacing each other's dump, so both
+# rebuild it in every new shell, and the dump that ~/.zshrc caches would be
+# missing the dotfiles' completions.
+skip_global_compinit=1
