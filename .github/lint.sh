@@ -1,8 +1,9 @@
 #!/bin/bash
 # Renders the chezmoi templates for each OS, with and without the encrypted
-# files, then checks the results: shellcheck for shell scripts, zsh -n, the
-# PowerShell parser, and TOML, YAML and git config syntax. Needs chezmoi,
-# zsh, shellcheck, pwsh, python3 and yq.
+# files, and checks them along with the files that aren't templates: shell
+# scripts with shellcheck, zsh files with zsh -n, PowerShell with its parser,
+# and TOML, YAML and git config syntax. Needs chezmoi, zsh, shellcheck, pwsh,
+# python3 and yq.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -16,6 +17,10 @@ declare -A os_data=(
 out=$(mktemp -d)
 trap 'rm -rf "$out"' EXIT
 
+toml() {  # toml FILE
+    python3 -c 'import sys, tomllib; tomllib.load(open(sys.argv[1], "rb"))' "$1"
+}
+
 check() {  # check OS TEMPLATE RENDERED
     case $2 in
         *.sh.tmpl) [ "$1" = windows ] || shellcheck "$3" ;;
@@ -28,8 +33,7 @@ check() {  # check OS TEMPLATE RENDERED
                 exit $errors.Count'
             ;;
         dot_zshrc.tmpl) [ "$1" = windows ] || zsh -n "$3" ;;
-        *.toml.tmpl | .chezmoiexternal.toml)
-            python3 -c 'import sys, tomllib; tomllib.load(open(sys.argv[1], "rb"))' "$3" ;;
+        *.toml.tmpl | .chezmoiexternal.toml) toml "$3" ;;
         *.yaml.tmpl | *.yml.tmpl) yq . "$3" >/dev/null ;;
         dot_gitconfig.tmpl) git config --file "$3" --list >/dev/null ;;
     esac
@@ -58,4 +62,7 @@ echo "# files that aren't templates"
 shellcheck .github/*.sh
 for file in dot_config/zsh/*.zsh; do
     zsh -n "$file"
+done
+for file in $(git ls-files '*.toml' ':!:.chezmoiexternal.toml'); do
+    toml "$file"
 done

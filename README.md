@@ -17,7 +17,7 @@ The files I think are most notable are listed below:
     - Integrated with neovim: uses same theme, seamless navigation between tmux and neovim splits
 - Installation scripts: improve and standardize the CLI across operating systems
     - CLI tools are installed and updated with [mise](https://mise.jdx.dev):
-      [`dot_config/mise/config.toml.tmpl`](./dot_config/mise/config.toml.tmpl)
+      [`dot_config/mise/config.toml`](./dot_config/mise/config.toml)
     - Unix-specific, rerun by chezmoi only when they change:
         - [`run_onchange_before_install-packages-unix.sh.tmpl`](./run_onchange_before_install-packages-unix.sh.tmpl):
           installs the missing system packages and makes zsh the login shell. Only uses sudo when something is missing
@@ -36,8 +36,8 @@ The files I think are most notable are listed below:
     - Windows-specific: [`run_before_decrypt-private-key-windows.ps1.tmpl`](./run_before_decrypt-private-key-windows.ps1.tmpl)
 - CI: [`.github/workflows/ci.yml`](./.github/workflows/ci.yml)
     - [`.github/lint.sh`](./.github/lint.sh): renders the templates for each OS, with and without the encrypted files,
-      then checks them with shellcheck, `zsh -n`, the PowerShell parser, and TOML, YAML and git config parsers.
-      Also runs locally
+      then checks them and the files that aren't templates with shellcheck, `zsh -n`, the PowerShell parser, and
+      TOML, YAML and git config parsers. Also runs locally
     - [`.github/test.sh`](./.github/test.sh): installs the dotfiles on fresh Ubuntu (latest and 22.04) and macOS
       machines, then checks that applying again changes nothing and that the shells start cleanly with the tools from mise
 - Configuration files for software that is not managed with chezmoi: [`reference_dotfiles`](./reference_dotfiles)

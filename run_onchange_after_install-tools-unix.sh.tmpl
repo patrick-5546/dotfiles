@@ -1,8 +1,8 @@
 #!/bin/bash
 # Installs mise (https://mise.jdx.dev) and the tools in ~/.config/mise/config.toml,
 # then generates zsh completions for them. chezmoi runs this after applying
-# files and again whenever this script or the rendered mise config changes.
-# mise config hash: {{ includeTemplate "dot_config/mise/config.toml.tmpl" . | sha256sum }}
+# files and again whenever this script or the mise config changes.
+# mise config hash: {{ include "dot_config/mise/config.toml" | sha256sum }}
 set -euo pipefail
 
 mise="$HOME/.local/bin/mise"
