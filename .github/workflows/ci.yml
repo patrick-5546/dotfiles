@@ -45,17 +45,20 @@ jobs:
         include:
           - name: ubuntu
             os: ubuntu-latest
-          - name: fedora
+          # Ubuntu 22.04 has an older glibc, and the container starts without
+          # the packages that GitHub's runners come with
+          - name: ubuntu 22.04
             os: ubuntu-latest
-            container: fedora:latest
+            container: ubuntu:22.04
           - name: macos
             os: macos-latest
     env:
+      DEBIAN_FRONTEND: noninteractive
       GITHUB_TOKEN: ${{ github.token }}  # raises mise's GitHub API rate limit
     steps:
-      - name: Install Python for the terminal checks
+      - name: Install curl and Python for the test
         if: matrix.container
-        run: dnf install -y python3
+        run: apt-get update && apt-get install -y ca-certificates curl python3
       - uses: actions/checkout@v7
         with:
           persist-credentials: false

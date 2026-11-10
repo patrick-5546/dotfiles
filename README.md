@@ -2,7 +2,7 @@
 
 My cross-platform, cross-shell configuration files and installation scripts managed with [chezmoi](https://www.chezmoi.io/):
 
-- Zsh on Linux: Ubuntu, Fedora, and WSL 2
+- Zsh on Linux: Ubuntu and WSL 2
 - Zsh on macOS
 - PowerShell 7 on Windows 11
 
@@ -39,8 +39,8 @@ The files I think are most notable are listed below:
     - [`.github/lint.sh`](./.github/lint.sh): renders the templates for each OS, with and without the encrypted files,
       then checks them with shellcheck, `zsh -n`, the PowerShell parser, and TOML, YAML and git config parsers.
       Also runs locally
-    - [`.github/test.sh`](./.github/test.sh): installs the dotfiles on fresh Ubuntu, Fedora and macOS machines, then
-      checks that applying again changes nothing and that the shells start cleanly with the tools from mise
+    - [`.github/test.sh`](./.github/test.sh): installs the dotfiles on fresh Ubuntu (latest and 22.04) and macOS
+      machines, then checks that applying again changes nothing and that the shells start cleanly with the tools from mise
 - Configuration files for software that is not managed with chezmoi: [`reference_dotfiles`](./reference_dotfiles)
 
 ## Installation
@@ -54,7 +54,7 @@ again.
 1. Install prerequisites
     - [curl](https://curl.se/download.html), to install chezmoi
     - On macOS, git from the Xcode Command Line Tools: `xcode-select --install`
-    - On Linux, chezmoi installs git, zsh, and the other packages it needs with apt or dnf
+    - On Linux, chezmoi installs git, zsh, and the other packages it needs with apt
 
 2. Install chezmoi in `~/.local/bin`, pulling and applying the latest changes
 
@@ -66,18 +66,7 @@ again.
 
 3. If desired, manually install software with unique installation instructions
     - [Alacritty](https://github.com/alacritty/alacritty/blob/master/INSTALL.md)
-4. Additional setup for Fedora
-    1. [Enable RPM Fusion repositories](https://docs.fedoraproject.org/en-US/quick-docs/setup_rpmfusion/)
-    2. [Install multimedia plugins](https://docs.fedoraproject.org/en-US/quick-docs/assembly_installing-plugins-for-playing-movies-and-music/)
-    3. Configure dnf (run `man dnf.conf` to see options and defaults): append the following lines to `/etc/dnf/dnf.conf`
-
-        ```
-        max_parallel_downloads=10
-        defaultyes=True
-        keepcache=True
-        ```
-
-5. Keep everything up to date
+4. Keep everything up to date
 
     ```
     chezmoi update     # pull and apply the latest changes

@@ -7,9 +7,9 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 declare -A os_data=(
-    [ubuntu]='{"os":"linux","osRelease":{"id":"ubuntu"},"kernel":{"osrelease":"6.8.0-45-generic"}}'
-    [fedora]='{"os":"linux","osRelease":{"id":"fedora"},"kernel":{"osrelease":"6.11.4-301.fc41.x86_64"}}'
-    [wsl]='{"os":"linux","osRelease":{"id":"ubuntu"},"kernel":{"osrelease":"5.15.167.4-microsoft-standard-WSL2"}}'
+    # Templates only read the kernel release to tell WSL apart from other Linux
+    [linux]='{"os":"linux","kernel":{"osrelease":"6.8.0-generic"}}'
+    [wsl]='{"os":"linux","kernel":{"osrelease":"5.15.167.4-microsoft-standard-WSL2"}}'
     [darwin]='{"os":"darwin"}'
     [windows]='{"os":"windows"}'
 )

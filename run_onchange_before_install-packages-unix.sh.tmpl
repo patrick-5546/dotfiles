@@ -23,12 +23,7 @@ need_lib() {  # need_lib LIBRARY PACKAGE
 need curl
 need git
 need zsh
-{{- if eq .chezmoi.osRelease.id "fedora" }}
-need chsh /usr/bin/chsh  # dnf resolves the path; newer Fedora moved chsh to util-linux
-need_lib libatomic.so.1 libatomic  # Node.js from mise links against it
-{{- else }}
 need_lib libatomic.so.1 libatomic1  # Node.js from mise links against it
-{{- end }}
 {{- if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 need fc-cache fontconfig
 need unzip
@@ -39,8 +34,6 @@ if [ ${#missing[@]} -gt 0 ]; then
     if command -v apt-get >/dev/null 2>&1; then
         as_root apt-get update
         as_root apt-get install -y "${missing[@]}"
-    elif command -v dnf >/dev/null 2>&1; then
-        as_root dnf install -y "${missing[@]}"
     else
         echo "Install ${missing[*]}, then run chezmoi apply again" >&2
         exit 1
