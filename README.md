@@ -114,3 +114,4 @@ again.
 
 4. Optional: install the other software I use with [UniGetUI](https://github.com/Devolutions/UniGetUI), by importing
    the bundles in [`reference_dotfiles/wingetui`](./reference_dotfiles/wingetui/)
+    - `dev.json` includes gcc ([WinLibs](https://winlibs.com)), which LazyVim needs to compile treesitter parsers
