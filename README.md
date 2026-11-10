@@ -84,35 +84,38 @@ again.
 
 ### PowerShell 7 on Windows
 
-1. Install PowerShell 7 from the Microsoft Store
-2. Install chezmoi and git using winget in PowerShell
+1. Install PowerShell 7 and Git with winget
 
     ```
-    winget install --exact --id twpayne.chezmoi --interactive
-    winget install --exact --id Git.Git --interactive
+    winget install --exact --id Microsoft.PowerShell --source winget
+    winget install --exact --id Git.Git --source winget
     ```
 
-3. Clone this repository in PowerShell, pulling and applying the latest changes
+    - The profile and chezmoi's scripts run in PowerShell 7, and chezmoi uses Git to clone the yazi theme
+
+2. Open a new PowerShell 7 terminal, then install chezmoi in `~\.local\bin`, pulling and applying the latest changes
 
     ```
-    chezmoi init --apply patrick-5546
+    iex "&{$(irm 'https://get.chezmoi.io/ps1')} -b '~/.local/bin' -- init --apply patrick-5546"
     ```
 
-    - This also installs mise in `~\.local\bin` and the tools in its config. Open a new terminal to start using them
+    - This also installs mise in `~\.local\bin`, adds that folder to your Path, and installs the tools in mise's
+      config. Open a new terminal to start using them
 
-4. Keep everything up to date
+3. Keep everything up to date
 
     ```
     chezmoi update                 # pull and apply the latest changes
     mise upgrade                   # upgrade the tools, which updates mise.lock
     chezmoi re-add ~/.config/mise  # save mise.lock, then commit and push it
     mise self-update               # upgrade mise
+    chezmoi upgrade                # upgrade chezmoi
     ```
 
     - To roll back an upgrade, revert its commit in the source directory (`chezmoi cd`) and run `chezmoi apply`
-    - Upgrade chezmoi and git with winget or UniGetUI
+    - Upgrade PowerShell and Git with winget or UniGetUI
 
-5. Optional: run [`run_install-windows.ps1`](./reference_dotfiles/run_install-windows.ps1) to install the other software I use
+4. Optional: run [`run_install-windows.ps1`](./reference_dotfiles/run_install-windows.ps1) to install the other software I use
     - Prerequisite: `winget install --exact --id gerardog.gsudo --interactive`
     - Note: I do not run this automatically anymore because I do most of my development through WSL or VS Code.
       Instead, I now manage the software I want through [UniGetUI](https://github.com/Devolutions/UniGetUI) whenever possible
