@@ -61,14 +61,6 @@ function lt {
     ls -alhrt @args
 }
 
-function kstart {
-    komorebic start --whkd
-}
-
-function kstop {
-    komorebic stop --whkd
-}
-
 function ssh-copy-id($remote) {
     cat ~/.ssh/id_rsa.pub | ssh $remote "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"
 }
