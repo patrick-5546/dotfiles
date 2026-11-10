@@ -1,8 +1,9 @@
 #!/bin/bash
 # Installs mise (https://mise.jdx.dev) and the tools in ~/.config/mise/config.toml,
 # then generates zsh completions for them. chezmoi runs this after applying
-# files and again whenever this script or the mise config changes.
+# files and again whenever this script, the mise config or mise.lock changes.
 # mise config hash: {{ include "dot_config/mise/config.toml" | sha256sum }}
+# mise.lock hash: {{ include "dot_config/mise/mise.lock" | sha256sum }}
 set -euo pipefail
 
 mise="$HOME/.local/bin/mise"
@@ -12,7 +13,8 @@ if [ ! -x "$mise" ]; then
 fi
 
 printf "\n# Install tools with mise\n"
-"$mise" install
+# Only the versions in mise.lock, and fail if it doesn't have them
+"$mise" install --locked
 eval "$("$mise" env --shell bash)"
 
 # Remove the standalone installer's receipt so `uv self update` can't replace mise's uv

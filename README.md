@@ -17,17 +17,19 @@ The files I think are most notable are listed below:
     - Integrated with neovim: uses same theme, seamless navigation between tmux and neovim splits
 - Installation scripts: improve and standardize the CLI across operating systems
     - CLI tools are installed and updated with [mise](https://mise.jdx.dev):
-      [`dot_config/mise/config.toml`](./dot_config/mise/config.toml)
+      [`dot_config/mise/config.toml`](./dot_config/mise/config.toml), with their versions pinned in
+      [`mise.lock`](./dot_config/mise/mise.lock)
     - Unix-specific, rerun by chezmoi only when they change:
         - [`run_onchange_before_install-packages-unix.sh.tmpl`](./run_onchange_before_install-packages-unix.sh.tmpl):
           installs the missing system packages and makes zsh the login shell. Only uses sudo when something is missing
         - [`run_onchange_after_install-tools-unix.sh.tmpl`](./run_onchange_after_install-tools-unix.sh.tmpl):
           installs mise and the tools in its config, and generates their zsh completions.
-          Also reruns when the mise config changes
+          Also reruns when the mise config or `mise.lock` changes
     - Plugins cloned from git: [`.chezmoiexternal.toml`](./.chezmoiexternal.toml)
     - Windows-specific:
         - [`run_onchange_after_install-tools-windows.ps1.tmpl`](./run_onchange_after_install-tools-windows.ps1.tmpl):
-          installs mise and the tools in its config. Reruns when it or the mise config changes
+          installs mise and the tools in its config.
+          Reruns when it, the mise config or `mise.lock` changes
         - [`run_install-windows.ps1`](./reference_dotfiles/run_install-windows.ps1): installs the other software I use
             - To see what software is installed, search for `wingetInstallIfNotInstalled`, `choco install`, and
               `Install-Module`
@@ -73,11 +75,14 @@ again.
 4. Keep everything up to date
 
     ```
-    chezmoi update     # pull and apply the latest changes
-    mise upgrade       # upgrade the tools
-    mise self-update   # upgrade mise
-    chezmoi upgrade    # upgrade chezmoi
+    chezmoi update                 # pull and apply the latest changes
+    mise upgrade                   # upgrade the tools, which updates mise.lock
+    chezmoi re-add ~/.config/mise  # save mise.lock, then commit and push it
+    mise self-update               # upgrade mise
+    chezmoi upgrade                # upgrade chezmoi
     ```
+
+    - To roll back an upgrade, revert its commit in the source directory (`chezmoi cd`) and run `chezmoi apply`
 
 ### PowerShell 7 on Windows
 
@@ -100,11 +105,13 @@ again.
 4. Keep everything up to date
 
     ```
-    chezmoi update     # pull and apply the latest changes
-    mise upgrade       # upgrade the tools
-    mise self-update   # upgrade mise
+    chezmoi update                 # pull and apply the latest changes
+    mise upgrade                   # upgrade the tools, which updates mise.lock
+    chezmoi re-add ~/.config/mise  # save mise.lock, then commit and push it
+    mise self-update               # upgrade mise
     ```
 
+    - To roll back an upgrade, revert its commit in the source directory (`chezmoi cd`) and run `chezmoi apply`
     - Upgrade chezmoi and git with winget or UniGetUI
 
 5. Optional: run [`run_install-windows.ps1`](./reference_dotfiles/run_install-windows.ps1) to install the other software I use

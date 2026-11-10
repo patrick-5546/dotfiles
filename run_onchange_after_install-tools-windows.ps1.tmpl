@@ -1,7 +1,8 @@
 # Installs mise (https://mise.jdx.dev) and the tools in ~/.config/mise/config.toml.
-# chezmoi runs this after applying files and again whenever this script or the
-# mise config changes.
+# chezmoi runs this after applying files and again whenever this script, the
+# mise config or mise.lock changes.
 # mise config hash: {{ include "dot_config/mise/config.toml" | sha256sum }}
+# mise.lock hash: {{ include "dot_config/mise/mise.lock" | sha256sum }}
 $ErrorActionPreference = 'Stop'
 
 $mise = "$HOME\.local\bin\mise.exe"
@@ -13,5 +14,6 @@ if (-not (Test-Path $mise -PathType Leaf)) {
 }
 
 Write-Host "`n# Install tools with mise"
-& $mise install
+# Only the versions in mise.lock, and fail if it doesn't have them
+& $mise install --locked
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

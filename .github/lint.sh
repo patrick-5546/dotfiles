@@ -68,6 +68,6 @@ done
 for file in $(git ls-files '*.ps1'); do
     ps1 "$file"
 done
-for file in $(git ls-files '*.toml' ':!:.chezmoiexternal.toml'); do
+for file in $(git ls-files '*.toml' '*.lock' ':!:.chezmoiexternal.toml'); do
     toml "$file"
 done

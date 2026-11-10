@@ -1,16 +1,27 @@
-# Tools that mise (https://mise.jdx.dev) installs. chezmoi applies this file to
-# ~/.config/mise/config.toml, and the run_onchange_after_install-tools scripts
-# install the tools whenever it changes.
+# Tools that mise (https://mise.jdx.dev) installs. chezmoi applies this file and
+# mise.lock to ~/.config/mise, and the run_onchange_after_install-tools scripts
+# install the tools whenever either changes.
 #
 # - mise installs the tools in ~/.local/share/mise/installs, or
 #   %LOCALAPPDATA%\mise\installs on Windows. `mise activate` in .zshrc and the
-#   PowerShell profile puts the versions listed here on PATH.
-# - Add or change a tool with `mise use -g TOOL[@VERSION]`, which keeps these
-#   comments, then save the change with `chezmoi re-add ~/.config/mise`.
-#   Run a tool once without adding it with `mise exec TOOL@VERSION -- COMMAND`.
-# - Update the tools with `mise upgrade` and mise itself with `mise self-update`.
+#   PowerShell profile puts the versions in mise.lock on PATH.
+# - mise.lock pins the version, URL and checksum of each tool, so that every
+#   machine installs the same builds. The install scripts only install what it
+#   lists (`mise install --locked`).
+# - Add or change a tool with `mise use -g TOOL[@VERSION]`, and update the tools
+#   with `mise upgrade`. Both keep these comments and update mise.lock. After
+#   editing this file by hand, update mise.lock with `mise lock --global`. Then
+#   save the changes with `chezmoi re-add ~/.config/mise`, and commit them.
+# - Roll back an update by reverting its commit and running `chezmoi apply`.
+# - Run a tool once without adding it with `mise exec TOOL@VERSION -- COMMAND`,
+#   and update mise itself with `mise self-update`.
 #
 # See https://mise.jdx.dev/configuration.html
+[settings]
+# Platforms that mise.lock has downloads for. To set up another kind of machine,
+# add its platform and run `mise lock --global`.
+lockfile_platforms = ["linux-arm64", "linux-x64", "macos-arm64", "windows-x64"]
+
 [tools]
 # On Linux, the glibc builds of atuin and yazi need glibc 2.39 (Ubuntu 24.04),
 # so use their static musl builds. mise uses glibc builds for the other tools,
