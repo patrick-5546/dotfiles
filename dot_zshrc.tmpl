@@ -6,6 +6,8 @@ fpath=($HOME/.config/zsh/completions $fpath)
 autoload -Uz compinit
 zmodload zsh/complist
 compinit
+# zsh's SCCS completion also claims delta
+compdef _delta delta
 # can't get caching to work
 #typeset -i USE_CACHE
 #(( $+commands[compaudit] && $+commands[compinit] )) && compaudit | read -ra USE_CACHE
@@ -77,6 +79,9 @@ export NVM_COMPLETION=true
 export NVM_LAZY_LOAD=true
 export NVM_LAZY_LOAD_EXTRA_COMMANDS=('nvim' 'lazygit' 'copilot' 'make')
 
+# Tools installed by mise: https://mise.jdx.dev
+eval "$($HOME/.local/bin/mise activate zsh)"
+
 # fzf configuration
 # Use fd (https://github.com/sharkdp/fd) instead of the default find command for listing path candidates.
 # - The first argument to the function ($1) is the base path to start traversal
@@ -112,10 +117,6 @@ source $HOME/.local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 {{- if and (eq .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
 source $HOME/.config/zsh/openvpn3.zsh
 {{- end }}
-
-# Some completions are broken and need to be sourced manually
-. $HOME/.config/zsh/completions/_delta
-. $HOME/.config/zsh/completions/_grm
 
 # Atuin: https://github.com/atuinsh/atuin
 eval "$(atuin init zsh --disable-up-arrow --disable-ai)"

@@ -15,13 +15,14 @@ install-windows.ps1
 {{ if eq .chezmoi.os "windows" -}}
 .config/atuin
 .config/bpytop
+.config/mise
 .config/tmuxinator
 .config/zsh
 .tmux.conf
 .zshrc
 decrypt-private-key-unix.sh
 install-packages-unix.sh
-install-unix.sh
+install-tools-unix.sh
 {{- end }}
 
 # linux without WSL files
