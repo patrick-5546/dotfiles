@@ -122,7 +122,7 @@ done
 [[ $(bindkey -M viins "^R") == *" atuin-"* ]] || print "Ctrl-R: $(bindkey -M viins "^R")"
 (( $+functions[__zoxide_z] )) || print "zoxide isn'\''t initialized"
 '
-tools=(atuin bat copilot delta dust fd fzf gh go lazygit lsd node npm nvim rg starship tmux uv uvx ya yazi zoxide)
+tools=(atuin bat delta dust fd fzf gh go lazygit lsd node npm nvim rg starship tmux uv uvx ya yazi zoxide)
 output=$(in_pty zsh -i -c "$zsh_checks" zsh "${tools[@]}") && status=0 || status=$?
 if [ "$status" -ne 0 ] || [ -n "$output" ]; then
     fail "The zsh checks exited with $status and printed: $output"

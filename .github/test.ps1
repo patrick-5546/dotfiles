@@ -49,7 +49,7 @@ if ($LASTEXITCODE -ne 0 -or $output.Trim()) { Fail "PowerShell printed on startu
 # Prints the problems it finds
 $checks = @'
 $installs = Join-Path $env:LOCALAPPDATA 'mise\installs'
-$tools = 'bat', 'copilot', 'delta', 'dust', 'fd', 'fzf', 'gh', 'go', 'lazygit', 'lsd',
+$tools = 'bat', 'delta', 'dust', 'fd', 'fzf', 'gh', 'go', 'lazygit', 'lsd',
     'node', 'npm', 'nvim', 'rg', 'starship', 'uv', 'uvx', 'ya', 'yazi', 'zoxide'
 foreach ($tool in $tools) {
     $source = (Get-Command $tool -ErrorAction Ignore | Select-Object -First 1).Source

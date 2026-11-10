@@ -53,31 +53,6 @@ checksum = "sha256:0f729b4b6f5f28d395c641eacc2e9ff68d0096b85aa0eec344aa62425144b
 url = "https://github.com/sharkdp/bat/releases/download/v0.26.1/bat-v0.26.1-x86_64-pc-windows-msvc.zip"
 url_api = "https://api.github.com/repos/sharkdp/bat/releases/assets/323549116"
 
-[[tools.copilot]]
-version = "1.0.108"
-backend = "aqua:github/copilot-cli"
-specifiers = ["latest"]
-
-[tools.copilot."platforms.linux-arm64"]
-checksum = "sha256:b0c78c49543bb8a1163e812dcd0601a5ff1ffc067889add6351b0568d76772e6"
-url = "https://github.com/github/copilot-cli/releases/download/v1.0.108/copilot-linux-arm64.tar.gz"
-url_api = "https://api.github.com/repos/github/copilot-cli/releases/assets/728128470"
-
-[tools.copilot."platforms.linux-x64"]
-checksum = "sha256:4c14e320c5cd10234ad56cba855509206e4518e1c04a780ac05a8e1c124bd97d"
-url = "https://github.com/github/copilot-cli/releases/download/v1.0.108/copilot-linux-x64.tar.gz"
-url_api = "https://api.github.com/repos/github/copilot-cli/releases/assets/728129070"
-
-[tools.copilot."platforms.macos-arm64"]
-checksum = "sha256:567198e7cd947f5b05bef7f036116e6286ddcd8286ec45830082b28c664dbfb0"
-url = "https://github.com/github/copilot-cli/releases/download/v1.0.108/copilot-darwin-arm64.tar.gz"
-url_api = "https://api.github.com/repos/github/copilot-cli/releases/assets/728128461"
-
-[tools.copilot."platforms.windows-x64"]
-checksum = "sha256:3b1fc7791c6c0d199d68b3469ee65fb2cedf46f06c13978109796742f2b86229"
-url = "https://github.com/github/copilot-cli/releases/download/v1.0.108/copilot-win32-x64.zip"
-url_api = "https://api.github.com/repos/github/copilot-cli/releases/assets/728128471"
-
 [[tools.delta]]
 version = "0.20.1"
 backend = "aqua:dandavison/delta"

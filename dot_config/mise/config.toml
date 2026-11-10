@@ -29,7 +29,6 @@ lockfile_platforms = ["linux-arm64", "linux-x64", "macos-arm64", "windows-x64"]
 # Only zsh uses atuin, so Windows skips it. mise already skips tmux there.
 atuin = { version = "latest", libc = "musl", os = ["linux", "macos"] }
 bat = "latest"
-copilot = "latest"
 delta = "latest"
 dust = "latest"
 fd = "latest"
