@@ -1,12 +1,5 @@
-#$executionTime = Measure-Command `
-#{
-
 # Imports
-# - Slowest imports are posh-git, Terminal-Icons
-# Import-Module git-aliases -DisableNameChecking
-#Import-Module posh-git
 Import-Module PSReadLine
-#Import-Module Terminal-Icons
 
 $ProfilePath=Split-Path -parent $profile
 
@@ -25,12 +18,6 @@ Set-PSReadLineOption -HistorySearchCursorMovesToEnd
 Set-PSReadlineKeyHandler -Chord 'Ctrl+r' -Function SwitchPredictionView
 Set-PSReadlineKeyHandler -Chord 'Ctrl+j' -Function NextSuggestion
 Set-PSReadlineKeyHandler -Chord 'Ctrl+k' -Function PreviousSuggestion
-
-## Zoxide: https://github.com/ajeetdsouza/Zoxide
-#Invoke-Expression (& {
-#    $hook = if ($PSVersionTable.PSVersion.Major -lt 6) { 'prompt' } else { 'pwd' }
-#    (zoxide init --hook $hook powershell | Out-String)
-#})
 
 # Aliases
 . $ProfilePath/aliases.ps1
@@ -51,6 +38,3 @@ Invoke-Expression (&starship init powershell)
 
 # Zoxide
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
-
-#}
-#Write-Host "$PSCommandPath execution time: $executionTime"
