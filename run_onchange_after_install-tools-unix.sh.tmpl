@@ -5,7 +5,7 @@
 # mise config hash: {{ includeTemplate "dot_config/mise/config.toml.tmpl" . | sha256sum }}
 set -euo pipefail
 
-mise="$HOME/.local/bin/mise"
+mise="{{ if .work }}$HOME/bin{{ else }}$HOME/.local/bin{{ end }}/mise"
 if [ ! -x "$mise" ]; then
     printf "\n# Install mise\n"
     curl -fsSL https://mise.run | MISE_INSTALL_PATH="$mise" sh

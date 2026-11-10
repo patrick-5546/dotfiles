@@ -1,4 +1,4 @@
 git:
-  branchPrefix: "patrick-5546/"
+  branchPrefix: "{{ if .work }}users/pcreighton/{{ else }}patrick-5546/{{ end }}"
   diffRenderers:
     - command: delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"

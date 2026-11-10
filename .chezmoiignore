@@ -13,6 +13,7 @@ install-windows.ps1
 
 # unix files
 {{ if eq .chezmoi.os "windows" -}}
+.bashrc
 .config/atuin
 .config/bpytop
 .config/mise
@@ -29,4 +30,21 @@ install-tools-unix.sh
 {{ if or (ne .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
 .alacritty.toml
 .config/zsh/openvpn3.zsh
+{{- end }}
+
+# encrypted files
+{{ if not .encryption -}}
+.config/zsh/openvpn3.zsh
+.ssh
+decrypt-private-key-unix.sh
+decrypt-private-key-windows.ps1
+{{- end }}
+
+# personal or work files
+{{ if .work -}}
+.alacritty.toml
+.config/hatch
+.ideavimrc
+{{- else -}}
+.bashrc
 {{- end }}
