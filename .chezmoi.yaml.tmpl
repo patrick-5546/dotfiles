@@ -1,9 +1,4 @@
-{{- $work := promptBoolOnce . "work" "Is this a work machine" false -}}
-{{- /* Work machines don't use the encrypted files */ -}}
-{{- $encryption := false -}}
-{{- if not $work -}}
-{{-   $encryption = promptBoolOnce . "encryption" "Decrypt the encrypted files with the key passphrase" true -}}
-{{- end -}}
+{{- $encryption := promptBoolOnce . "encryption" "Decrypt the encrypted files with the key passphrase" true -}}
 {{ if eq .chezmoi.os "windows" -}}
 cd:
     command: "pwsh"
@@ -15,7 +10,6 @@ interpreters:
 {{ end -}}
 
 data:
-    work: {{ $work }}
     encryption: {{ $encryption }}
 diff:
     pager: "delta"

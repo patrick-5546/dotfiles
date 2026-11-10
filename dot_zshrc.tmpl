@@ -66,9 +66,7 @@ source $HOME/.config/zsh/aliases.zsh
 
 # Environment Variables
 export PATH=$HOME/.cargo/bin:$PATH
-{{- if not .work }}
 export PATH=$HOME/.local/bin:$PATH
-{{- end }}
 {{- if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 export PATH="/mnt/c/Windows/System32:$PATH"
 {{- end }}
@@ -77,7 +75,7 @@ export EDITOR="$VISUAL"
 export DOCKER_BUILDKIT=1
 
 # Tools installed by mise: https://mise.jdx.dev
-eval "$({{ if .work }}$HOME/bin{{ else }}$HOME/.local/bin{{ end }}/mise activate zsh)"
+eval "$($HOME/.local/bin/mise activate zsh)"
 
 # fzf configuration
 # Use fd (https://github.com/sharkdp/fd) instead of the default find command for listing path candidates.
@@ -113,9 +111,6 @@ source $HOME/.local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 {{- if and .encryption (eq .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
 source $HOME/.config/zsh/openvpn3.zsh
 {{- end }}
-{{- if .work }}
-[[ -f $HOME/.zshrc.$USER ]] && source $HOME/.zshrc.$USER
-{{- end }}
 
 # Atuin: https://github.com/atuinsh/atuin
 eval "$(atuin init zsh --disable-up-arrow --disable-ai)"
@@ -124,4 +119,4 @@ eval "$(atuin init zsh --disable-up-arrow --disable-ai)"
 eval "$(zoxide init zsh)"
 
 # Prompt
-[[ "$STARSHIP_DISABLE" != "true" ]] && eval "$(starship init zsh)"
+eval "$(starship init zsh)"

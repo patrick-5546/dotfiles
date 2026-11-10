@@ -45,17 +45,11 @@ jobs:
         include:
           - name: ubuntu
             os: ubuntu-latest
-            work: false
-          - name: ubuntu, work
-            os: ubuntu-latest
-            work: true
           - name: fedora
             os: ubuntu-latest
             container: fedora:latest
-            work: false
           - name: macos
             os: macos-latest
-            work: false
     env:
       GITHUB_TOKEN: ${{ github.token }}  # raises mise's GitHub API rate limit
     steps:
@@ -65,4 +59,4 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - run: .github/test.sh ${{ matrix.work }}
+      - run: .github/test.sh

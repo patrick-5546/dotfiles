@@ -2,20 +2,14 @@
 # Installs the dotfiles from this checkout the way the README does, then checks
 # that applying again changes nothing and that the shells start cleanly with the
 # tools from mise. It replaces your dotfiles, so it only runs in CI.
-# Usage: .github/test.sh WORK, where WORK is true for a work machine, else false
 set -euo pipefail
 
 if [ "${CI:-}" != true ]; then
     echo "This replaces your dotfiles, so it only runs in CI (CI=true)" >&2
     exit 1
 fi
-work=$1
 checkout=$(cd "$(dirname "$0")/.." && pwd)
-if [ "$work" = true ]; then
-    bin=$HOME/bin
-else
-    bin=$HOME/.local/bin
-fi
+bin=$HOME/.local/bin
 export PATH="$bin:$PATH"
 
 failed=false
@@ -53,7 +47,7 @@ mkdir -p "$HOME/.local/share"
 cp -a "$checkout" "$HOME/.local/share/chezmoi"
 installer=$(curl -fsLS get.chezmoi.io)  # separate so that set -e catches download errors
 sh -c "$installer" -- -b "$bin" init --apply \
-    --promptBool "Is this a work machine=$work,Decrypt the encrypted files with the key passphrase=false" </dev/null
+    --promptBool "Decrypt the encrypted files with the key passphrase=false" </dev/null
 echo "::endgroup::"
 
 echo "::group::Check chezmoi"
@@ -108,32 +102,10 @@ done
 [[ $(bindkey -M viins "^R") == *" atuin-"* ]] || print "Ctrl-R: $(bindkey -M viins "^R")"
 (( $+functions[__zoxide_z] )) || print "zoxide isn'\''t initialized"
 '
-tools=(atuin bat copilot delta dust fd fzf gh lazygit lsd node npm nvim rg starship tmux uv uvx ya yazi zoxide)
-if [ "$work" != true ]; then
-    tools+=(go)
-fi
+tools=(atuin bat copilot delta dust fd fzf gh go lazygit lsd node npm nvim rg starship tmux uv uvx ya yazi zoxide)
 output=$(in_pty zsh -i -c "$zsh_checks" zsh "${tools[@]}") || fail "The zsh checks failed with $?"
 [ -z "$output" ] || fail "$output"
 echo "::endgroup::"
-
-if [ "$work" = true ]; then
-    echo "::group::Check bash"
-    output=$(in_pty bash -i -c true) || fail "bash -i -c true failed with $?"
-    [ -z "$output" ] || fail "bash printed on startup: $output"
-    # shellcheck disable=SC2016  # it expands in bash -i, not here
-    bash_checks='
-for tool in fd fzf node rg zoxide; do
-    [[ $(type -P $tool) == "$HOME"/.local/share/mise/installs/* ]] ||
-        echo "$tool should come from mise, but is $(type -P $tool)"
-done
-[[ $(type -t __zoxide_z) == function ]] || echo "zoxide isn'\''t initialized"
-bind -X | grep -q __fzf_history__ || echo "Ctrl-R isn'\''t bound to the fzf history widget"
-! bind -X | grep -q fzf-file-widget || echo "Ctrl-T shouldn'\''t be bound to the fzf file widget"
-'
-    output=$(in_pty bash -i -c "$bash_checks") || fail "The bash checks failed with $?"
-    [ -z "$output" ] || fail "$output"
-    echo "::endgroup::"
-fi
 
 if [ "$failed" = true ]; then
     exit 1

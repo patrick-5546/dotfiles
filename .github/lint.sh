@@ -1,7 +1,8 @@
 #!/bin/bash
-# Renders the chezmoi templates for each OS and machine type, then checks the
-# results: shellcheck for shell scripts, zsh -n, the PowerShell parser, and TOML,
-# YAML and git config syntax. Needs chezmoi, zsh, shellcheck, pwsh, python3 and yq.
+# Renders the chezmoi templates for each OS, with and without the encrypted
+# files, then checks the results: shellcheck for shell scripts, zsh -n, the
+# PowerShell parser, and TOML, YAML and git config syntax. Needs chezmoi,
+# zsh, shellcheck, pwsh, python3 and yq.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -35,20 +36,15 @@ check() {  # check OS TEMPLATE RENDERED
 }
 
 for os in "${!os_data[@]}"; do
-    for machine in personal personal-without-encryption work; do
-        case $machine in
-            personal) work=false encryption=true ;;
-            personal-without-encryption) work=false encryption=false ;;
-            work) work=true encryption=false ;;
-        esac
-        echo "# $os $machine"
-        chezmoi=(chezmoi --source . --override-data "{\"chezmoi\":${os_data[$os]},\"work\":$work,\"encryption\":$encryption}")
+    for encryption in true false; do
+        echo "# $os, encryption: $encryption"
+        chezmoi=(chezmoi --source . --override-data "{\"chezmoi\":${os_data[$os]},\"encryption\":$encryption}")
         for template in $(git ls-files '*.tmpl' .chezmoiexternal.toml .chezmoiignore); do
-            rendered="$out/$os-$machine/${template%.tmpl}"
+            rendered="$out/$os-$encryption/${template%.tmpl}"
             mkdir -p "$(dirname "$rendered")"
             if [ "$template" = .chezmoi.yaml.tmpl ]; then
                 "${chezmoi[@]}" execute-template --init \
-                    --promptBool "Is this a work machine=$work,Decrypt the encrypted files with the key passphrase=$encryption" \
+                    --promptBool "Decrypt the encrypted files with the key passphrase=$encryption" \
                     <"$template" >"$rendered"
             else
                 "${chezmoi[@]}" execute-template <"$template" >"$rendered"
@@ -60,7 +56,6 @@ done
 
 echo "# files that aren't templates"
 shellcheck .github/*.sh
-shellcheck --shell bash --exclude SC1090,SC1091 dot_bashrc  # sources files that only exist after apply
 for file in dot_config/zsh/*.zsh; do
     zsh -n "$file"
 done

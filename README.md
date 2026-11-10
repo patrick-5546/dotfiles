@@ -13,7 +13,7 @@ Documentation for my setup can be found on my notes website: [Setup](https://pat
 The files I think are most notable are listed below:
 
 - Neovim configuration, based off [LazyVim](https://www.lazyvim.org): [`dot_config/nvim`](./dot_config/nvim)
-- Tmux configuration: [`dot_tmux.conf.tmpl`](./dot_tmux.conf.tmpl)
+- Tmux configuration: [`dot_tmux.conf`](./dot_tmux.conf)
     - Integrated with neovim: uses same theme, seamless navigation between tmux and neovim splits
 - Installation scripts: improve and standardize the CLI across operating systems
     - CLI tools are installed and updated with [mise](https://mise.jdx.dev):
@@ -36,20 +36,18 @@ The files I think are most notable are listed below:
     - Unix-specific: [`run_before_decrypt-private-key-unix.sh.tmpl`](./run_before_decrypt-private-key-unix.sh.tmpl)
     - Windows-specific: [`run_before_decrypt-private-key-windows.ps1.tmpl`](./run_before_decrypt-private-key-windows.ps1.tmpl)
 - CI: [`.github/workflows/ci.yml`](./.github/workflows/ci.yml)
-    - [`.github/lint.sh`](./.github/lint.sh): renders the templates for each OS and machine type, then checks them with
-      shellcheck, `zsh -n`, the PowerShell parser, and TOML, YAML and git config parsers. Also runs locally
+    - [`.github/lint.sh`](./.github/lint.sh): renders the templates for each OS, with and without the encrypted files,
+      then checks them with shellcheck, `zsh -n`, the PowerShell parser, and TOML, YAML and git config parsers.
+      Also runs locally
     - [`.github/test.sh`](./.github/test.sh): installs the dotfiles on fresh Ubuntu, Fedora and macOS machines, then
       checks that applying again changes nothing and that the shells start cleanly with the tools from mise
 - Configuration files for software that is not managed with chezmoi: [`reference_dotfiles`](./reference_dotfiles)
 
 ## Installation
 
-`chezmoi init` asks two questions and saves the answers in `~/.config/chezmoi/chezmoi.yaml`.
-Run `chezmoi init --prompt` to answer them again.
-
-- Is this a work machine: work machines use my work email, and skip my personal files and the encrypted files
-- Decrypt the encrypted files with the key passphrase: answer no if you don't have the passphrase.
-  Only asked on personal machines
+`chezmoi init` asks whether to decrypt the encrypted files with the key passphrase, and saves the answer in
+`~/.config/chezmoi/chezmoi.yaml`. Answer no if you don't have the passphrase. Run `chezmoi init --prompt` to answer
+again.
 
 ### Zsh on Linux or macOS
 
@@ -64,7 +62,6 @@ Run `chezmoi init --prompt` to answer them again.
     sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply patrick-5546
     ```
 
-    - On a work machine, install chezmoi in `~/bin` instead by replacing `$HOME/.local/bin` with `$HOME/bin`
     - Open a new terminal, or log out and back in, to start using zsh
 
 3. If desired, manually install software with unique installation instructions

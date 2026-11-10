@@ -12,7 +12,6 @@ decrypt-private-key-windows.ps1
 
 # unix files
 {{ if eq .chezmoi.os "windows" -}}
-.bashrc
 .config/atuin
 .config/mise
 .config/zsh
@@ -35,13 +34,4 @@ install-tools-unix.sh
 .ssh
 decrypt-private-key-unix.sh
 decrypt-private-key-windows.ps1
-{{- end }}
-
-# personal or work files
-{{ if .work -}}
-.alacritty.toml
-.config/hatch
-.ideavimrc
-{{- else -}}
-.bashrc
 {{- end }}
