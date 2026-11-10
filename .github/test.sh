@@ -19,15 +19,26 @@ fail() {
 }
 
 # Runs a command in a pseudo-terminal, as a terminal emulator would, and prints
-# its output without escape sequences
+# its output without escape sequences. Stops it with exit status 124 if it takes
+# over 2 minutes, which usually means it's waiting for input.
 in_pty() {
     python3 -c '
 import os, pty, re, signal, sys
-signal.alarm(120)  # fail instead of hanging if something waits for input
 pid, fd = pty.fork()
 if pid == 0:
     os.execvp(sys.argv[1], sys.argv[1:])
-output = b""
+output = []
+def finish(status):
+    text = re.sub(rb"\x1b(\[[0-?]*[ -/]*[@-~]|\][^\x07\x1b]*(\x07|\x1b\\)|[=>])|\r", b"", b"".join(output))
+    sys.stdout.buffer.write(text)
+    sys.stdout.flush()
+    os._exit(status)
+def timeout(*_):
+    os.kill(pid, signal.SIGKILL)
+    output.append(b"\n(timed out)")
+    finish(124)
+signal.signal(signal.SIGALRM, timeout)
+signal.alarm(120)
 while True:
     try:
         data = os.read(fd, 4096)
@@ -35,10 +46,8 @@ while True:
         break
     if not data:
         break
-    output += data
-status = os.waitpid(pid, 0)[1]
-sys.stdout.buffer.write(re.sub(rb"\x1b(\[[0-?]*[ -/]*[@-~]|\][^\x07\x1b]*(\x07|\x1b\\)|[=>])|\r", b"", output))
-sys.exit(os.waitstatus_to_exitcode(status))
+    output.append(data)
+finish(os.waitstatus_to_exitcode(os.waitpid(pid, 0)[1]))
 ' "$@" </dev/null
 }
 
@@ -73,8 +82,10 @@ esac
 echo "::endgroup::"
 
 echo "::group::Check zsh"
-output=$(in_pty zsh -i -c exit) || fail "zsh -i -c exit failed with $?"
-[ -z "$output" ] || fail "zsh printed on startup: $output"
+output=$(in_pty zsh -i -c exit) && status=0 || status=$?
+if [ "$status" -ne 0 ] || [ -n "$output" ]; then
+    fail "zsh should start without printing anything, but exited with $status and printed: $output"
+fi
 # Prints the problems it finds. It expands in zsh, not here:
 # shellcheck disable=SC2016
 zsh_checks='
@@ -103,8 +114,10 @@ done
 (( $+functions[__zoxide_z] )) || print "zoxide isn'\''t initialized"
 '
 tools=(atuin bat copilot delta dust fd fzf gh go lazygit lsd node npm nvim rg starship tmux uv uvx ya yazi zoxide)
-output=$(in_pty zsh -i -c "$zsh_checks" zsh "${tools[@]}") || fail "The zsh checks failed with $?"
-[ -z "$output" ] || fail "$output"
+output=$(in_pty zsh -i -c "$zsh_checks" zsh "${tools[@]}") && status=0 || status=$?
+if [ "$status" -ne 0 ] || [ -n "$output" ]; then
+    fail "The zsh checks exited with $status and printed: $output"
+fi
 echo "::endgroup::"
 
 if [ "$failed" = true ]; then
