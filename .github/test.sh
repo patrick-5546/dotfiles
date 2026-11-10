@@ -82,6 +82,15 @@ esac
 echo "::endgroup::"
 
 echo "::group::Check zsh"
+# GitHub's Ubuntu image makes everything in /usr/share writable by everyone,
+# including zsh's completion directories, so compinit would ask whether to use
+# them and wait for an answer. Remove that access, as you would on your machine.
+insecure=$(zsh -c 'autoload -Uz compaudit && compaudit' 2>/dev/null | sort -u) || true
+if [ -n "$insecure" ]; then
+    echo "Removing write access for others from the directories compinit distrusts:"
+    echo "$insecure"
+    echo "$insecure" | xargs sudo chmod g-w,o-w
+fi
 output=$(in_pty zsh -i -c exit) && status=0 || status=$?
 if [ "$status" -ne 0 ] || [ -n "$output" ]; then
     fail "zsh should start without printing anything, but exited with $status and printed: $output"
