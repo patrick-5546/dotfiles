@@ -23,11 +23,6 @@ install-packages-unix.sh
 install-tools-unix.sh
 {{- end }}
 
-# linux without WSL files
-{{ if or (ne .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
-.alacritty.toml
-{{- end }}
-
 # encrypted files
 {{ if not .encryption -}}
 .ssh

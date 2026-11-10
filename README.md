@@ -70,9 +70,7 @@ again.
 
     - Open a new terminal, or log out and back in, to start using zsh
 
-3. If desired, manually install software with unique installation instructions
-    - [Alacritty](https://github.com/alacritty/alacritty/blob/master/INSTALL.md)
-4. Keep everything up to date
+3. Keep everything up to date
 
     ```
     chezmoi update                 # pull and apply the latest changes
