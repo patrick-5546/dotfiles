@@ -15,7 +15,6 @@ install-windows.ps1
 {{ if eq .chezmoi.os "windows" -}}
 .config/atuin
 .config/bpytop
-.config/fzf
 .config/tmuxinator
 .config/zsh
 .tmux.conf

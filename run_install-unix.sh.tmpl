@@ -68,7 +68,7 @@ $HOME/.local/bin/chezmoi completion zsh >> _chezmoi
 $HOME/.local/bin/delta --generate-completion zsh >> _delta  # needs to be sourced manually
 curl -o _dust https://raw.githubusercontent.com/bootandy/dust/master/completions/_dust
 curl -o _fd https://raw.githubusercontent.com/sharkdp/fd/master/contrib/completion/_fd
-$HOME/.local/bin/fzf --zsh >> _fzf  # doesn't work
+rm -f _fzf  # fzf --zsh output, which .zshrc now sources directly
 $HOME/.local/bin/grm completion zsh >> _grm  # needs to be sourced manually
 # could not find zsh completion for lsd
 $HOME/.local/bin/rg --generate=complete-zsh >> _rg
