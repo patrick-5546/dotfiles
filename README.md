@@ -30,11 +30,8 @@ The files I think are most notable are listed below:
         - [`run_onchange_after_install-tools-windows.ps1.tmpl`](./run_onchange_after_install-tools-windows.ps1.tmpl):
           installs mise and the tools in its config.
           Reruns when it, the mise config or `mise.lock` changes
-        - [`run_install-windows.ps1`](./reference_dotfiles/run_install-windows.ps1): installs the other software I use
-            - To see what software is installed, search for `wingetInstallIfNotInstalled`, `choco install`, and
-              `Install-Module`
-            - I don't use this script anymore, in favor of [UniGetUI](https://github.com/Devolutions/UniGetUI)
-              (formerly WingetUI): [`wingetui/`](./reference_dotfiles/wingetui/)
+        - The other software I use is managed with [UniGetUI](https://github.com/Devolutions/UniGetUI) (formerly
+          WingetUI), which can install it from the bundles in [`wingetui/`](./reference_dotfiles/wingetui/)
 - Encryption scripts: files with sensitive information are
   [encrypted](https://www.chezmoi.io/user-guide/frequently-asked-questions/encryption/) with age.
   On the first apply, these scripts decrypt the age key with its passphrase using chezmoi's built-in age
@@ -115,7 +112,5 @@ again.
     - To roll back an upgrade, revert its commit in the source directory (`chezmoi cd`) and run `chezmoi apply`
     - Upgrade PowerShell and Git with winget or UniGetUI
 
-4. Optional: run [`run_install-windows.ps1`](./reference_dotfiles/run_install-windows.ps1) to install the other software I use
-    - Prerequisite: `winget install --exact --id gerardog.gsudo --interactive`
-    - Note: I do not run this automatically anymore because I do most of my development through WSL or VS Code.
-      Instead, I now manage the software I want through [UniGetUI](https://github.com/Devolutions/UniGetUI) whenever possible
+4. Optional: install the other software I use with [UniGetUI](https://github.com/Devolutions/UniGetUI), by importing
+   the bundles in [`reference_dotfiles/wingetui`](./reference_dotfiles/wingetui/)
