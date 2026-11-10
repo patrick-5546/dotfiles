@@ -81,6 +81,12 @@ case $login_shell in
 esac
 echo "::endgroup::"
 
+echo "::group::Check the C compiler"
+# nvim-treesitter compiles its parsers with it
+printf '#include <stdlib.h>\nint main(void) { return EXIT_SUCCESS; }\n' | cc -x c -o /dev/null - ||
+    fail "cc can't compile a C program"
+echo "::endgroup::"
+
 echo "::group::Check zsh"
 # GitHub's Ubuntu image makes everything in /usr/share writable by everyone,
 # including zsh's completion directories, so compinit would ask whether to use

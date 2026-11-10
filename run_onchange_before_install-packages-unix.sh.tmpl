@@ -23,6 +23,7 @@ need_lib() {  # need_lib LIBRARY PACKAGE
 need curl
 need git
 need zsh
+need cc gcc  # nvim-treesitter compiles its parsers with it
 need_lib libatomic.so.1 libatomic1  # Node.js from mise links against it
 
 if [ ${#missing[@]} -gt 0 ]; then
