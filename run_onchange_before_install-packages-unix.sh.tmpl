@@ -1,6 +1,6 @@
 #!/bin/bash
-# Installs the system packages the dotfiles need, adds fonts and makes zsh the
-# login shell. chezmoi runs this before applying files and again only when the
+# Installs the system packages the dotfiles need and makes zsh the login
+# shell. chezmoi runs this before applying files and again only when the
 # rendered script changes. sudo is only used when something is missing.
 set -euo pipefail
 
@@ -24,10 +24,6 @@ need curl
 need git
 need zsh
 need_lib libatomic.so.1 libatomic1  # Node.js from mise links against it
-{{- if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
-need fc-cache fontconfig
-need unzip
-{{- end }}
 
 if [ ${#missing[@]} -gt 0 ]; then
     printf "\n# Install %s\n" "${missing[*]}"
@@ -39,20 +35,6 @@ if [ ${#missing[@]} -gt 0 ]; then
         exit 1
     fi
 fi
-{{- if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
-
-font_dir="$HOME/.local/share/fonts/FiraCode"
-if [ ! -d "$font_dir" ]; then
-    printf "\n# Install FiraCode Nerd Font\n"
-    tmp=$(mktemp -d)
-    trap 'rm -rf "$tmp"' EXIT
-    curl -fsSL -o "$tmp/FiraCode.zip" https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip
-    unzip -q "$tmp/FiraCode.zip" 'Fira*Mono*.ttf' -d "$tmp/FiraCode"
-    mkdir -p "$(dirname "$font_dir")"
-    mv "$tmp/FiraCode" "$font_dir"
-    fc-cache -f
-fi
-{{- end }}
 
 {{ end -}}
 change_login_shell() {

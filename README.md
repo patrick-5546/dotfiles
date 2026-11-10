@@ -20,8 +20,7 @@ The files I think are most notable are listed below:
       [`dot_config/mise/config.toml.tmpl`](./dot_config/mise/config.toml.tmpl)
     - Unix-specific, rerun by chezmoi only when they change:
         - [`run_onchange_before_install-packages-unix.sh.tmpl`](./run_onchange_before_install-packages-unix.sh.tmpl):
-          installs the missing system packages, installs the FiraCode Nerd Font on Linux (not WSL), and makes zsh the
-          login shell. Only uses sudo when something is missing
+          installs the missing system packages and makes zsh the login shell. Only uses sudo when something is missing
         - [`run_onchange_after_install-tools-unix.sh.tmpl`](./run_onchange_after_install-tools-unix.sh.tmpl):
           installs mise and the tools in its config, and generates their zsh completions.
           Also reruns when the mise config changes
