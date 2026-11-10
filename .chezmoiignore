@@ -25,12 +25,10 @@ install-tools-unix.sh
 # linux without WSL files
 {{ if or (ne .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
 .alacritty.toml
-.config/zsh/openvpn3.zsh
 {{- end }}
 
 # encrypted files
 {{ if not .encryption -}}
-.config/zsh/openvpn3.zsh
 .ssh
 decrypt-private-key-unix.sh
 decrypt-private-key-windows.ps1

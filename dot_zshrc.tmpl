@@ -108,9 +108,6 @@ bindkey -M viins '^T' self-insert
 
 # Other Zsh scripts
 source $HOME/.local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-{{- if and .encryption (eq .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
-source $HOME/.config/zsh/openvpn3.zsh
-{{- end }}
 
 # Atuin: https://github.com/atuinsh/atuin
 eval "$(atuin init zsh --disable-up-arrow --disable-ai)"
