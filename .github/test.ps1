@@ -49,7 +49,7 @@ if ($LASTEXITCODE -ne 0 -or $output.Trim()) { Fail "PowerShell printed on startu
 # Prints the problems it finds
 $checks = @'
 $installs = Join-Path $env:LOCALAPPDATA 'mise\installs'
-$tools = 'bat', 'delta', 'dust', 'fd', 'fzf', 'gh', 'go', 'lazygit', 'lsd',
+$tools = 'atuin', 'bat', 'delta', 'dust', 'fd', 'fzf', 'gh', 'go', 'lazygit', 'lsd',
     'node', 'npm', 'nvim', 'rg', 'starship', 'uv', 'uvx', 'ya', 'yazi', 'zoxide'
 foreach ($tool in $tools) {
     $source = (Get-Command $tool -ErrorAction Ignore | Select-Object -First 1).Source
@@ -60,6 +60,11 @@ foreach ($tool in $tools) {
     $version = if ($tool -eq 'go') { & $tool version 2>&1 } else { & $tool --version 2>&1 }
     if ($LASTEXITCODE -ne 0) { "$tool doesn't run: $version" }
 }
+# Vi insert mode's keys. Command mode's are listed as <Ctrl+r> and <UpArrow>
+$ctrlR = (Get-PSReadLineKeyHandler -Chord 'Ctrl+r' | Where-Object Key -eq 'Ctrl+r').Function
+if ($ctrlR -ne 'Runs Atuin search') { "Ctrl+r runs '$ctrlR', not Atuin" }
+$upArrow = (Get-PSReadLineKeyHandler -Chord 'UpArrow' | Where-Object Key -eq 'UpArrow').Function
+if ($upArrow -ne 'HistorySearchBackward') { "UpArrow runs '$upArrow', not HistorySearchBackward" }
 if (-not (Get-Command __zoxide_z -ErrorAction Ignore)) { "zoxide isn't initialized" }
 '@
 $output = Invoke-NewPowerShell $checks

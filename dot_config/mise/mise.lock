@@ -28,6 +28,12 @@ url = "https://github.com/atuinsh/atuin/releases/download/v18.24.5/atuin-aarch64
 url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/707958967"
 provenance = "github-attestations"
 
+[tools.atuin."platforms.windows-x64"]
+checksum = "sha256:8ec5f2519d8019c129d3fb83a6c97eca29aa23391d8802af306d0c6de8cde30e"
+url = "https://github.com/atuinsh/atuin/releases/download/v18.24.5/atuin-x86_64-pc-windows-msvc.zip"
+url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/707959190"
+provenance = "github-attestations"
+
 [[tools.bat]]
 version = "0.26.1"
 backend = "aqua:sharkdp/bat"

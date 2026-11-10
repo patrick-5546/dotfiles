@@ -11,7 +11,6 @@ install-tools-windows.ps1
 
 # unix files
 {{ if eq .chezmoi.os "windows" -}}
-.config/atuin
 .config/zsh
 .tmux.conf
 .zshenv
