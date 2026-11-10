@@ -35,6 +35,11 @@ The files I think are most notable are listed below:
   On the first apply, these scripts decrypt the age key with its passphrase using chezmoi's built-in age
     - Unix-specific: [`run_before_decrypt-private-key-unix.sh.tmpl`](./run_before_decrypt-private-key-unix.sh.tmpl)
     - Windows-specific: [`run_before_decrypt-private-key-windows.ps1.tmpl`](./run_before_decrypt-private-key-windows.ps1.tmpl)
+- CI: [`.github/workflows/ci.yml`](./.github/workflows/ci.yml)
+    - [`.github/lint.sh`](./.github/lint.sh): renders the templates for each OS and machine type, then checks them with
+      shellcheck, `zsh -n`, the PowerShell parser, and TOML, YAML and git config parsers. Also runs locally
+    - [`.github/test.sh`](./.github/test.sh): installs the dotfiles on fresh Ubuntu, Fedora and macOS machines, then
+      checks that applying again changes nothing and that the shells start cleanly with the tools from mise
 - Configuration files for software that is not managed with chezmoi: [`reference_dotfiles`](./reference_dotfiles)
 
 ## Installation
