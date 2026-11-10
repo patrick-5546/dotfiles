@@ -5,8 +5,9 @@ cd:
     args: ["-NoLogo", "-NoExit", "-Command", "& {Set-Location $env:HOMEPATH/.local/share/chezmoi}"]
 interpreters:
     ps1:
+        # Skip the profile, which needs the tools that the scripts install
         command: "pwsh"
-        args: ["-NoLogo"]
+        args: ["-NoLogo", "-NoProfile"]
 {{ end -}}
 
 data:

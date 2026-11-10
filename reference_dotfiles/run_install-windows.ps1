@@ -5,7 +5,7 @@ gsudo {
     Update-Module
 
     Write-Host "`nInstall choco packages"
-    choco install bat delta dust fd fzf lf mingw ripgrep starship -y
+    choco install lf mingw -y
 
     Write-Host "`nInstall modules"
     Install-Module git-aliases -Scope CurrentUser -Allowclobber
@@ -26,22 +26,18 @@ function wingetInstallIfNotInstalled($id) {
     Write-Host("")
 }
 wingetInstallIfNotInstalled("7zip.7zip")
-wingetInstallIfNotInstalled("ajeetdsouza.zoxide")
 wingetInstallIfNotInstalled("Bitwarden.Bitwarden")
 wingetInstallIfNotInstalled("code52.Carnac")
 wingetInstallIfNotInstalled("Discord.Discord")
 wingetInstallIfNotInstalled("Docker.DockerDesktop")
 wingetInstallIfNotInstalled("Git.Git")
 wingetInstallIfNotInstalled("gerardog.gsudo")
-wingetInstallIfNotInstalled("JesseDuffield.lazygit")
 wingetInstallIfNotInstalled("Logitech.GHUB")
 wingetInstallIfNotInstalled("Logitech.LogiBolt")
 wingetInstallIfNotInstalled("Logitech.LogiTune")
 wingetInstallIfNotInstalled("Logitech.OptionsPlus")
 wingetInstallIfNotInstalled("Logitech.UnifyingSoftware")
-wingetInstallIfNotInstalled("Neovim.Neovim")
 wingetInstallIfNotInstalled("Nextcloud.NextcloudDesktop")
-wingetInstallIfNotInstalled("OpenJS.NodeJS.LTS")
 wingetInstallIfNotInstalled("OpenVPNTechnologies.OpenVPNConnect")
 wingetInstallIfNotInstalled("Poly.PlantronicsHub")
 wingetInstallIfNotInstalled("SlackTechnologies.Slack")

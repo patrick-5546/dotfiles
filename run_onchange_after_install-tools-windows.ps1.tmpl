@@ -1,0 +1,17 @@
+# Installs mise (https://mise.jdx.dev) and the tools in ~/.config/mise/config.toml.
+# chezmoi runs this after applying files and again whenever this script or the
+# mise config changes.
+# mise config hash: {{ include "dot_config/mise/config.toml" | sha256sum }}
+$ErrorActionPreference = 'Stop'
+
+$mise = "$HOME\.local\bin\mise.exe"
+if (-not (Test-Path $mise -PathType Leaf)) {
+    Write-Host "`n# Install mise"
+    # The installer also adds ~\.local\bin to the user Path
+    $env:MISE_INSTALL_PATH = $mise
+    Invoke-RestMethod https://mise.run/powershell | Invoke-Expression
+}
+
+Write-Host "`n# Install tools with mise"
+& $mise install
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

@@ -25,10 +25,14 @@ The files I think are most notable are listed below:
           installs mise and the tools in its config, and generates their zsh completions.
           Also reruns when the mise config changes
     - Plugins cloned from git: [`.chezmoiexternal.toml`](./.chezmoiexternal.toml)
-    - Windows-specific: [`run_install-windows.ps1`](./reference_dotfiles/run_install-windows.ps1)
-        - To see what software is installed, search for `wingetInstallIfNotInstalled`, `choco install`, and `Install-Module`
-        - I don't use this script anymore, in favor of [UniGetUI](https://github.com/Devolutions/UniGetUI)
-          (formerly WingetUI): [`wingetui/`](./reference_dotfiles/wingetui/)
+    - Windows-specific:
+        - [`run_onchange_after_install-tools-windows.ps1.tmpl`](./run_onchange_after_install-tools-windows.ps1.tmpl):
+          installs mise and the tools in its config. Reruns when it or the mise config changes
+        - [`run_install-windows.ps1`](./reference_dotfiles/run_install-windows.ps1): installs the other software I use
+            - To see what software is installed, search for `wingetInstallIfNotInstalled`, `choco install`, and
+              `Install-Module`
+            - I don't use this script anymore, in favor of [UniGetUI](https://github.com/Devolutions/UniGetUI)
+              (formerly WingetUI): [`wingetui/`](./reference_dotfiles/wingetui/)
 - Encryption scripts: files with sensitive information are
   [encrypted](https://www.chezmoi.io/user-guide/frequently-asked-questions/encryption/) with age.
   On the first apply, these scripts decrypt the age key with its passphrase using chezmoi's built-in age
@@ -38,8 +42,9 @@ The files I think are most notable are listed below:
     - [`.github/lint.sh`](./.github/lint.sh): renders the templates for each OS, with and without the encrypted files,
       then checks them and the files that aren't templates with shellcheck, `zsh -n`, the PowerShell parser, and
       TOML, YAML and git config parsers. Also runs locally
-    - [`.github/test.sh`](./.github/test.sh): installs the dotfiles on fresh Ubuntu (latest and 22.04) and macOS
-      machines, then checks that applying again changes nothing and that the shells start cleanly with the tools from mise
+    - [`.github/test.sh`](./.github/test.sh) and [`.github/test.ps1`](./.github/test.ps1): install the dotfiles on
+      fresh Ubuntu (latest and 22.04), macOS and Windows machines, then check that applying again changes nothing and
+      that the shells start cleanly with the tools from mise
 - Configuration files for software that is not managed with chezmoi: [`reference_dotfiles`](./reference_dotfiles)
 
 ## Installation
@@ -90,7 +95,19 @@ again.
     chezmoi init --apply patrick-5546
     ```
 
-4. Optional: run [`run_install-windows.ps1`](./reference_dotfiles/run_install-windows.ps1) to match my unix developer experience
+    - This also installs mise in `~\.local\bin` and the tools in its config. Open a new terminal to start using them
+
+4. Keep everything up to date
+
+    ```
+    chezmoi update     # pull and apply the latest changes
+    mise upgrade       # upgrade the tools
+    mise self-update   # upgrade mise
+    ```
+
+    - Upgrade chezmoi and git with winget or UniGetUI
+
+5. Optional: run [`run_install-windows.ps1`](./reference_dotfiles/run_install-windows.ps1) to install the other software I use
     - Prerequisite: `winget install --exact --id gerardog.gsudo --interactive`
     - Note: I do not run this automatically anymore because I do most of my development through WSL or VS Code.
       Instead, I now manage the software I want through [UniGetUI](https://github.com/Devolutions/UniGetUI) whenever possible

@@ -1,9 +1,10 @@
 # Tools that mise (https://mise.jdx.dev) installs. chezmoi applies this file to
-# ~/.config/mise/config.toml, and run_onchange_after_install-tools-unix.sh
-# installs the tools whenever it changes.
+# ~/.config/mise/config.toml, and the run_onchange_after_install-tools scripts
+# install the tools whenever it changes.
 #
-# - mise installs the tools in ~/.local/share/mise/installs, and
-#   `mise activate zsh` in .zshrc puts the versions listed here on PATH.
+# - mise installs the tools in ~/.local/share/mise/installs, or
+#   %LOCALAPPDATA%\mise\installs on Windows. `mise activate` in .zshrc and the
+#   PowerShell profile puts the versions listed here on PATH.
 # - Add or change a tool with `mise use -g TOOL[@VERSION]`, which keeps these
 #   comments, then save the change with `chezmoi re-add ~/.config/mise`.
 #   Run a tool once without adding it with `mise exec TOOL@VERSION -- COMMAND`.
@@ -14,7 +15,8 @@
 # On Linux, the glibc builds of atuin and yazi need glibc 2.39 (Ubuntu 24.04),
 # so use their static musl builds. mise uses glibc builds for the other tools,
 # which matters for lsd: its musl build shows uid/gid instead of user names.
-atuin = { version = "latest", libc = "musl" }
+# Only zsh uses atuin, so Windows skips it. mise already skips tmux there.
+atuin = { version = "latest", libc = "musl", os = ["linux", "macos"] }
 bat = "latest"
 copilot = "latest"
 delta = "latest"

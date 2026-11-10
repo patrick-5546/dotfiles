@@ -8,12 +8,12 @@ reference_dotfiles
 .config/whkdrc
 Documents
 decrypt-private-key-windows.ps1
+install-tools-windows.ps1
 {{- end }}
 
 # unix files
 {{ if eq .chezmoi.os "windows" -}}
 .config/atuin
-.config/mise
 .config/zsh
 .tmux.conf
 .zshenv

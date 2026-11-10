@@ -21,17 +21,19 @@ toml() {  # toml FILE
     python3 -c 'import sys, tomllib; tomllib.load(open(sys.argv[1], "rb"))' "$1"
 }
 
+ps1() {  # ps1 FILE
+    # shellcheck disable=SC2016  # PowerShell expands these
+    SCRIPT="$1" pwsh -NoProfile -Command '
+        $errors = $null
+        [void][System.Management.Automation.Language.Parser]::ParseFile($env:SCRIPT, [ref]$null, [ref]$errors)
+        $errors | ForEach-Object { Write-Error $_.ToString() }
+        exit $errors.Count'
+}
+
 check() {  # check OS TEMPLATE RENDERED
     case $2 in
         *.sh.tmpl) [ "$1" = windows ] || shellcheck "$3" ;;
-        *.ps1.tmpl)
-            # shellcheck disable=SC2016  # PowerShell expands these
-            [ "$1" != windows ] || SCRIPT="$3" pwsh -NoProfile -Command '
-                $errors = $null
-                [void][System.Management.Automation.Language.Parser]::ParseFile($env:SCRIPT, [ref]$null, [ref]$errors)
-                $errors | ForEach-Object { Write-Error $_.ToString() }
-                exit $errors.Count'
-            ;;
+        *.ps1.tmpl) [ "$1" != windows ] || ps1 "$3" ;;
         dot_zshrc.tmpl) [ "$1" = windows ] || zsh -n "$3" ;;
         *.toml.tmpl | .chezmoiexternal.toml) toml "$3" ;;
         *.yaml.tmpl | *.yml.tmpl) yq . "$3" >/dev/null ;;
@@ -62,6 +64,9 @@ echo "# files that aren't templates"
 shellcheck .github/*.sh
 for file in dot_zshenv dot_config/zsh/*.zsh; do
     zsh -n "$file"
+done
+for file in $(git ls-files '*.ps1'); do
+    ps1 "$file"
 done
 for file in $(git ls-files '*.toml' ':!:.chezmoiexternal.toml'); do
     toml "$file"

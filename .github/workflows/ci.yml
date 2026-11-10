@@ -52,6 +52,8 @@ jobs:
             container: ubuntu:22.04
           - name: macos
             os: macos-latest
+          - name: windows
+            os: windows-latest
     env:
       DEBIAN_FRONTEND: noninteractive
       GITHUB_TOKEN: ${{ github.token }}  # raises mise's GitHub API rate limit
@@ -62,4 +64,8 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - run: .github/test.sh
+      - if: runner.os != 'Windows'
+        run: .github/test.sh
+      - if: runner.os == 'Windows'
+        shell: pwsh
+        run: .github/test.ps1

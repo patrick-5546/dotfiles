@@ -41,6 +41,11 @@ $env:YAZI_FILE_ONE = "C:\Program Files\Git\usr\bin\file.exe"
 $env:YAZI_CONFIG_HOME = Join-Path $HOME ".config\yazi"
 $env:XDG_CONFIG_HOME = Join-Path $HOME ".config"
 
+# Tools installed by mise: https://mise.jdx.dev
+# Before starship and zoxide, which it puts on PATH. Starship replaces mise's
+# prompt hook, but mise still updates PATH on cd and after mise commands
+(& "$HOME\.local\bin\mise.exe" activate pwsh) | Out-String | Invoke-Expression
+
 # Prompt
 Invoke-Expression (&starship init powershell)
 
