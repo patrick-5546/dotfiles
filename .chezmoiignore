@@ -6,7 +6,7 @@ reference_dotfiles
 {{ if ne .chezmoi.os "windows" -}}
 Documents
 decrypt-private-key-windows.ps1
-install-tools-windows.ps1
+install-cli-tools-windows.ps1
 {{- end }}
 
 # unix files
@@ -17,7 +17,7 @@ install-tools-windows.ps1
 .zshrc
 decrypt-private-key-unix.sh
 install-packages-unix.sh
-install-tools-unix.sh
+install-cli-tools-unix.sh
 {{- end }}
 
 # encrypted files

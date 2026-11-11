@@ -1,6 +1,6 @@
 # Tools that mise (https://mise.jdx.dev) installs. chezmoi applies this file and
-# mise.lock to ~/.config/mise, and the run_onchange_after_install-tools scripts
-# install the tools whenever either changes.
+# mise.lock to ~/.config/mise, and the run_onchange_after_install-cli-tools
+# scripts install the tools whenever either changes.
 #
 # - mise installs the tools in ~/.local/share/mise/installs, or
 #   %LOCALAPPDATA%\mise\installs on Windows. `mise activate` in .zshrc and the

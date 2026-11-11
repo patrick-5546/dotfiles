@@ -7,7 +7,7 @@ autoload -Uz compinit
 zmodload zsh/complist
 # A full compinit looks for new completions and runs a security check, which is
 # slow, so only run it when the dump is missing or a day old. Otherwise load the
-# dump as is. install-tools-unix.sh deletes the dump when it updates completions.
+# dump as is. install-cli-tools-unix.sh deletes it when it updates completions.
 () {
     setopt local_options extended_glob
     if [[ -n $HOME/.zcompdump(#qN.mh-24) ]]; then

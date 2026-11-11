@@ -22,12 +22,12 @@ The files I think are most notable are listed below:
     - Unix-specific, rerun by chezmoi only when they change:
         - [`run_onchange_before_install-packages-unix.sh.tmpl`](./run_onchange_before_install-packages-unix.sh.tmpl):
           installs the missing system packages and makes zsh the login shell. Only uses sudo when something is missing
-        - [`run_onchange_after_install-tools-unix.sh.tmpl`](./run_onchange_after_install-tools-unix.sh.tmpl):
+        - [`run_onchange_after_install-cli-tools-unix.sh.tmpl`](./run_onchange_after_install-cli-tools-unix.sh.tmpl):
           installs mise and the tools in its config, and generates their zsh completions.
           Also reruns when the mise config or `mise.lock` changes
     - Plugins cloned from git: [`.chezmoiexternal.toml`](./.chezmoiexternal.toml)
     - Windows-specific:
-        - [`run_onchange_after_install-tools-windows.ps1.tmpl`](./run_onchange_after_install-tools-windows.ps1.tmpl):
+        - [`run_onchange_after_install-cli-tools-windows.ps1.tmpl`](./run_onchange_after_install-cli-tools-windows.ps1.tmpl):
           installs mise and the tools in its config.
           Reruns when it, the mise config or `mise.lock` changes
         - The other software I use is managed with [UniGetUI](https://github.com/Devolutions/UniGetUI) (formerly
