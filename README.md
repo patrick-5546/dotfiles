@@ -55,66 +55,44 @@ The files I think are most notable are listed below:
 
 ## Installation
 
-`chezmoi init` asks:
+1. Install the prerequisites
+    - Linux: [curl](https://curl.se/download.html), to install chezmoi. chezmoi installs git, zsh and the other
+      packages it needs with apt
+    - macOS: git, from the Xcode Command Line Tools: `xcode-select --install`. If you're installing the desktop apps,
+      sign in to the App Store, which some of them come from
+    - Windows: PowerShell 7, which the profile and chezmoi's scripts run in, and Git, which chezmoi uses to clone the
+      yazi theme. Install them with winget:
 
-- Whether to decrypt the encrypted files with the key passphrase. Answer no if you don't have the passphrase
-- On macOS and Windows, whether to install the desktop apps in
-  [`.chezmoidata/desktop-apps.toml`](./.chezmoidata/desktop-apps.toml). It skips the ones that are already installed
+      ```
+      winget install --exact --id Microsoft.PowerShell --source winget
+      winget install --exact --id Git.Git --source winget
+      ```
 
-It saves the answers in `~/.config/chezmoi/chezmoi.yaml`. Run `chezmoi init --prompt` to answer again.
-
-### Zsh on Linux or macOS
-
-1. Install prerequisites
-    - [curl](https://curl.se/download.html), to install chezmoi
-    - On macOS, git from the Xcode Command Line Tools: `xcode-select --install`
-    - On macOS, if you're installing the desktop apps, sign in to the App Store, which some of them come from
-    - On Linux, chezmoi installs git, zsh, and the other packages it needs with apt
-
-2. Install chezmoi in `~/.local/bin`, pulling and applying the latest changes
+2. Install chezmoi in `~/.local/bin`, pulling and applying the latest changes. On Linux and macOS:
 
     ```
     sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply patrick-5546
     ```
 
-    - On macOS, this also installs Homebrew if it's missing, and the desktop apps with it. Enter your password when
-      they ask for it
-    - Open a new terminal, or log out and back in, to start using zsh
-
-3. Keep everything up to date
-
-    ```
-    chezmoi update                 # pull and apply the latest changes
-    mise upgrade                   # upgrade the tools, which updates mise.lock
-    chezmoi re-add ~/.config/mise  # save mise.lock, then commit and push it
-    mise self-update               # upgrade mise
-    chezmoi upgrade                # upgrade chezmoi
-    ```
-
-    - To roll back an upgrade, revert its commit in the source directory (`chezmoi cd`) and run `chezmoi apply`
-    - On macOS, upgrade the desktop apps with `brew upgrade` and the App Store, if they don't update themselves
-
-### PowerShell 7 on Windows
-
-1. Install PowerShell 7 and Git with winget
-
-    ```
-    winget install --exact --id Microsoft.PowerShell --source winget
-    winget install --exact --id Git.Git --source winget
-    ```
-
-    - The profile and chezmoi's scripts run in PowerShell 7, and chezmoi uses Git to clone the yazi theme
-
-2. Open a new PowerShell 7 terminal, then install chezmoi in `~\.local\bin`, pulling and applying the latest changes
+    On Windows, in a new PowerShell 7 terminal:
 
     ```
     iex "&{$(irm 'https://get.chezmoi.io/ps1')} -b '~/.local/bin' -- init --apply patrick-5546"
     ```
 
-    - This also installs gcc ([WinLibs](https://winlibs.com)) and Python with winget if they're missing, which Neovim
-      needs, then installs mise in `~\.local\bin`, adds that folder to your Path, and installs the tools in mise's
-      config. Open a new terminal to start using them
-    - Then it installs the desktop apps with winget. Allow the installers that ask for administrator rights
+    - `chezmoi init` asks:
+        - Whether to decrypt the encrypted files with the key passphrase. Answer no if you don't have the passphrase
+        - On macOS and Windows, whether to install the [desktop apps](./.chezmoidata/desktop-apps.toml). It skips
+          the ones that are already installed
+
+      It saves the answers in `~/.config/chezmoi/chezmoi.yaml`. Run `chezmoi init --prompt` to answer again
+    - Then chezmoi's scripts install what's missing. Enter your password, or allow the installers that ask for
+      administrator rights, when they ask
+        - The packages that the dotfiles and Neovim need: with apt on Linux, and gcc ([WinLibs](https://winlibs.com))
+          and Python with winget on Windows. On Linux and macOS, zsh becomes your login shell
+        - mise in `~/.local/bin`, and the tools in its config. On Windows, it adds `~\.local\bin` to your Path
+        - The desktop apps: with Homebrew on macOS, which it installs first if it's missing, and winget on Windows
+    - Open a new terminal to start using them, or log out and back in if it doesn't start zsh
 
 3. Keep everything up to date
 
@@ -127,7 +105,8 @@ It saves the answers in `~/.config/chezmoi/chezmoi.yaml`. Run `chezmoi init --pr
     ```
 
     - To roll back an upgrade, revert its commit in the source directory (`chezmoi cd`) and run `chezmoi apply`
-    - Upgrade PowerShell, Git, gcc, Python and the desktop apps with winget or UniGetUI
+    - Upgrade everything else with the OS's package managers: `sudo apt upgrade` on Linux, `brew upgrade` and the
+      App Store on macOS, and winget or UniGetUI on Windows
 
-4. Optional: install the other software I've used, listed in
+4. Optional, on Windows: install the other software I've used, listed in
    [`reference_dotfiles/software.md`](./reference_dotfiles/software.md)
