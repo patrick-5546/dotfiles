@@ -27,7 +27,8 @@ Write-Host '::group::Install the dotfiles'
 New-Item -ItemType Directory -Force "$HOME\.local\share" | Out-Null
 Copy-Item -Recurse -Force $checkout "$HOME\.local\share\chezmoi"
 Invoke-Expression "&{$(Invoke-RestMethod https://get.chezmoi.io/ps1)} -b '$bin'"
-chezmoi init --apply --promptBool 'Decrypt the encrypted files with the key passphrase=false'
+chezmoi init --apply --promptBool 'Decrypt the encrypted files with the key passphrase=false' `
+    --promptBool 'Install the desktop apps=false'
 if ($LASTEXITCODE -ne 0) { throw "chezmoi init --apply failed with exit code $LASTEXITCODE" }
 Write-Host '::endgroup::'
 

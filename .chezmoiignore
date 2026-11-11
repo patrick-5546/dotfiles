@@ -7,7 +7,13 @@ reference_dotfiles
 Documents
 decrypt-private-key-windows.ps1
 install-cli-tools-windows.ps1
+install-desktop-apps-windows.ps1
 install-packages-windows.ps1
+{{- end }}
+
+# macOS files
+{{ if ne .chezmoi.os "darwin" -}}
+install-desktop-apps-macos.sh
 {{- end }}
 
 # unix files
@@ -17,8 +23,8 @@ install-packages-windows.ps1
 .zshenv
 .zshrc
 decrypt-private-key-unix.sh
-install-packages-unix.sh
 install-cli-tools-unix.sh
+install-packages-unix.sh
 {{- end }}
 
 # encrypted files
@@ -26,4 +32,10 @@ install-cli-tools-unix.sh
 .ssh
 decrypt-private-key-unix.sh
 decrypt-private-key-windows.ps1
+{{- end }}
+
+# desktop apps
+{{ if not .apps -}}
+install-desktop-apps-macos.sh
+install-desktop-apps-windows.ps1
 {{- end }}

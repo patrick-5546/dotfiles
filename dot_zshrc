@@ -1,3 +1,9 @@
+# Homebrew (https://brew.sh) on macOS, which installs the desktop apps. Before
+# compinit so that it loads Homebrew's completions
+if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+fi
+
 # Enable colors and change prompt:
 autoload -U colors && colors
 

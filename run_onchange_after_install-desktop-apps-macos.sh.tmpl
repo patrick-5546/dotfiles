@@ -1,0 +1,29 @@
+#!/bin/bash
+# Installs the desktop apps with Homebrew (https://brew.sh), and Homebrew first
+# if it's missing. Skips the apps that are already installed. chezmoi runs this
+# after applying files, and again whenever this script changes.
+set -euo pipefail
+
+brew={{ if eq .chezmoi.arch "arm64" }}/opt/homebrew{{ else }}/usr/local{{ end }}/bin/brew
+if [ ! -x "$brew" ]; then
+    printf "\n# Install Homebrew\n"
+    installer=$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
+    /bin/bash -c "$installer"
+fi
+
+printf "\n# Install the desktop apps with Homebrew\n"
+# Casks, and App Store apps, which mas installs once you sign in to the App
+# Store. WizTree has no macOS version. Find more with `brew search` and
+# `mas search`
+brewfile=$(mktemp)
+trap 'rm -f "$brewfile"' EXIT
+cat >"$brewfile" <<'EOF'
+cask "bitwarden"
+cask "docker-desktop"
+mas "Microsoft To Do", id: 1274495053
+cask "nextcloud"
+mas "Speedtest by Ookla", id: 1153157709
+cask "torguard"
+mas "WireGuard", id: 1451685025
+EOF
+"$brew" bundle --no-upgrade --file="$brewfile"

@@ -1,6 +1,6 @@
 #!/bin/bash
-# Renders the chezmoi templates for each OS, with and without the encrypted
-# files, and checks them along with the files that aren't templates: shell
+# Renders the chezmoi templates for each OS, answering yes and then no to the
+# prompts, and checks them along with the files that aren't templates: shell
 # scripts with shellcheck, zsh files with zsh -n, PowerShell with its parser,
 # and TOML, YAML and git config syntax. Needs chezmoi, zsh, shellcheck, pwsh,
 # python3 and yq.
@@ -38,16 +38,19 @@ check() {  # check OS TEMPLATE RENDERED
     esac
 }
 
+# The prompts change unrelated files, so answering all of them yes and then all
+# of them no renders every branch
 for os in "${!os_data[@]}"; do
-    for encryption in true false; do
-        echo "# $os, encryption: $encryption"
-        chezmoi=(chezmoi --source . --override-data "{\"chezmoi\":${os_data[$os]},\"encryption\":$encryption}")
+    for answer in true false; do
+        echo "# $os, answers: $answer"
+        chezmoi=(chezmoi --source . --override-data "{\"chezmoi\":${os_data[$os]},\"apps\":$answer,\"encryption\":$answer}")
         for template in $(git ls-files '*.tmpl' .chezmoiexternal.toml .chezmoiignore); do
-            rendered="$out/$os-$encryption/${template%.tmpl}"
+            rendered="$out/$os-$answer/${template%.tmpl}"
             mkdir -p "$(dirname "$rendered")"
             if [ "$template" = .chezmoi.yaml.tmpl ]; then
                 "${chezmoi[@]}" execute-template --init \
-                    --promptBool "Decrypt the encrypted files with the key passphrase=$encryption" \
+                    --promptBool "Decrypt the encrypted files with the key passphrase=$answer" \
+                    --promptBool "Install the desktop apps=$answer" \
                     <"$template" >"$rendered"
             else
                 "${chezmoi[@]}" execute-template <"$template" >"$rendered"

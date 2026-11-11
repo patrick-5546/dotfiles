@@ -25,6 +25,8 @@ The files I think are most notable are listed below:
         - [`run_onchange_after_install-cli-tools-unix.sh.tmpl`](./run_onchange_after_install-cli-tools-unix.sh.tmpl):
           installs mise and the tools in its config, and generates their zsh completions.
           Also reruns when the mise config or `mise.lock` changes
+        - [`run_onchange_after_install-desktop-apps-macos.sh.tmpl`](./run_onchange_after_install-desktop-apps-macos.sh.tmpl):
+          on macOS, installs [Homebrew](https://brew.sh) if it's missing, then the desktop apps with it
     - Plugins cloned from git: [`.chezmoiexternal.toml`](./.chezmoiexternal.toml)
     - Windows-specific, rerun by chezmoi only when they change:
         - [`run_onchange_before_install-packages-windows.ps1.tmpl`](./run_onchange_before_install-packages-windows.ps1.tmpl):
@@ -32,6 +34,8 @@ The files I think are most notable are listed below:
           its language servers
         - [`run_onchange_after_install-cli-tools-windows.ps1.tmpl`](./run_onchange_after_install-cli-tools-windows.ps1.tmpl):
           installs mise and the tools in its config. Also reruns when the mise config or `mise.lock` changes
+        - [`run_onchange_after_install-desktop-apps-windows.ps1.tmpl`](./run_onchange_after_install-desktop-apps-windows.ps1.tmpl):
+          installs the desktop apps with winget
         - The other software I use is managed with [UniGetUI](https://github.com/Devolutions/UniGetUI) (formerly
           WingetUI), which can install it from the bundles in [`wingetui/`](./reference_dotfiles/wingetui/)
 - Encryption scripts: files with sensitive information are
@@ -50,15 +54,20 @@ The files I think are most notable are listed below:
 
 ## Installation
 
-`chezmoi init` asks whether to decrypt the encrypted files with the key passphrase, and saves the answer in
-`~/.config/chezmoi/chezmoi.yaml`. Answer no if you don't have the passphrase. Run `chezmoi init --prompt` to answer
-again.
+`chezmoi init` asks:
+
+- Whether to decrypt the encrypted files with the key passphrase. Answer no if you don't have the passphrase
+- On macOS and Windows, whether to install the desktop apps: Bitwarden, Docker Desktop, Microsoft To Do, Nextcloud,
+  Speedtest, TorGuard, WireGuard, and on Windows, WizTree. It skips the ones that are already installed
+
+It saves the answers in `~/.config/chezmoi/chezmoi.yaml`. Run `chezmoi init --prompt` to answer again.
 
 ### Zsh on Linux or macOS
 
 1. Install prerequisites
     - [curl](https://curl.se/download.html), to install chezmoi
     - On macOS, git from the Xcode Command Line Tools: `xcode-select --install`
+    - On macOS, if you're installing the desktop apps, sign in to the App Store, which some of them come from
     - On Linux, chezmoi installs git, zsh, and the other packages it needs with apt
 
 2. Install chezmoi in `~/.local/bin`, pulling and applying the latest changes
@@ -67,6 +76,8 @@ again.
     sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply patrick-5546
     ```
 
+    - On macOS, this also installs Homebrew if it's missing, and the desktop apps with it. Enter your password when
+      they ask for it
     - Open a new terminal, or log out and back in, to start using zsh
 
 3. Keep everything up to date
@@ -80,6 +91,7 @@ again.
     ```
 
     - To roll back an upgrade, revert its commit in the source directory (`chezmoi cd`) and run `chezmoi apply`
+    - On macOS, upgrade the desktop apps with `brew upgrade` and the App Store, if they don't update themselves
 
 ### PowerShell 7 on Windows
 
@@ -101,6 +113,7 @@ again.
     - This also installs gcc ([WinLibs](https://winlibs.com)) and Python with winget if they're missing, which Neovim
       needs, then installs mise in `~\.local\bin`, adds that folder to your Path, and installs the tools in mise's
       config. Open a new terminal to start using them
+    - Then it installs the desktop apps with winget. Allow the installers that ask for administrator rights
 
 3. Keep everything up to date
 
@@ -113,7 +126,7 @@ again.
     ```
 
     - To roll back an upgrade, revert its commit in the source directory (`chezmoi cd`) and run `chezmoi apply`
-    - Upgrade PowerShell, Git, gcc and Python with winget or UniGetUI
+    - Upgrade PowerShell, Git, gcc, Python and the desktop apps with winget or UniGetUI
 
 4. Optional: install the other software I use with [UniGetUI](https://github.com/Devolutions/UniGetUI), by importing
    the bundles in [`reference_dotfiles/wingetui`](./reference_dotfiles/wingetui/)

@@ -1,4 +1,8 @@
 {{- $encryption := promptBoolOnce . "encryption" "Decrypt the encrypted files with the key passphrase" true -}}
+{{- $apps := false -}}
+{{- if ne .chezmoi.os "linux" -}}
+{{-   $apps = promptBoolOnce . "apps" "Install the desktop apps" true -}}
+{{- end -}}
 {{ if eq .chezmoi.os "windows" -}}
 cd:
     command: "pwsh"
@@ -11,6 +15,7 @@ interpreters:
 {{ end -}}
 
 data:
+    apps: {{ $apps }}
     encryption: {{ $encryption }}
 diff:
     pager: "delta"

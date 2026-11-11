@@ -1,0 +1,27 @@
+# Installs the desktop apps with winget, skipping the ones that are already
+# installed. chezmoi runs this after applying files, and again whenever this
+# script changes, or until every app installs. Some of the installers ask for
+# administrator rights.
+$ErrorActionPreference = 'Stop'
+
+# winget IDs and the sources they're from. Find more with `winget search`
+$apps = [ordered]@{
+    'Bitwarden.Bitwarden'        = 'winget'
+    'Docker.DockerDesktop'       = 'winget'
+    '9NBLGGH5R558'               = 'msstore'  # Microsoft To Do
+    'Nextcloud.NextcloudDesktop' = 'winget'
+    'Ookla.Speedtest.Desktop'    = 'winget'
+    'VPNetwork.TorGuard'         = 'winget'
+    'WireGuard.WireGuard'        = 'winget'
+    'AntibodySoftware.WizTree'   = 'winget'
+}
+$failed = @()
+foreach ($id in $apps.Keys) {
+    Write-Host "`n# Install $id with winget"
+    winget install --exact --id $id --source $apps[$id] --no-upgrade --accept-package-agreements --accept-source-agreements
+    # -1978335135 means it's already installed
+    if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne -1978335135) { $failed += $id }
+}
+if ($failed) {
+    throw "winget couldn't install $($failed -join ', '). Run chezmoi apply to try again"
+}

@@ -56,7 +56,8 @@ mkdir -p "$HOME/.local/share"
 cp -a "$checkout" "$HOME/.local/share/chezmoi"
 installer=$(curl -fsLS get.chezmoi.io)  # separate so that set -e catches download errors
 sh -c "$installer" -- -b "$bin" init --apply \
-    --promptBool "Decrypt the encrypted files with the key passphrase=false" </dev/null
+    --promptBool "Decrypt the encrypted files with the key passphrase=false" \
+    --promptBool "Install the desktop apps=false" </dev/null
 echo "::endgroup::"
 
 echo "::group::Check chezmoi"
