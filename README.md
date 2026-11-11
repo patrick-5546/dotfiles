@@ -36,8 +36,8 @@ The files I think are most notable are listed below:
           installs mise and the tools in its config. Also reruns when the mise config or `mise.lock` changes
         - [`run_onchange_after_install-desktop-apps-windows.ps1.tmpl`](./run_onchange_after_install-desktop-apps-windows.ps1.tmpl):
           installs the desktop apps with winget
-        - The other software I use is managed with [UniGetUI](https://github.com/Devolutions/UniGetUI) (formerly
-          WingetUI), which can install it from the bundles in [`wingetui/`](./reference_dotfiles/wingetui/)
+        - The other software I've used, which these scripts don't install, is listed in
+          [`software.md`](./reference_dotfiles/software.md)
 - Encryption scripts: files with sensitive information are
   [encrypted](https://www.chezmoi.io/user-guide/frequently-asked-questions/encryption/) with age.
   On the first apply, these scripts decrypt the age key with its passphrase using chezmoi's built-in age
@@ -128,5 +128,5 @@ It saves the answers in `~/.config/chezmoi/chezmoi.yaml`. Run `chezmoi init --pr
     - To roll back an upgrade, revert its commit in the source directory (`chezmoi cd`) and run `chezmoi apply`
     - Upgrade PowerShell, Git, gcc, Python and the desktop apps with winget or UniGetUI
 
-4. Optional: install the other software I use with [UniGetUI](https://github.com/Devolutions/UniGetUI), by importing
-   the bundles in [`reference_dotfiles/wingetui`](./reference_dotfiles/wingetui/)
+4. Optional: install the other software I've used, listed in
+   [`reference_dotfiles/software.md`](./reference_dotfiles/software.md)
