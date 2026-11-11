@@ -1,3 +1,5 @@
+# Decrypts the key that chezmoi decrypts the encrypted files with, asking for its
+# passphrase, if it isn't decrypted yet. chezmoi runs this before applying files.
 if (-Not (Test-Path "{{ .chezmoi.homeDir }}/.chezmoikey.txt" -PathType Leaf)) {
     Write-Host "# create ~/.chezmoikey.txt"
     & "{{ .chezmoi.executable }}" age decrypt --output "{{ .chezmoi.homeDir }}/.chezmoikey.txt" --passphrase "{{ .chezmoi.sourceDir }}/key.txt.age"

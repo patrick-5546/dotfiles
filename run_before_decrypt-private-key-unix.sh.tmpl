@@ -1,4 +1,6 @@
 #!/bin/sh
+# Decrypts the key that chezmoi decrypts the encrypted files with, asking for its
+# passphrase, if it isn't decrypted yet. chezmoi runs this before applying files.
 set -eu
 
 if [ ! -f "{{ .chezmoi.homeDir }}/.chezmoikey.txt" ]; then
