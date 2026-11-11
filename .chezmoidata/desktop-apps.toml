@@ -4,7 +4,8 @@
 # Store ID for Windows. Leave them out for an OS that the app isn't on. Find
 # more with `brew search`, `mas search` and `winget search`.
 desktopApps = [
-    { name = "Bitwarden", cask = "bitwarden", winget = "Bitwarden.Bitwarden" },
+    # Bitwarden's Safari extension only comes with its Mac App Store app
+    { name = "Bitwarden", mas = 1352778147, winget = "Bitwarden.Bitwarden" },
     { name = "Docker Desktop", cask = "docker-desktop", winget = "Docker.DockerDesktop" },
     { name = "Microsoft To Do", mas = 1274495053, msstore = "9NBLGGH5R558" },
     { name = "Nextcloud", cask = "nextcloud", winget = "Nextcloud.NextcloudDesktop" },
