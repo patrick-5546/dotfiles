@@ -1,6 +1,7 @@
 # Installs the dotfiles from this checkout like the README does, then checks that
-# applying again changes nothing and that PowerShell starts cleanly with the
-# tools from mise. It replaces your dotfiles, so it only runs in CI.
+# applying again changes nothing, that PowerShell starts cleanly with the tools
+# from mise, and that Neovim is ready to use. It replaces your dotfiles, so it
+# only runs in CI.
 $ErrorActionPreference = 'Stop'
 
 if ($env:CI -ne 'true') {
@@ -16,11 +17,15 @@ function Fail([string] $Message) {
     $script:failed = $true
 }
 
+# Encodes code for pwsh -EncodedCommand, so it doesn't need quoting
+function ConvertTo-EncodedCommand([string] $Code) {
+    [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($Code))
+}
+
 # Runs code in a new PowerShell, which loads the profile like a new terminal
 # does, and returns everything it printed
 function Invoke-NewPowerShell([string] $Code) {
-    $encoded = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($Code))
-    pwsh -NoLogo -EncodedCommand $encoded 2>&1 | Out-String
+    pwsh -NoLogo -EncodedCommand (ConvertTo-EncodedCommand $Code) 2>&1 | Out-String
 }
 
 Write-Host '::group::Install the dotfiles'
@@ -70,6 +75,26 @@ if (-not (Get-Command __zoxide_z -ErrorAction Ignore)) { "zoxide isn't initializ
 '@
 $output = Invoke-NewPowerShell $checks
 if ($LASTEXITCODE -ne 0 -or $output.Trim()) { Fail "The PowerShell checks failed: $output" }
+Write-Host '::endgroup::'
+
+Write-Host '::group::Check Neovim'
+# Opening a file the first time installs the plugins, tools, language servers
+# and parsers. The new PowerShell loads the profile, which sets XDG_CONFIG_HOME
+# for Neovim. lazy.nvim's install log on stdout is mostly git's progress, so
+# it's only shown on failure. The temp folder's path is shortened to RUNNER~1
+# on GitHub's runners, so the file goes in the home folder
+$nvimDir = New-Item -ItemType Directory -Force (Join-Path $HOME 'nvim-check')
+Set-Content (Join-Path $nvimDir 'check.py') 'print("Hello")'
+$code = @"
+Set-Location '$nvimDir'
+nvim --headless check.py -S '$PSScriptRoot\check-nvim.lua' > lazy.log
+exit `$LASTEXITCODE
+"@
+pwsh -NoLogo -EncodedCommand (ConvertTo-EncodedCommand $code)
+if ($LASTEXITCODE -ne 0) {
+    Get-Content (Join-Path $nvimDir 'lazy.log')
+    Fail "Neovim isn't ready to use"
+}
 Write-Host '::endgroup::'
 
 if ($failed) {

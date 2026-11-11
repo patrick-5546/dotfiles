@@ -48,8 +48,9 @@ The files I think are most notable are listed below:
       then checks them and the files that aren't templates with shellcheck, `zsh -n`, the PowerShell parser, and
       TOML, YAML and git config parsers. Also runs locally
     - [`.github/test.sh`](./.github/test.sh) and [`.github/test.ps1`](./.github/test.ps1): install the dotfiles on
-      fresh Ubuntu (latest and 22.04), macOS and Windows machines, then check that applying again changes nothing and
-      that the shells start cleanly with the tools from mise
+      fresh Ubuntu (latest and 22.04), macOS and Windows machines, then check that applying again changes nothing,
+      that the shells start cleanly with the tools from mise, and that Neovim installs its plugins, tools, language
+      servers and parsers the first time it opens a file: [`.github/check-nvim.lua`](./.github/check-nvim.lua)
 - Configuration files for software that is not managed with chezmoi: [`reference_dotfiles`](./reference_dotfiles)
 
 ## Installation

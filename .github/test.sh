@@ -1,7 +1,8 @@
 #!/bin/bash
 # Installs the dotfiles from this checkout the way the README does, then checks
-# that applying again changes nothing and that the shells start cleanly with the
-# tools from mise. It replaces your dotfiles, so it only runs in CI.
+# that applying again changes nothing, that the shells start cleanly with the
+# tools from mise, and that Neovim is ready to use. It replaces your dotfiles, so
+# it only runs in CI.
 set -euo pipefail
 
 if [ "${CI:-}" != true ]; then
@@ -133,6 +134,19 @@ tools=(atuin bat delta dust fd fzf gh go lazygit lsd node npm nvim rg starship t
 output=$(in_pty zsh -i -c "$zsh_checks" zsh "${tools[@]}") && status=0 || status=$?
 if [ "$status" -ne 0 ] || [ -n "$output" ]; then
     fail "The zsh checks exited with $status and printed: $output"
+fi
+echo "::endgroup::"
+
+echo "::group::Check Neovim"
+# Opening a file the first time installs the plugins, tools, language servers
+# and parsers. mise exec puts the tools on the PATH, as zsh does. lazy.nvim's
+# install log on stdout is mostly git's progress, so it's only shown on failure
+nvim_dir=$(mktemp -d)
+echo 'print("Hello")' >"$nvim_dir/check.py"
+if ! (cd "$nvim_dir" && mise exec -- nvim --headless check.py -S "$checkout/.github/check-nvim.lua" \
+    </dev/null >lazy.log); then
+    cat "$nvim_dir/lazy.log"
+    fail "Neovim isn't ready to use"
 fi
 echo "::endgroup::"
 
