@@ -24,15 +24,16 @@ lockfile_platforms = ["linux-arm64", "linux-x64", "macos-arm64", "windows-x64"]
 
 [tools]
 # On Linux, the glibc builds of atuin and yazi need glibc 2.39 (Ubuntu 24.04),
-# so use their static musl builds. mise uses glibc builds for the other tools,
-# which matters for lsd: its musl build shows uid/gid instead of user names.
-# mise skips tmux on Windows, which it has no builds for.
+# so use their static musl builds until the dotfiles drop Ubuntu 22.04. mise
+# uses glibc builds for the other tools, which matters for lsd: its musl build
+# shows uid/gid instead of user names. mise skips tmux on Windows, which it has
+# no builds for.
 atuin = { version = "latest", libc = "musl" }
 bat = "latest"
 # The tree-sitter CLI, which nvim-treesitter builds parsers with. Its official
 # builds need glibc 2.39 (Ubuntu 24.04) since 0.26.1, the oldest version
-# nvim-treesitter supports, so use conda-forge's build. mise downloads it
-# without installing conda.
+# nvim-treesitter supports, so use conda-forge's build until the dotfiles drop
+# Ubuntu 22.04. Then switch to the official build: tree-sitter = "latest".
 "conda:tree-sitter-cli" = "latest"
 delta = "latest"
 dust = "latest"
