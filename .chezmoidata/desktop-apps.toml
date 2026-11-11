@@ -13,5 +13,6 @@ desktopApps = [
     { name = "UniGetUI", winget = "Devolutions.UniGetUI" },
     { name = "Visual Studio Code", cask = "visual-studio-code", winget = "Microsoft.VisualStudioCode" },
     { name = "WireGuard", mas = 1451685025, winget = "WireGuard.WireGuard" },
-    { name = "WizTree", winget = "AntibodySoftware.WizTree" },
+    # WizTree for macOS isn't in Homebrew's casks, but in Antibody Software's tap
+    { name = "WizTree", cask = "antibodysw/tap/wiztree", winget = "AntibodySoftware.WizTree" },
 ]
