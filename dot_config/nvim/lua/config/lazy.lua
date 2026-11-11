@@ -5,6 +5,10 @@ if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+-- nvim-treesitter installs its parsers in site, which doesn't exist on the first
+-- start. Neovim leaves out missing folders when it looks for runtime files, so it
+-- wouldn't find the parsers until a restart: https://github.com/folke/lazy.nvim/issues/2153
+vim.fn.mkdir(vim.fn.stdpath("data") .. "/site", "p")
 
 require("lazy").setup({
   spec = {
