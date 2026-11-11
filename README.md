@@ -34,10 +34,8 @@ The files I think are most notable are listed below:
       packages it needs with apt
     - macOS: git, from the Xcode Command Line Tools: `xcode-select --install`. If you're installing the desktop apps,
       sign in to the App Store, which some of them come from
-    - Windows: PowerShell 7 and Git. The profile needs PowerShell 7: the Windows PowerShell 5.1 that Windows comes
-      with doesn't load it, and its PSReadLine is too old for it. chezmoi's scripts run in PowerShell 7 too. chezmoi
-      gets the yazi theme with Git, Neovim gets its plugins with it, and yazi uses its `file` command. Install them
-      with winget:
+    - Windows: PowerShell 7, which the profile and chezmoi's scripts run in, and Git, which chezmoi, Neovim and yazi
+      use. Install them with winget:
 
       ```
       winget install --exact --id Microsoft.PowerShell --source winget
