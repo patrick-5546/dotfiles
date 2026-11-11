@@ -13,17 +13,16 @@ fi
 
 printf "\n# Install the desktop apps with Homebrew\n"
 # Casks, and App Store apps, which mas installs once you sign in to the App
-# Store. WizTree has no macOS version. Find more with `brew search` and
-# `mas search`
+# Store, from .chezmoidata/desktop-apps.toml
 brewfile=$(mktemp)
 trap 'rm -f "$brewfile"' EXIT
 cat >"$brewfile" <<'EOF'
-cask "bitwarden"
-cask "docker-desktop"
-mas "Microsoft To Do", id: 1274495053
-cask "nextcloud"
-mas "Speedtest by Ookla", id: 1153157709
-cask "torguard"
-mas "WireGuard", id: 1451685025
+{{ range .desktopApps -}}
+{{   if hasKey . "cask" -}}
+cask {{ quote .cask }}
+{{   else if hasKey . "mas" -}}
+mas {{ quote .name }}, id: {{ .mas }}
+{{   end -}}
+{{ end -}}
 EOF
 "$brew" bundle --no-upgrade --file="$brewfile"

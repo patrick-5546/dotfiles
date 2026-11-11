@@ -58,8 +58,8 @@ The files I think are most notable are listed below:
 `chezmoi init` asks:
 
 - Whether to decrypt the encrypted files with the key passphrase. Answer no if you don't have the passphrase
-- On macOS and Windows, whether to install the desktop apps: Bitwarden, Docker Desktop, Microsoft To Do, Nextcloud,
-  Speedtest, TorGuard, WireGuard, and on Windows, WizTree. It skips the ones that are already installed
+- On macOS and Windows, whether to install the desktop apps in
+  [`.chezmoidata/desktop-apps.toml`](./.chezmoidata/desktop-apps.toml). It skips the ones that are already installed
 
 It saves the answers in `~/.config/chezmoi/chezmoi.yaml`. Run `chezmoi init --prompt` to answer again.
 

@@ -4,23 +4,23 @@
 # administrator rights.
 $ErrorActionPreference = 'Stop'
 
-# winget IDs and the sources they're from. Find more with `winget search`
-$apps = [ordered]@{
-    'Bitwarden.Bitwarden'        = 'winget'
-    'Docker.DockerDesktop'       = 'winget'
-    '9NBLGGH5R558'               = 'msstore'  # Microsoft To Do
-    'Nextcloud.NextcloudDesktop' = 'winget'
-    'Ookla.Speedtest.Desktop'    = 'winget'
-    'VPNetwork.TorGuard'         = 'winget'
-    'WireGuard.WireGuard'        = 'winget'
-    'AntibodySoftware.WizTree'   = 'winget'
-}
+# The apps' names, winget IDs and the sources they're from, from
+# .chezmoidata/desktop-apps.toml
+$apps = @(
+{{- range .desktopApps }}
+{{-   if hasKey . "winget" }}
+    @{ Name = {{ squote .name }}; Id = {{ squote .winget }}; Source = 'winget' }
+{{-   else if hasKey . "msstore" }}
+    @{ Name = {{ squote .name }}; Id = {{ squote .msstore }}; Source = 'msstore' }
+{{-   end }}
+{{- end }}
+)
 $failed = @()
-foreach ($id in $apps.Keys) {
-    Write-Host "`n# Install $id with winget"
-    winget install --exact --id $id --source $apps[$id] --no-upgrade --accept-package-agreements --accept-source-agreements
+foreach ($app in $apps) {
+    Write-Host "`n# Install $($app.Name) with winget"
+    winget install --exact --id $app.Id --source $app.Source --no-upgrade --accept-package-agreements --accept-source-agreements
     # -1978335135 means it's already installed
-    if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne -1978335135) { $failed += $id }
+    if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne -1978335135) { $failed += $app.Name }
 }
 if ($failed) {
     throw "winget couldn't install $($failed -join ', '). Run chezmoi apply to try again"

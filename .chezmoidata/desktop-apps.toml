@@ -1,0 +1,15 @@
+# The desktop apps that chezmoi installs on macOS and Windows, if you answer yes
+# to its prompt, skipping the ones that are already installed. Each app has a
+# Homebrew cask or a Mac App Store ID for macOS, and a winget ID or a Microsoft
+# Store ID for Windows. Leave them out for an OS that the app isn't on. Find
+# more with `brew search`, `mas search` and `winget search`.
+desktopApps = [
+    { name = "Bitwarden", cask = "bitwarden", winget = "Bitwarden.Bitwarden" },
+    { name = "Docker Desktop", cask = "docker-desktop", winget = "Docker.DockerDesktop" },
+    { name = "Microsoft To Do", mas = 1274495053, msstore = "9NBLGGH5R558" },
+    { name = "Nextcloud", cask = "nextcloud", winget = "Nextcloud.NextcloudDesktop" },
+    { name = "Speedtest by Ookla", mas = 1153157709, winget = "Ookla.Speedtest.Desktop" },
+    { name = "TorGuard", cask = "torguard", winget = "VPNetwork.TorGuard" },
+    { name = "WireGuard", mas = 1451685025, winget = "WireGuard.WireGuard" },
+    { name = "WizTree", winget = "AntibodySoftware.WizTree" },
+]
