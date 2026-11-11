@@ -7,6 +7,7 @@ reference_dotfiles
 Documents
 decrypt-private-key-windows.ps1
 install-cli-tools-windows.ps1
+install-packages-windows.ps1
 {{- end }}
 
 # unix files

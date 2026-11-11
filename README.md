@@ -26,10 +26,12 @@ The files I think are most notable are listed below:
           installs mise and the tools in its config, and generates their zsh completions.
           Also reruns when the mise config or `mise.lock` changes
     - Plugins cloned from git: [`.chezmoiexternal.toml`](./.chezmoiexternal.toml)
-    - Windows-specific:
+    - Windows-specific, rerun by chezmoi only when they change:
+        - [`run_onchange_before_install-packages-windows.ps1.tmpl`](./run_onchange_before_install-packages-windows.ps1.tmpl):
+          installs gcc and Python with winget if they're missing, which Neovim needs to build its parsers and install
+          its language servers
         - [`run_onchange_after_install-cli-tools-windows.ps1.tmpl`](./run_onchange_after_install-cli-tools-windows.ps1.tmpl):
-          installs mise and the tools in its config.
-          Reruns when it, the mise config or `mise.lock` changes
+          installs mise and the tools in its config. Also reruns when the mise config or `mise.lock` changes
         - The other software I use is managed with [UniGetUI](https://github.com/Devolutions/UniGetUI) (formerly
           WingetUI), which can install it from the bundles in [`wingetui/`](./reference_dotfiles/wingetui/)
 - Encryption scripts: files with sensitive information are
@@ -96,7 +98,8 @@ again.
     iex "&{$(irm 'https://get.chezmoi.io/ps1')} -b '~/.local/bin' -- init --apply patrick-5546"
     ```
 
-    - This also installs mise in `~\.local\bin`, adds that folder to your Path, and installs the tools in mise's
+    - This also installs gcc ([WinLibs](https://winlibs.com)) and Python with winget if they're missing, which Neovim
+      needs, then installs mise in `~\.local\bin`, adds that folder to your Path, and installs the tools in mise's
       config. Open a new terminal to start using them
 
 3. Keep everything up to date
@@ -110,8 +113,7 @@ again.
     ```
 
     - To roll back an upgrade, revert its commit in the source directory (`chezmoi cd`) and run `chezmoi apply`
-    - Upgrade PowerShell and Git with winget or UniGetUI
+    - Upgrade PowerShell, Git, gcc and Python with winget or UniGetUI
 
 4. Optional: install the other software I use with [UniGetUI](https://github.com/Devolutions/UniGetUI), by importing
    the bundles in [`reference_dotfiles/wingetui`](./reference_dotfiles/wingetui/)
-    - `dev.json` includes gcc ([WinLibs](https://winlibs.com)), which LazyVim needs to compile treesitter parsers
