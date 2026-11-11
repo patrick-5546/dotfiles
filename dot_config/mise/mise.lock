@@ -2,6 +2,46 @@
 
 lockfile_version = 4
 
+[conda-packages.linux-arm64."_openmp_mutex-4.5-20_gnu"]
+url = "https://conda.anaconda.org/conda-forge/linux-aarch64/_openmp_mutex-4.5-20_gnu.conda"
+checksum = "sha256:a2527b1d81792a0ccd2c05850960df119c2b6d8f5fdec97f2db7d25dc23b1068"
+
+[conda-packages.linux-arm64."libgcc-16.2.0-h205dda4_7"]
+url = "https://conda.anaconda.org/conda-forge/linux-aarch64/libgcc-16.2.0-h205dda4_7.conda"
+checksum = "sha256:eae7a3449d5a3b5351c5427137c076cc3fc826645c7bfc42dc10772b783826f1"
+
+[conda-packages.linux-arm64."libgomp-16.2.0-h8acb6b2_7"]
+url = "https://conda.anaconda.org/conda-forge/linux-aarch64/libgomp-16.2.0-h8acb6b2_7.conda"
+checksum = "sha256:4406fd67c5beeb99b9372f9bf07aa3e40ca141e337eceebac3ff64aa72799494"
+
+[conda-packages.linux-x64."_openmp_mutex-4.5-20_gnu"]
+url = "https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-20_gnu.conda"
+checksum = "sha256:1dd3fffd892081df9726d7eb7e0dea6198962ba775bd88842135a4ddb4deb3c9"
+
+[conda-packages.linux-x64."libgcc-16.2.0-ha9f2e26_7"]
+url = "https://conda.anaconda.org/conda-forge/linux-64/libgcc-16.2.0-ha9f2e26_7.conda"
+checksum = "sha256:e031634c3a928f9594eba868bc46ef5230d6571a364a0c63215b06c4563bfcea"
+
+[conda-packages.linux-x64."libgomp-16.2.0-he0feb66_7"]
+url = "https://conda.anaconda.org/conda-forge/linux-64/libgomp-16.2.0-he0feb66_7.conda"
+checksum = "sha256:92a0bb350c7be6a4eedcb4e111c60aefd176018e6b1c009a6e025dbe9bbcd758"
+
+[conda-packages.windows-x64."ucrt-10.0.26100.0-h57928b3_0"]
+url = "https://conda.anaconda.org/conda-forge/win-64/ucrt-10.0.26100.0-h57928b3_0.conda"
+checksum = "sha256:3005729dce6f3d3f5ec91dfc49fc75a0095f9cd23bab49efb899657297ac91a5"
+
+[conda-packages.windows-x64."vc-14.5-hda273ae_43"]
+url = "https://conda.anaconda.org/conda-forge/win-64/vc-14.5-hda273ae_43.conda"
+checksum = "sha256:b021e65bf2240a3256639913aef12f14e63c396170a103285adecfbff9bb01ac"
+
+[conda-packages.windows-x64."vc14_runtime-14.51.36247-h072b54c_43"]
+url = "https://conda.anaconda.org/conda-forge/win-64/vc14_runtime-14.51.36247-h072b54c_43.conda"
+checksum = "sha256:02e21ff2ff06c7e45e10b72953cb2b1739e8dad7a4a8a49c814897cfabefaada"
+
+[conda-packages.windows-x64."vcomp14-14.51.36247-h1c3f1cb_43"]
+url = "https://conda.anaconda.org/conda-forge/win-64/vcomp14-14.51.36247-h1c3f1cb_43.conda"
+checksum = "sha256:159fe1bb304d6a8e82a0e4b71762c05325cff3d472e4a1d49465c9def61a785e"
+
 [[tools.atuin]]
 version = "18.24.5"
 backend = "aqua:atuinsh/atuin"
@@ -58,6 +98,47 @@ url_api = "https://api.github.com/repos/sharkdp/bat/releases/assets/323548442"
 checksum = "sha256:0f729b4b6f5f28d395c641eacc2e9ff68d0096b85aa0eec344aa62425144b69b"
 url = "https://github.com/sharkdp/bat/releases/download/v0.26.1/bat-v0.26.1-x86_64-pc-windows-msvc.zip"
 url_api = "https://api.github.com/repos/sharkdp/bat/releases/assets/323549116"
+
+[[tools."conda:tree-sitter-cli"]]
+version = "0.27.2"
+backend = "conda:tree-sitter-cli"
+specifiers = ["latest"]
+
+[tools."conda:tree-sitter-cli".options]
+channel = "conda-forge"
+
+[tools."conda:tree-sitter-cli"."platforms.linux-arm64"]
+checksum = "sha256:1a88951d519eb3d755de0224d38b85a6bed4689f51e5f55e8cb58a613b20aab1"
+url = "https://conda.anaconda.org/conda-forge/linux-aarch64/tree-sitter-cli-0.27.2-h4f14f73_0.conda"
+conda_deps = [
+    "libgcc-16.2.0-h205dda4_7",
+    "_openmp_mutex-4.5-20_gnu",
+    "libgomp-16.2.0-h8acb6b2_7",
+]
+
+[tools."conda:tree-sitter-cli"."platforms.linux-x64"]
+checksum = "sha256:86ef467d84625d866710e056471df1f3007e958bc16abd898400b25b7afd9867"
+url = "https://conda.anaconda.org/conda-forge/linux-64/tree-sitter-cli-0.27.2-hc7555a6_0.conda"
+conda_deps = [
+    "libgcc-16.2.0-ha9f2e26_7",
+    "_openmp_mutex-4.5-20_gnu",
+    "libgomp-16.2.0-he0feb66_7",
+]
+
+[tools."conda:tree-sitter-cli"."platforms.macos-arm64"]
+checksum = "sha256:bb012eb0bbaf3fc315be06168906a62d12c856e1ea1cf903754165e0bd6645cc"
+url = "https://conda.anaconda.org/conda-forge/osx-arm64/tree-sitter-cli-0.27.2-h9f3b986_0.conda"
+conda_deps = []
+
+[tools."conda:tree-sitter-cli"."platforms.windows-x64"]
+checksum = "sha256:f1553e6aca03a74b5469fe397c468ad2e4083e6932369dab04274df778bef082"
+url = "https://conda.anaconda.org/conda-forge/win-64/tree-sitter-cli-0.27.2-h18a1a76_0.conda"
+conda_deps = [
+    "vc-14.5-hda273ae_43",
+    "vc14_runtime-14.51.36247-h072b54c_43",
+    "vcomp14-14.51.36247-h1c3f1cb_43",
+    "ucrt-10.0.26100.0-h57928b3_0",
+]
 
 [[tools.delta]]
 version = "0.20.1"

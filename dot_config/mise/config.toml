@@ -29,6 +29,9 @@ lockfile_platforms = ["linux-arm64", "linux-x64", "macos-arm64", "windows-x64"]
 # mise skips tmux on Windows, which it has no builds for.
 atuin = { version = "latest", libc = "musl" }
 bat = "latest"
+# The tree-sitter CLI, which nvim-treesitter uses to build parsers. Its
+# official builds need glibc 2.39, so install conda-forge's from conda instead.
+"conda:tree-sitter-cli" = "latest"
 delta = "latest"
 dust = "latest"
 fd = "latest"

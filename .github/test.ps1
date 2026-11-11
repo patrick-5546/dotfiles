@@ -50,7 +50,7 @@ if ($LASTEXITCODE -ne 0 -or $output.Trim()) { Fail "PowerShell printed on startu
 $checks = @'
 $installs = Join-Path $env:LOCALAPPDATA 'mise\installs'
 $tools = 'atuin', 'bat', 'delta', 'dust', 'fd', 'fzf', 'gh', 'go', 'lazygit', 'lsd',
-    'node', 'npm', 'nvim', 'rg', 'starship', 'uv', 'uvx', 'ya', 'yazi', 'zoxide'
+    'node', 'npm', 'nvim', 'rg', 'starship', 'tree-sitter', 'uv', 'uvx', 'ya', 'yazi', 'zoxide'
 foreach ($tool in $tools) {
     $source = (Get-Command $tool -ErrorAction Ignore | Select-Object -First 1).Source
     if ($source -notlike "$installs\*") {
