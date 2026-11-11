@@ -24,6 +24,11 @@ need curl
 need git
 need zsh
 need cc gcc  # nvim-treesitter compiles its parsers with it
+need unzip  # Mason unpacks some tools with it, such as stylua
+# Mason installs Python tools, such as pyrefly, in virtual environments, which
+# Ubuntu's Python can only create with python3-venv
+need python3
+python3 -c 'import ensurepip' 2>/dev/null || missing+=(python3-venv)
 need_lib libatomic.so.1 libatomic1  # Node.js from mise links against it
 
 if [ ${#missing[@]} -gt 0 ]; then
