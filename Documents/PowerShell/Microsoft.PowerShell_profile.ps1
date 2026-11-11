@@ -1,6 +1,3 @@
-# Imports
-Import-Module PSReadLine
-
 $ProfilePath=Split-Path -parent $profile
 
 # Functions
@@ -8,6 +5,7 @@ $ProfilePath=Split-Path -parent $profile
 . $ProfilePath/ssh.autocomplete.ps1
 
 ## PSReadLine configuration
+# PSReadLine comes with PowerShell 7, which loads it without Import-Module
 Set-PSReadLineOption -EditMode Vi
 # Shows navigable menu of all options when hitting Tab
 Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
