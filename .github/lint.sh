@@ -61,7 +61,7 @@ for os in "${!os_data[@]}"; do
 done
 
 echo "# files that aren't templates"
-shellcheck .github/*.sh
+git ls-files -z '*.sh' | xargs -0 shellcheck
 for file in dot_zshenv dot_zshrc dot_config/zsh/*.zsh; do
     zsh -n "$file"
 done
