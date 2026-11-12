@@ -4,6 +4,15 @@ if [[ -x /opt/homebrew/bin/brew ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 fi
 
+# WSL appends the whole Windows PATH, and the folders in /mnt/c are slow to read
+# from Linux. mise and zsh look through every folder on PATH, which made new
+# shells take a second, each cd half a second, and typing lag. Keep only the
+# Windows commands used here: System32 and Windows (clip.exe, cmd.exe,
+# explorer.exe) and VS Code (code)
+if [[ -n $WSL_DISTRO_NAME ]]; then
+    path=(${path:#/mnt/*} ${(M)path:#/mnt/c/[Ww]indows(|/[Ss]ystem32)} ${(M)path:#/mnt/*/Microsoft VS Code/bin})
+fi
+
 # Enable colors and change prompt:
 autoload -U colors && colors
 

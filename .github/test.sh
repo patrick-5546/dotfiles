@@ -103,6 +103,14 @@ output=$(in_pty zsh -i -c exit) && status=0 || status=$?
 if [ "$status" -ne 0 ] || [ -n "$output" ]; then
     fail "zsh should start without printing anything, but exited with $status and printed: $output"
 fi
+# On WSL, .zshrc keeps only the Windows folders it needs on PATH. It expands in
+# zsh, not here:
+# shellcheck disable=SC2016
+output=$(WSL_DISTRO_NAME=Ubuntu PATH="$PATH:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Tools:/mnt/c/Program Files/Microsoft VS Code/bin" \
+    in_pty zsh -i -c 'print -rl -- ${(M)path:#/mnt/*}') || true
+if [ "$output" != $'/mnt/c/Windows/system32\n/mnt/c/Windows\n/mnt/c/Program Files/Microsoft VS Code/bin' ]; then
+    fail "On WSL, PATH should only keep System32, Windows and VS Code from /mnt, but has: $output"
+fi
 # Prints the problems it finds. It expands in zsh, not here:
 # shellcheck disable=SC2016
 zsh_checks='
