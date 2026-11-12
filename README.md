@@ -85,6 +85,8 @@ The files I think are most notable are listed below:
     chezmoi upgrade                # upgrade chezmoi
     ```
 
+    - If chezmoi says that the config file template has changed, run `chezmoi init --apply`. It asks only the
+      questions you haven't answered yet
     - mise updates itself once a week. Like `mise upgrade`, it skips releases from the last 7 days
     - To roll back an upgrade, revert its commit in the source directory (`chezmoi cd`) and run `chezmoi apply`
     - Upgrade everything else with the OS's package managers: `sudo apt upgrade` on Ubuntu, `brew upgrade` and the
