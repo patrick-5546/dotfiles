@@ -3,8 +3,8 @@
 My cross-platform, cross-shell configuration files and installation scripts managed with [chezmoi](https://www.chezmoi.io/):
 
 - Zsh on Ubuntu 22.04 or later, including in WSL 2
-- Zsh on macOS
-- PowerShell 7 on Windows 11
+- Zsh on macOS (Apple silicon)
+- PowerShell 7 on Windows 11 (x64)
 
 ## Highlights
 
