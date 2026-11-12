@@ -65,6 +65,7 @@ The files I think are most notable are listed below:
         - The packages that the dotfiles and Neovim need: with apt on Ubuntu, and gcc ([WinLibs](https://winlibs.com))
           and Python with winget on Windows. On Ubuntu and macOS, zsh becomes your login shell
         - mise in `~/.local/bin`, and the tools in its config. On Windows, it adds `~\.local\bin` to your Path
+        - `gh auth login`, if you aren't logged in to GitHub. git gets its GitHub credentials from gh
         - The desktop apps: with Homebrew on macOS, which it installs first if it's missing, and winget on Windows
     - Open a new terminal to start using them, or log out and back in if it doesn't start zsh
 

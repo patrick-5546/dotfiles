@@ -89,6 +89,13 @@ printf '#include <stdlib.h>\nint main(void) { return EXIT_SUCCESS; }\n' | cc -x 
     fail "cc can't compile a C program"
 echo "::endgroup::"
 
+echo "::group::Check git's GitHub credentials"
+# git gets them from gh through mise's shim, and gh returns the token that CI
+# sets in GITHUB_TOKEN
+output=$(printf 'protocol=https\nhost=github.com\n\n' | GIT_TERMINAL_PROMPT=0 git credential fill 2>&1) || true
+grep -q '^password=.' <<<"$output" || fail "git didn't get GitHub credentials from gh: $output"
+echo "::endgroup::"
+
 echo "::group::Check zsh"
 # GitHub's Ubuntu image makes everything in /usr/share writable by everyone,
 # including zsh's completion directories, so compinit would ask whether to use

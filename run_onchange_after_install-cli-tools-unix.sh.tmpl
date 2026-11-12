@@ -48,6 +48,8 @@ curl -fsSL -o _dust "https://raw.githubusercontent.com/bootandy/dust/v$("$mise" 
     || echo "Couldn't download the dust completions" >&2
 rm -f "$HOME/.zcompdump"  # so that the next zsh loads the new completions
 
+# git gets GitHub credentials from gh (see .gitconfig). Skipped without a
+# terminal, as in CI
 if [ -t 0 ] && ! gh auth status >/dev/null 2>&1; then
     printf "\n# Log in to GitHub\n"
     gh auth login || echo "gh auth login failed, run it again later" >&2

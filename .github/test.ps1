@@ -32,7 +32,8 @@ Write-Host '::group::Install the dotfiles'
 New-Item -ItemType Directory -Force "$HOME\.local\share" | Out-Null
 Copy-Item -Recurse -Force $checkout "$HOME\.local\share\chezmoi"
 Invoke-Expression "&{$(Invoke-RestMethod https://get.chezmoi.io/ps1)} -b '$bin'"
-chezmoi init --apply --promptBool 'Decrypt the encrypted files with the key passphrase=false' `
+# Without a terminal for input, like test.sh, so the scripts don't ask to log in
+$null | chezmoi init --apply --promptBool 'Decrypt the encrypted files with the key passphrase=false' `
     --promptBool 'Install the desktop apps=false'
 if ($LASTEXITCODE -ne 0) { throw "chezmoi init --apply failed with exit code $LASTEXITCODE" }
 Write-Host '::endgroup::'
@@ -47,6 +48,14 @@ if ($output.Trim()) { Fail "chezmoi status should be empty, but printed: $output
 chezmoi verify
 if ($LASTEXITCODE -ne 0) { Fail 'chezmoi verify found differences' }
 mise ls
+Write-Host '::endgroup::'
+
+Write-Host "::group::Check git's GitHub credentials"
+# git gets them from gh through mise's shim, and gh returns the token that CI
+# sets in GITHUB_TOKEN
+$env:GIT_TERMINAL_PROMPT = '0'
+$output = "protocol=https`nhost=github.com`n" | git credential fill 2>&1 | Out-String
+if ($output -notmatch '(?m)^password=.') { Fail "git didn't get GitHub credentials from gh: $output" }
 Write-Host '::endgroup::'
 
 Write-Host '::group::Check PowerShell'

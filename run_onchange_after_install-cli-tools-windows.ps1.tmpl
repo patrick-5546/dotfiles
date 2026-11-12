@@ -17,3 +17,14 @@ Write-Host "`n# Install tools with mise"
 # Only the versions in mise.lock, and fail if it doesn't have them
 & $mise install --locked
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+# git gets GitHub credentials from gh (see .gitconfig). Skipped when chezmoi's
+# input isn't the terminal, as in CI
+if (-not [Console]::IsInputRedirected) {
+    & $mise exec -- gh auth status *> $null
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "`n# Log in to GitHub"
+        & $mise exec -- gh auth login
+        if ($LASTEXITCODE -ne 0) { Write-Warning 'gh auth login failed, run it again later' }
+    }
+}
