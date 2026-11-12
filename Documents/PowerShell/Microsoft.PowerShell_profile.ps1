@@ -1,4 +1,6 @@
-$ProfilePath=Split-Path -parent $profile
+# This file's folder. $profile isn't, when PowerShell loads this file from a
+# profile elsewhere, such as in a Documents folder that's in OneDrive
+$ProfilePath = $PSScriptRoot
 
 # Functions
 . $ProfilePath/functions.ps1
