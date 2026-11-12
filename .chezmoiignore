@@ -9,7 +9,6 @@ decrypt-private-key-windows.ps1
 install-cli-tools-windows.ps1
 install-desktop-apps-windows.ps1
 install-packages-windows.ps1
-install-profile-stub-windows.ps1
 {{- end }}
 
 # macOS files
