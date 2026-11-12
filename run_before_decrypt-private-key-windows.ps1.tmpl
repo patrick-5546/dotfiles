@@ -1,0 +1,9 @@
+{{ if not (stat (joinPath .chezmoi.homeDir ".chezmoikey.txt")) -}}
+# Decrypts the key that chezmoi decrypts the encrypted files with, asking for its
+# passphrase. chezmoi runs this before applying files while the key is missing.
+# Once it exists, the template is empty, so chezmoi skips it.
+$key = Join-Path $HOME '.chezmoikey.txt'
+Write-Host "# create ~/.chezmoikey.txt"
+& $env:CHEZMOI_EXECUTABLE age decrypt --output $key --passphrase (Join-Path $env:CHEZMOI_SOURCE_DIR 'key.txt.age')
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+{{ end -}}

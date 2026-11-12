@@ -7,10 +7,11 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+# Home folders without the age key, so that the decrypt scripts render
 declare -A os_data=(
-    [linux]='{"os":"linux"}'
-    [darwin]='{"os":"darwin"}'
-    [windows]='{"os":"windows"}'
+    [linux]='{"os":"linux","homeDir":"/home/lint"}'
+    [darwin]='{"os":"darwin","homeDir":"/Users/lint"}'
+    [windows]='{"os":"windows","homeDir":"C:/Users/lint"}'
 )
 out=$(mktemp -d)
 trap 'rm -rf "$out"' EXIT

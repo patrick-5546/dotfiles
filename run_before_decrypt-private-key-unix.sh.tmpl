@@ -1,0 +1,12 @@
+{{ if not (stat (joinPath .chezmoi.homeDir ".chezmoikey.txt")) -}}
+#!/bin/sh
+# Decrypts the key that chezmoi decrypts the encrypted files with, asking for its
+# passphrase. chezmoi runs this before applying files while the key is missing.
+# Once it exists, the template is empty, so chezmoi skips it.
+set -eu
+
+key="$HOME/.chezmoikey.txt"
+printf "# create ~/.chezmoikey.txt\n"
+"$CHEZMOI_EXECUTABLE" age decrypt --output "$key" --passphrase "$CHEZMOI_SOURCE_DIR/key.txt.age"
+chmod 600 "$key"
+{{ end -}}
