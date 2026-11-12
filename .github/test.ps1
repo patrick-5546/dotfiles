@@ -54,8 +54,17 @@ Write-Host "::group::Check git's GitHub credentials"
 # git gets them from gh through mise's shim, and gh returns the token that CI
 # sets in GITHUB_TOKEN
 $env:GIT_TERMINAL_PROMPT = '0'
-$output = "protocol=https`nhost=github.com`n" | git credential fill 2>&1 | Out-String
+$request = "protocol=https`nhost=github.com`n"
+$output = $request | git credential fill 2>&1 | Out-String
 if ($output -notmatch '(?m)^password=.') { Fail "git didn't get GitHub credentials from gh: $output" }
+# cmd, Windows PowerShell and VS Code don't activate mise, so check git there
+# too: from cmd, with the Path that a new terminal gets
+$sessionPath = $env:Path
+$env:Path = [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' +
+    [Environment]::GetEnvironmentVariable('Path', 'User')
+$output = $request | cmd /d /c 'git credential fill 2>&1' | Out-String
+$env:Path = $sessionPath
+if ($output -notmatch '(?m)^password=.') { Fail "git in cmd didn't get GitHub credentials from gh: $output" }
 Write-Host '::endgroup::'
 
 Write-Host '::group::Check PowerShell'
