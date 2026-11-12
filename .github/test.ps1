@@ -67,6 +67,17 @@ $env:Path = $sessionPath
 if ($output -notmatch '(?m)^password=.') { Fail "git in cmd didn't get GitHub credentials from gh: $output" }
 Write-Host '::endgroup::'
 
+Write-Host "::group::Check that tools' git settings stay out of the dotfiles"
+# Tools like Git Credential Manager save their settings with git config
+# --global, which writes to ~/.gitconfig rather than to the dotfiles' file
+git config --global credential.azrepos:org/example.username user@example.com
+$saved = git config --file "$HOME\.gitconfig" credential.azrepos:org/example.username
+$output = chezmoi status 2>&1 | Out-String
+if ($saved -ne 'user@example.com' -or $output.Trim()) {
+    Fail "git config --global should write to ~/.gitconfig, which chezmoi doesn't manage. chezmoi status: $output"
+}
+Write-Host '::endgroup::'
+
 Write-Host '::group::Check PowerShell'
 $output = Invoke-NewPowerShell 'exit'
 if ($LASTEXITCODE -ne 0 -or $output.Trim()) { Fail "PowerShell printed on startup: $output" }

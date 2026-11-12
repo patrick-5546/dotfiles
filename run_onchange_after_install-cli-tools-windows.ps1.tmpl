@@ -20,8 +20,8 @@ Write-Host "`n# Install tools with mise"
 & $mise install --locked
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-# git gets GitHub credentials from gh (see .gitconfig). Skipped when chezmoi's
-# input isn't the terminal, as in CI
+# git gets GitHub credentials from gh (see ~/.config/git/config). Skipped when
+# chezmoi's input isn't the terminal, as in CI
 if (-not [Console]::IsInputRedirected) {
     & $mise exec -- gh auth status *> $null
     if ($LASTEXITCODE -ne 0) {

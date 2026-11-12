@@ -35,7 +35,7 @@ check() {  # check OS TEMPLATE RENDERED
         *.ps1.tmpl) [ "$1" != windows ] || ps1 "$3" ;;
         *.toml.tmpl | .chezmoiexternal.toml) toml "$3" ;;
         *.yaml.tmpl | *.yml.tmpl) yq . "$3" >/dev/null ;;
-        dot_gitconfig.tmpl) git config --file "$3" --list >/dev/null ;;
+        dot_config/git/config.tmpl) git config --file "$3" --list >/dev/null ;;
     esac
 }
 
