@@ -10,6 +10,8 @@ if (-not (Test-Path $mise -PathType Leaf)) {
     Write-Host "`n# Install mise"
     # The installer also adds ~\.local\bin to the user Path
     $env:MISE_INSTALL_PATH = $mise
+    # The installer doesn't read the mise config, so give it its minimum release age
+    $env:MISE_MINIMUM_RELEASE_AGE = {{ (include "dot_config/mise/config.toml" | fromToml).settings.minimum_release_age | squote }}
     Invoke-RestMethod https://mise.run/powershell | Invoke-Expression
 }
 
