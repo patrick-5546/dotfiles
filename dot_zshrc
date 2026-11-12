@@ -8,10 +8,14 @@ fi
 # from Linux. mise and zsh look through every folder on PATH, which made new
 # shells take a second, each cd half a second, and typing lag. Keep only the
 # Windows commands used here: System32 and Windows (clip.exe, cmd.exe,
-# explorer.exe) and VS Code (code). They come from what WSL appends, so
-# /etc/wsl.conf must keep its default, appendWindowsPath = true
+# explorer.exe), in any case since some PCs have C:\WINDOWS, and VS Code
+# (code). They come from what WSL appends, so /etc/wsl.conf must keep its
+# default, appendWindowsPath = true
 if [[ -n $WSL_DISTRO_NAME ]]; then
-    path=(${path:#/mnt/*} ${(M)path:#/mnt/c/[Ww]indows(|/[Ss]ystem32)} ${(M)path:#/mnt/*/Microsoft VS Code/bin})
+    () {
+        setopt local_options extended_glob
+        path=(${path:#/mnt/*} ${(M)path:#(#i)/mnt/c/windows(|/system32)} ${(M)path:#/mnt/*/Microsoft VS Code/bin})
+    }
 fi
 
 # Enable colors and change prompt:
