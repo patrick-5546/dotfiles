@@ -25,6 +25,11 @@ Set-PSReadlineKeyHandler -Chord 'Ctrl+k' -Function PreviousSuggestion
 $env:YAZI_FILE_ONE = "C:\Program Files\Git\usr\bin\file.exe"
 $env:YAZI_CONFIG_HOME = Join-Path $HOME ".config\yazi"
 $env:XDG_CONFIG_HOME = Join-Path $HOME ".config"
+# delta and bat page with less, which comes with Git but isn't on PATH. Without
+# arguments, so that they add their own options for less, such as -R and
+# --quit-if-one-screen. The quotes are for the space: they split it like a command
+$env:DELTA_PAGER = '"C:\Program Files\Git\usr\bin\less.exe"'
+$env:BAT_PAGER = $env:DELTA_PAGER
 
 # Tools installed by mise: https://mise.jdx.dev
 # Before atuin, starship and zoxide, which it puts on PATH. Starship replaces
