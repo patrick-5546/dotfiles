@@ -7,6 +7,7 @@ desktopApps = [
     # Bitwarden's Safari extension only comes with its Mac App Store app
     { name = "Bitwarden", mas = 1352778147, winget = "Bitwarden.Bitwarden" },
     { name = "Docker Desktop", cask = "docker-desktop", winget = "Docker.DockerDesktop" },
+    { name = "Ghostty", cask = "ghostty" },
     { name = "Microsoft To Do", mas = 1274495053, msstore = "9NBLGGH5R558" },
     { name = "Nextcloud", cask = "nextcloud", winget = "Nextcloud.NextcloudDesktop" },
     { name = "Speedtest by Ookla", mas = 1153157709, winget = "Ookla.Speedtest.Desktop" },
