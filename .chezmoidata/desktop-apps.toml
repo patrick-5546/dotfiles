@@ -10,6 +10,8 @@ desktopApps = [
     { name = "Ghostty", cask = "ghostty" },
     { name = "Microsoft To Do", mas = 1274495053, msstore = "9NBLGGH5R558" },
     { name = "Nextcloud", cask = "nextcloud", winget = "Nextcloud.NextcloudDesktop" },
+    # The new Outlook for Windows, not classic Outlook
+    { name = "Outlook", winget = "Microsoft.Outlook" },
     { name = "Speedtest by Ookla", mas = 1153157709, winget = "Ookla.Speedtest.Desktop" },
     { name = "TorGuard", cask = "torguard", winget = "VPNetwork.TorGuard" },
     { name = "UniGetUI", winget = "Devolutions.UniGetUI" },

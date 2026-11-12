@@ -9,7 +9,6 @@ desktop apps, or install it with `winget install --exact --id <ID>`.
 | [Carnac](https://github.com/Code52/carnac) | Shows the keys you press, for presentations and screen recordings | `code52.Carnac` |
 | [Discord](https://discord.com) | Chat | `Discord.Discord` |
 | [NanaZip](https://github.com/M2Team/NanaZip) | Opens and creates archives. A 7-Zip fork that's in the Windows 11 context menu | `M2Team.NanaZip` |
-| [Outlook for Windows](https://www.microsoft.com/microsoft-365/outlook/outlook-for-windows) | Email and calendar | `Microsoft.Outlook` |
 | [Plex](https://www.plex.tv) | Plays media from Plex servers | `Plex.Plex` |
 | [Rufus](https://rufus.ie) | Creates bootable USB drives | `Rufus.Rufus` |
 | [Signal](https://signal.org) | Encrypted messaging | `OpenWhisperSystems.Signal` |
