@@ -67,6 +67,8 @@ The files I think are most notable are listed below:
         - mise in `~/.local/bin`, and the tools in its config. On Windows, it adds `~\.local\bin` to your Path
         - `gh auth login`, if you aren't logged in to GitHub. git gets its GitHub credentials from gh
         - The desktop apps: with Homebrew on macOS, which it installs first if it's missing, and winget on Windows
+        - On Windows, if Documents is in OneDrive, where PowerShell then looks for its profile, a profile there that
+          loads the dotfiles' one
     - Open a new terminal to start using them, or log out and back in if it doesn't start zsh
 
 3. Keep everything up to date
