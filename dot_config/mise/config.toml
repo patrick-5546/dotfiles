@@ -13,14 +13,21 @@
 #   editing this file by hand, update mise.lock with `mise lock --global`. Then
 #   save the changes with `chezmoi re-add ~/.config/mise`, and commit them.
 # - Roll back an update by reverting its commit and running `chezmoi apply`.
-# - Run a tool once without adding it with `mise exec TOOL@VERSION -- COMMAND`,
-#   and update mise itself with `mise self-update`.
+# - Run a tool once without adding it with `mise exec TOOL@VERSION -- COMMAND`.
+#   mise updates itself, or run `mise self-update`.
 #
 # See https://mise.jdx.dev/configuration.html
 [settings]
 # Platforms that mise.lock has downloads for. To set up another kind of machine,
 # add its platform and run `mise lock --global`.
 lockfile_platforms = ["linux-arm64", "linux-x64", "macos-arm64", "windows-x64"]
+# Skip tool and mise releases from the last 7 days, which gives others time to
+# find a compromised or broken release. It doesn't change the versions in
+# mise.lock. Take a release early with `mise upgrade --minimum-release-age 0s TOOL`.
+minimum_release_age = "7d"
+# Update mise once a week, before a command that may download something, except
+# in CI and scripts
+self_update.auto = true
 
 [tools]
 # On Linux, the glibc builds of atuin and yazi need glibc 2.39 (Ubuntu 24.04),

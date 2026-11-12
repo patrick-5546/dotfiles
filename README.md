@@ -75,10 +75,10 @@ The files I think are most notable are listed below:
     chezmoi update                 # pull and apply the latest changes
     mise upgrade                   # upgrade the tools, which updates mise.lock
     chezmoi re-add ~/.config/mise  # save mise.lock, then commit and push it
-    mise self-update               # upgrade mise
     chezmoi upgrade                # upgrade chezmoi
     ```
 
+    - mise updates itself once a week. Like `mise upgrade`, it skips releases from the last 7 days
     - To roll back an upgrade, revert its commit in the source directory (`chezmoi cd`) and run `chezmoi apply`
     - Upgrade everything else with the OS's package managers: `sudo apt upgrade` on Ubuntu, `brew upgrade` and the
       App Store on macOS, and winget or UniGetUI on Windows
