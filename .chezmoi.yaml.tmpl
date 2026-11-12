@@ -22,6 +22,8 @@ diff:
 edit:
     command: "nvim"
 encryption: "age"
+# Decrypt with chezmoi's own age on every OS, even where the age command is installed
+useBuiltinAge: true
 age:
     identity: "{{ .chezmoi.homeDir }}/.chezmoikey.txt"
     recipient: "age1tqerfm7h83nl3d6ewcmhze8jmndfaaznrt84e8r0cd9rux9l5cwq72c992"
