@@ -39,6 +39,10 @@ $env:XDG_CONFIG_HOME = Join-Path $HOME ".config"
 # --quit-if-one-screen. The quotes are for the space: they split it like a command
 $env:DELTA_PAGER = '"C:\Program Files\Git\usr\bin\less.exe"'
 $env:BAT_PAGER = $env:DELTA_PAGER
+# Like in zsh, fzf takes 40% of the window and lists files with fd. It runs the
+# command with cmd, where single quotes don't quote, so .git has none
+$env:FZF_DEFAULT_OPTS = '--height 40% --layout=reverse --info=inline'
+$env:FZF_DEFAULT_COMMAND = 'fd --hidden --follow --exclude .git'
 
 # Tools installed by mise: https://mise.jdx.dev
 # Before atuin, starship and zoxide, which it puts on PATH. Starship replaces
