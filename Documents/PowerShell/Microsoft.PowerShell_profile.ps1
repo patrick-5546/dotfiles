@@ -17,11 +17,15 @@ Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 Set-PSReadLineOption -HistorySearchCursorMovesToEnd
 Set-PSReadlineKeyHandler -Chord 'Ctrl+j' -Function NextSuggestion
 Set-PSReadlineKeyHandler -Chord 'Ctrl+k' -Function PreviousSuggestion
+# Edit the command in Neovim, $env:VISUAL, like in zsh
+Set-PSReadLineKeyHandler -Chord 'Ctrl+e' -Function ViEditVisually
 
 # Aliases
 . $ProfilePath/aliases.ps1
 
 # Environment variables
+$env:VISUAL = 'nvim'
+$env:EDITOR = $env:VISUAL
 $env:YAZI_FILE_ONE = "C:\Program Files\Git\usr\bin\file.exe"
 $env:YAZI_CONFIG_HOME = Join-Path $HOME ".config\yazi"
 $env:XDG_CONFIG_HOME = Join-Path $HOME ".config"
