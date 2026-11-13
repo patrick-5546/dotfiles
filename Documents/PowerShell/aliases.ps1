@@ -91,8 +91,10 @@ function lt {
     ls -alhrt @args
 }
 
-function ssh-copy-id($remote) {
-    cat ~/.ssh/id_rsa.pub | ssh $remote "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"
+# OpenSSH's ssh-copy-id, which comes with Git but isn't on PATH. Git's bash puts
+# Git's ssh and the other commands it uses on PATH
+function ssh-copy-id {
+    & 'C:\Program Files\Git\bin\bash.exe' /usr/bin/ssh-copy-id @args
 }
 
 function which($name)
