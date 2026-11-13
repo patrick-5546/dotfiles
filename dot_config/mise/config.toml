@@ -17,13 +17,21 @@
 #   mise updates itself, or run `mise self-update`.
 #
 # See https://mise.jdx.dev/configuration.html
+
+# The oldest mise these dotfiles work with. The install scripts install this
+# version on a new machine and update an older mise to it, then mise updates
+# itself. Older versions stop with an error. 2026.11.8 is the first that
+# zsh's history lock file and WSL's Windows PATH don't slow down at every prompt.
+min_version = "2026.11.8"
+
 [settings]
 # Platforms that mise.lock has downloads for. To set up another kind of machine,
 # add its platform and run `mise lock --global`.
 lockfile_platforms = ["linux-arm64", "linux-x64", "macos-arm64", "windows-x64"]
 # Skip tool and mise releases from the last 7 days, which gives others time to
 # find a compromised or broken release. It doesn't change the versions in
-# mise.lock. Take a release early with `mise upgrade --minimum-release-age 0s TOOL`.
+# mise.lock. Take a release early with `mise upgrade --minimum-release-age 0s TOOL`,
+# or `mise self-update VERSION` for mise.
 minimum_release_age = "7d"
 # Update mise once a week, before a command that may download something, except
 # in CI and scripts

@@ -7,11 +7,13 @@
 set -euo pipefail
 
 mise="$HOME/.local/bin/mise"
+version={{ (include "dot_config/mise/config.toml" | fromToml).min_version | quote }}
 if [ ! -x "$mise" ]; then
     printf "\n# Install mise\n"
-    # The installer doesn't read the mise config, so give it its minimum release age
-    curl -fsSL https://mise.run | MISE_INSTALL_PATH="$mise" \
-        MISE_MINIMUM_RELEASE_AGE={{ (include "dot_config/mise/config.toml" | fromToml).settings.minimum_release_age | quote }} sh
+    curl -fsSL https://mise.run | MISE_INSTALL_PATH="$mise" MISE_VERSION="$version" sh
+elif [ "$(printf '%s\n' "$version" "$("$mise" --version | cut -d ' ' -f 1)" | sort -V | head -n 1)" != "$version" ]; then
+    printf "\n# Update mise to %s, the config's min_version\n" "$version"
+    "$mise" self-update --yes "$version"
 fi
 
 printf "\n# Install tools with mise\n"

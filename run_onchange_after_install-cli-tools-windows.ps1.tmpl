@@ -6,13 +6,17 @@
 $ErrorActionPreference = 'Stop'
 
 $mise = "$HOME\.local\bin\mise.exe"
+$version = {{ (include "dot_config/mise/config.toml" | fromToml).min_version | squote }}
 if (-not (Test-Path $mise -PathType Leaf)) {
     Write-Host "`n# Install mise"
     # The installer also adds ~\.local\bin to the user Path
     $env:MISE_INSTALL_PATH = $mise
-    # The installer doesn't read the mise config, so give it its minimum release age
-    $env:MISE_MINIMUM_RELEASE_AGE = {{ (include "dot_config/mise/config.toml" | fromToml).settings.minimum_release_age | squote }}
+    $env:MISE_VERSION = $version
     Invoke-RestMethod https://mise.run/powershell | Invoke-Expression
+} elseif ([version]((& $mise --version) -split ' ')[0] -lt [version]$version) {
+    Write-Host "`n# Update mise to $version, the config's min_version"
+    & $mise self-update --yes $version
+    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 }
 
 Write-Host "`n# Install tools with mise"
