@@ -5,12 +5,13 @@ if [[ -x /opt/homebrew/bin/brew ]]; then
 fi
 
 # WSL appends the whole Windows PATH, and the folders in /mnt/c are slow to read
-# from Linux. mise and zsh look through every folder on PATH, which made new
-# shells take a second, each cd half a second, and typing lag. Keep only the
-# Windows commands used here: System32 and Windows (clip.exe, cmd.exe,
-# explorer.exe), in any case since some PCs have C:\WINDOWS, and VS Code
-# (code). They come from what WSL appends, so /etc/wsl.conf must keep its
-# default, appendWindowsPath = true
+# from Linux. zsh looks through every folder on PATH for a command it hasn't
+# found yet, such as the command you're typing, which syntax highlighting checks
+# after each key: that took 0.12 s with the whole Windows PATH and 0.01 s with
+# this. Keep only the Windows commands used here: System32 and Windows
+# (clip.exe, cmd.exe, explorer.exe), in any case since some PCs have
+# C:\WINDOWS, and VS Code (code). They come from what WSL appends, so
+# /etc/wsl.conf must keep its default, appendWindowsPath = true
 if [[ -n $WSL_DISTRO_NAME ]]; then
     () {
         setopt local_options extended_glob
