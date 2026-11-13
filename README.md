@@ -92,5 +92,5 @@ The files I think are most notable are listed below:
     - Upgrade everything else with the OS's package managers: `sudo apt upgrade` on Ubuntu, `brew upgrade` and the
       App Store on macOS, and winget or UniGetUI on Windows
 
-4. Optional, on Windows: install the other software I've used, listed in
+4. Optional: install the other software I've used, listed in
    [`reference_dotfiles/software.md`](./reference_dotfiles/software.md)
