@@ -66,3 +66,24 @@ function Set-LocationUp2 {
 function Invoke-Exit {
     exit
 }
+
+# The repository's main branch: main or trunk, locally or on origin or
+# upstream, otherwise master. Like git_main_branch in zsh
+function git_main_branch {
+    git rev-parse --git-dir *> $null
+    if ($LASTEXITCODE -ne 0) { return }
+    foreach ($location in 'heads', 'remotes/origin', 'remotes/upstream') {
+        foreach ($branch in 'main', 'trunk') {
+            git show-ref --quiet --verify "refs/$location/$branch"
+            if ($LASTEXITCODE -eq 0) { return $branch }
+        }
+    }
+    'master'
+}
+
+# The current branch, or the commit when HEAD is detached
+function git_current_branch {
+    $ref = git symbolic-ref --quiet --short HEAD 2> $null
+    if ($LASTEXITCODE -ne 0) { $ref = git rev-parse --short HEAD 2> $null }
+    $ref
+}

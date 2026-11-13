@@ -6,6 +6,7 @@ Set-Alias cls clear
 Set-Alias e Invoke-Exit
 Set-Alias g git
 Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
+Set-Alias lg lazygit
 # The aliases below already exist
 #Set-Alias md mkdir
 #Set-Alias rd rmdir
@@ -34,8 +35,37 @@ function cup {
     chezmoi update @args
 }
 
+# git, like in zsh. From https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
+# Local branches whose remote branch is gone
+function gbg {
+    git branch -vv | Where-Object { $_ -match ': gone\]' }
+}
+
+function gbgD {
+    # Each line starts with two characters: "* " for the current branch. @()
+    # keeps one branch a list, which @branches would otherwise pass by letter
+    $branches = @(gbg | ForEach-Object { ($_.Substring(2) -split ' ')[0] })
+    if ($branches) { git branch --delete --force @branches }
+}
+
+function gc! {
+    git commit --verbose --amend @args
+}
+
+function gmom {
+    git merge "origin/$(git_main_branch)" --no-edit @args
+}
+
+function gpsup {
+    git push --set-upstream origin "$(git_current_branch)" @args
+}
+
+function grbom {
+    git rebase "origin/$(git_main_branch)" @args
+}
+
 function gswm {
-    git switch main
+    git switch "$(git_main_branch)" @args
 }
 
 # Prevent conflict with built-in aliases
