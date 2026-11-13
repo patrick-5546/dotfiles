@@ -11,27 +11,27 @@ Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
 #Set-Alias rd rmdir
 
 function cad {
-    Invoke-Chezmoi -SubCommand add @args
+    chezmoi add @args
 }
 
 function cap {
-    Invoke-Chezmoi -SubCommand apply @args
+    chezmoi apply @args
 }
 
 function ccd {
-    Invoke-Chezmoi -SubCommand cd @args
+    chezmoi cd @args
 }
 
 function cdi {
-    Invoke-Chezmoi -SubCommand diff @args
+    chezmoi diff @args
 }
 
 function cst {
-    Invoke-Chezmoi -SubCommand status @args
+    chezmoi status @args
 }
 
 function cup {
-    Invoke-Chezmoi -SubCommand update @args
+    chezmoi update @args
 }
 
 function gswm {

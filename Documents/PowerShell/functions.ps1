@@ -63,18 +63,6 @@ function Set-LocationUp2 {
     }
 }
 
-function Invoke-Chezmoi {
-    param(
-        [Parameter(Mandatory=$true)]
-        [string]$SubCommand,
-
-        [Parameter(Mandatory=$false)]
-        [string[]]$Arguments
-    )
-
-    & chezmoi $SubCommand @Arguments
-}
-
 function Invoke-Exit {
     exit
 }
