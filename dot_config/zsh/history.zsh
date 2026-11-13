@@ -33,7 +33,3 @@ setopt hist_expire_dups_first # delete duplicates first when HISTFILE size excee
 setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt share_history          # share command history data (zsh ignores inc_append_history_time with it)
-# Lock the history file with fcntl. zsh's default lock is a file it creates and
-# deletes in ~ after every command, which changes ~'s modification time, so
-# mise's prompt hook looked for new config files and rebuilt PATH every time
-setopt hist_fcntl_lock
