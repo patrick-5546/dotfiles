@@ -1,3 +1,5 @@
+# The dotfiles' git settings. git reads ~/.gitconfig after this file, and
+# git config --global writes there, so tools' settings stay out of the dotfiles
 [user]
     email = pcreighton429@gmail.com
     name = Patrick Creighton
@@ -40,6 +42,20 @@
     autoStash = true
 [log]
     date = local
+{{- $gh := printf "%s/.local/share/mise/shims/gh" .chezmoi.homeDir }}
+{{- if eq .chezmoi.os "windows" }}
+{{-   $gh = printf "%s/AppData/Local/mise/shims/gh.exe" .chezmoi.homeDir }}
+{{- end }}
+# git gets GitHub credentials from gh, through mise's shim, which runs the gh in
+# mise.lock. gh auth login leaves git's settings alone since gh is already the
+# helper. gh auth setup-git would add the path of the gh it runs, which mise
+# upgrade removes
+[credential "https://github.com"]
+    helper =
+    helper = !'{{ $gh }}' auth git-credential
+[credential "https://gist.github.com"]
+    helper =
+    helper = !'{{ $gh }}' auth git-credential
 [alias]
     # from https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
     a = add

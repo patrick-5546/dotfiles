@@ -1,3 +1,23 @@
+# Homebrew (https://brew.sh) on macOS, which installs the desktop apps. Before
+# compinit so that it loads Homebrew's completions
+if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+fi
+
+# WSL appends the whole Windows PATH, and the folders in /mnt/c are slow to read
+# from Linux. mise and zsh look through every folder on PATH, which made new
+# shells take a second, each cd half a second, and typing lag. Keep only the
+# Windows commands used here: System32 and Windows (clip.exe, cmd.exe,
+# explorer.exe), in any case since some PCs have C:\WINDOWS, and VS Code
+# (code). They come from what WSL appends, so /etc/wsl.conf must keep its
+# default, appendWindowsPath = true
+if [[ -n $WSL_DISTRO_NAME ]]; then
+    () {
+        setopt local_options extended_glob
+        path=(${path:#/mnt/*} ${(M)path:#(#i)/mnt/c/windows(|/system32)} ${(M)path:#/mnt/*/Microsoft VS Code/bin})
+    }
+fi
+
 # Enable colors and change prompt:
 autoload -U colors && colors
 
@@ -5,15 +25,21 @@ autoload -U colors && colors
 fpath=($HOME/.config/zsh/completions $fpath)
 autoload -Uz compinit
 zmodload zsh/complist
-compinit
-# can't get caching to work
-#typeset -i USE_CACHE
-#(( $+commands[compaudit] && $+commands[compinit] )) && compaudit | read -ra USE_CACHE
-#if (( USE_CACHE )); then
-#  compinit
-#else
-#  compinit -C
-#fi
+# A full compinit looks for new completions and runs a security check, which is
+# slow, so only run it when the dump is missing or a day old. Otherwise load the
+# dump as is. install-cli-tools-unix.sh deletes it when it updates completions.
+() {
+    setopt local_options extended_glob
+    if [[ -n $HOME/.zcompdump(#qN.mh-24) ]]; then
+        compinit -C
+    else
+        compinit
+        # Start a new day even if compinit kept the dump because it was valid
+        touch -c $HOME/.zcompdump
+    fi
+}
+# zsh's SCCS completion also claims delta
+compdef _delta delta
 
 # Set completion style
 zstyle ':completion:*' menu select
@@ -59,9 +85,20 @@ bindkey "^[OA" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 bindkey "^[OB" down-line-or-beginning-search
 
-# fzf configuration
-source $HOME/.config/fzf/key-bindings.zsh
+# Aliases
+source $HOME/.config/zsh/aliases.zsh
 
+# Environment Variables
+export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+export DOCKER_BUILDKIT=1
+
+# Tools installed by mise: https://mise.jdx.dev
+eval "$($HOME/.local/bin/mise activate zsh)"
+
+# fzf configuration
 # Use fd (https://github.com/sharkdp/fd) instead of the default find command for listing path candidates.
 # - The first argument to the function ($1) is the base path to start traversal
 # - See the source code (completion.{bash,zsh}) for the details.
@@ -80,34 +117,18 @@ export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude '.git'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 
-# Aliases
-source $HOME/.config/zsh/aliases.zsh
-
-# Environment Variables
-export PATH=/usr/local/go/bin:$PATH
-export PATH=$HOME/.cargo/bin:$PATH
-export PATH=$HOME/.local/bin:$PATH
-{{- if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
-export PATH="/mnt/c/Windows/System32:$PATH"
-{{- end }}
-export VISUAL=nvim
-export EDITOR="$VISUAL"
-export DOCKER_BUILDKIT=1
-# https://github.com/lukechilds/zsh-nvm
-export NVM_COMPLETION=true
-export NVM_LAZY_LOAD=true
-export NVM_LAZY_LOAD_EXTRA_COMMANDS=('nvim' 'lazygit' 'copilot' 'make')
+# Key bindings and ** completion from the installed fzf, so they match its
+# version. Move the file widget from Ctrl-T to Ctrl-F and restore Ctrl-T.
+source <(fzf --zsh)
+bindkey -M emacs '^F' fzf-file-widget
+bindkey -M vicmd '^F' fzf-file-widget
+bindkey -M viins '^F' fzf-file-widget
+bindkey -M emacs '^T' transpose-chars
+bindkey -M vicmd '^T' undefined-key
+bindkey -M viins '^T' self-insert
 
 # Other Zsh scripts
-source $HOME/.local/share/zsh-nvm/zsh-nvm.plugin.zsh
 source $HOME/.local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-{{- if and (eq .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
-source $HOME/.config/zsh/openvpn3.zsh
-{{- end }}
-
-# Some completions are broken and need to be sourced manually
-. $HOME/.config/zsh/completions/_delta
-. $HOME/.config/zsh/completions/_grm
 
 # Atuin: https://github.com/atuinsh/atuin
 eval "$(atuin init zsh --disable-up-arrow --disable-ai)"

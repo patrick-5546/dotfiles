@@ -2,11 +2,9 @@
 
 My cross-platform, cross-shell configuration files and installation scripts managed with [chezmoi](https://www.chezmoi.io/):
 
-- Zsh on Windows 11 WSL 2 Ubuntu 22.04
-- Zsh on MacOS
-- Zsh on Ubuntu 22.04
-- Zsh on Fedora 36
-- Powershell 7 on Windows 11
+- Zsh on Ubuntu 22.04 or later, including in WSL 2
+- Zsh on macOS (Apple silicon)
+- PowerShell 7 on Windows 11 (x64)
 
 ## Highlights
 
@@ -17,79 +15,82 @@ The files I think are most notable are listed below:
 - Neovim configuration, based off [LazyVim](https://www.lazyvim.org): [`dot_config/nvim`](./dot_config/nvim)
 - Tmux configuration: [`dot_tmux.conf`](./dot_tmux.conf)
     - Integrated with neovim: uses same theme, seamless navigation between tmux and neovim splits
-    - Complex tmux sessions are managed easily using [tmuxinator](https://github.com/tmuxinator/tmuxinator):
-      [`dot_config/tmuxinator`](./dot_config/tmuxinator)
-- Installation scripts: improve and standardize the CLI across operating systems
-    - [`.chezmoiexternal.toml`](./.chezmoiexternal.toml)
-        - To see what software is installed, search for `url`
-    - Unix-specific: [`run_install-unix.sh.tmpl`](./run_install-unix.sh.tmpl)
-        - To see what software is installed, search for `dependencies`
-        - Does not require Sudo privileges
-    - Windows-specific: [`run_install-windows.ps1`](./reference_dotfiles/run_install-windows.ps1)
-        - To see what software is installed, search for `wingetInstallIfNotInstalled`, `choco install`, and `Install-Module`
-        - I don't use this script anymore, in favor of [WingetUI](https://github.com/marticliment/WingetUI): [`wingetui/`](./reference_dotfiles/wingetui/)
-- Encryption scripts: files with sensitive information are
-  [encrypted](https://www.chezmoi.io/user-guide/frequently-asked-questions/encryption/)
-    - Unix-specific: [`run_before_decrypt-private-key-unix.sh.tmpl`](./run_before_decrypt-private-key-unix.sh.tmpl)
-    - Windows-specific: [`run_before_decrypt-private-key-windows.ps1.tmpl`](./run_before_decrypt-private-key-windows.ps1.tmpl)
+- Installation scripts: improve and standardize the CLI across operating systems. chezmoi reruns each one only when
+  it changes
+    - CLI tools are installed and updated with [mise](https://mise.jdx.dev), with their versions pinned in its
+      lockfile: [`dot_config/mise`](./dot_config/mise)
+    - Desktop apps are listed once for macOS and Windows:
+      [`.chezmoidata/desktop-apps.toml`](./.chezmoidata/desktop-apps.toml)
+- Encryption: files with sensitive information are
+  [encrypted](https://www.chezmoi.io/user-guide/frequently-asked-questions/encryption/) with age
+- CI: lints the templates for each OS, then installs the dotfiles on fresh Ubuntu, macOS and Windows machines and
+  checks that Neovim is ready to use: [`.github/workflows/ci.yml`](./.github/workflows/ci.yml)
 - Configuration files for software that is not managed with chezmoi: [`reference_dotfiles`](./reference_dotfiles)
 
 ## Installation
 
-### Zsh on Linux or MacOS
+1. Install the prerequisites
+    - Ubuntu: [curl](https://curl.se/download.html), to install chezmoi. chezmoi installs git, zsh and the other
+      packages it needs with apt
+    - macOS: git, from the Xcode Command Line Tools: `xcode-select --install`. If you're installing the desktop apps,
+      sign in to the App Store, which some of them come from
+    - Windows: PowerShell 7, which the profile and chezmoi's scripts run in, and Git, which chezmoi, Neovim and yazi
+      use. Install them with winget:
 
-1. Install prerequisites
-      1. [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-      2. [age](https://github.com/FiloSottile/age#installation)
-      3. On Linux, [xz-utils](https://repology.org/project/xz/versions)
-      4. On a fresh Ubuntu install, this is how I install the above prerequisites and other packages I uses
+      ```
+      winget install --exact --id Microsoft.PowerShell --source winget
+      winget install --exact --id Git.Git --source winget
+      ```
 
-          ```
-          sudo add-apt-repository ppa:neovim-ppa/unstable -y && sudo apt install git age xz-utils curl neovim tmux zsh -y
-          ```
-
-2. Install chezmoi in `~/.local/bin`, pulling and applying the latest changes
-
-    ```
-    pushd ~
-    sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply patrick-5546
-    popd
-    ```
-
-    - To install without encrypted files, add `--branch no-encryption` to the init command
-
-3. If desired, manually install software with unique installation instructions
-    - [Alacritty](https://github.com/alacritty/alacritty/blob/master/INSTALL.md)
-    - [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim)
-4. Additional setup for Fedora
-    1. [Enable RPM Fusion repositories](https://docs.fedoraproject.org/en-US/quick-docs/setup_rpmfusion/)
-    2. [Install multimedia plugins](https://docs.fedoraproject.org/en-US/quick-docs/assembly_installing-plugins-for-playing-movies-and-music/)
-    3. Configure dnf (run `man dnf.conf` to see options and defaults): append the following lines to `/etc/dnf/dnf.conf`
-
-        ```
-        max_parallel_downloads=10
-        defaultyes=True
-        keepcache=True
-        ```
-
-### PowerShell 7 on Windows
-
-1. Install PowerShell 7 from the Microsoft Store
-2. Install git and gsudo using winget in PowerShell
+2. Install chezmoi in `~/.local/bin`, pulling and applying the latest changes. On Ubuntu and macOS:
 
     ```
-    winget install --exact --id FiloSottile.age --interactive
-    winget install --exact --id twpayne.chezmoi --interactive
-    winget install --exact --id Git.Git --interactive
+    sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply patrick-5546
     ```
 
-3. Clone this repository in PowerShell, pulling and applying the latest changes
+    On Windows, in a new PowerShell 7 terminal:
 
     ```
-    chezmoi init --apply patrick-5546
+    iex "&{$(irm 'https://get.chezmoi.io/ps1')} -b '~/.local/bin' -- init --apply patrick-5546"
     ```
 
-4. Optional: run [`run_install-windows.ps1`](./reference_dotfiles/run_install-windows.ps1) to match my unix developer experience
-    - Prerequisite: `winget install --exact --id gerardog.gsudo --interactive`
-    - Note: I do not run this automatically anymore because I do most of my development through WSL or VS Code.
-      Instead, I now manage the software I want through [WingetUI](https://github.com/marticliment/WingetUI) whenever possible
+    - `chezmoi init` asks:
+        - Whether to decrypt the encrypted files with the key passphrase. Answer no if you don't have the passphrase
+        - On macOS and Windows, whether to install the [desktop apps](./.chezmoidata/desktop-apps.toml). It skips
+          the ones that are already installed
+
+      It saves the answers in `~/.config/chezmoi/chezmoi.yaml`. Run `chezmoi init --prompt` to answer again
+    - Then chezmoi's scripts install what's missing. Enter your password, or allow the installers that ask for
+      administrator rights, when they ask
+        - The packages that the dotfiles and Neovim need: with apt on Ubuntu, and gcc ([WinLibs](https://winlibs.com))
+          and Python with winget on Windows. On Ubuntu and macOS, zsh becomes your login shell
+        - mise in `~/.local/bin`, and the tools in its config. On Windows, it adds `~\.local\bin` to your Path
+        - `gh auth login`, if you aren't logged in to GitHub. git gets its GitHub credentials from gh
+        - The desktop apps: with Homebrew on macOS, which it installs first if it's missing, and winget on Windows
+    - On Windows, if Documents is in OneDrive, PowerShell looks for its profile there instead of in `~\Documents`,
+      where chezmoi puts it. Add a profile there that loads chezmoi's:
+
+      ```
+      New-Item -Force $PROFILE -Value '. "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"'
+      ```
+
+    - Open a new terminal to start using them, or log out and back in if it doesn't start zsh
+
+3. Keep everything up to date
+
+    ```
+    chezmoi update                 # pull and apply the latest changes
+    mise upgrade                   # upgrade the tools, which updates mise.lock
+    chezmoi re-add ~/.config/mise  # save mise.lock, then commit and push it
+    chezmoi upgrade                # upgrade chezmoi
+    ```
+
+    - If chezmoi says that the config file template has changed, run `chezmoi init --apply`. It asks only the
+      questions you haven't answered yet
+    - mise updates itself once a week. Like `mise upgrade`, it skips releases from the last 7 days
+    - To roll back an upgrade, revert its commit in the source directory (`chezmoi cd`) and run `chezmoi apply`
+    - Upgrade everything else with the OS's package managers: `sudo apt upgrade` on Ubuntu, `brew upgrade` and the
+      App Store on macOS, and winget or UniGetUI on Windows
+
+4. Optional: install the other software I've used, listed in
+   [`reference_dotfiles/software.md`](./reference_dotfiles/software.md)

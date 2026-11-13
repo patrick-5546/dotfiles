@@ -1,0 +1,30 @@
+#!/bin/bash
+# Installs the desktop apps with Homebrew (https://brew.sh), and Homebrew first
+# if it's missing. Skips the apps that are already installed. chezmoi runs this
+# after applying files, and again whenever this script changes.
+set -euo pipefail
+
+brew={{ if eq .chezmoi.arch "arm64" }}/opt/homebrew{{ else }}/usr/local{{ end }}/bin/brew
+if [ ! -x "$brew" ]; then
+    printf "\n# Install Homebrew\n"
+    installer=$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
+    /bin/bash -c "$installer"
+fi
+
+printf "\n# Install the desktop apps with Homebrew\n"
+# Casks, and App Store apps, which mas installs once you sign in to the App
+# Store, from .chezmoidata/desktop-apps.toml. Homebrew only loads the casks from
+# third-party taps, named user/tap/cask, that are trusted, so trust them:
+# https://docs.brew.sh/Tap-Trust
+brewfile=$(mktemp)
+trap 'rm -f "$brewfile"' EXIT
+cat >"$brewfile" <<'EOF'
+{{ range .desktopApps -}}
+{{   if hasKey . "cask" -}}
+cask {{ quote .cask }}{{ if contains "/" .cask }}, trusted: true{{ end }}
+{{   else if hasKey . "mas" -}}
+mas {{ quote .name }}, id: {{ .mas }}
+{{   end -}}
+{{ end -}}
+EOF
+"$brew" bundle --no-upgrade --file="$brewfile"

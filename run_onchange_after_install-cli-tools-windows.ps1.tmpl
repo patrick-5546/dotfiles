@@ -1,0 +1,32 @@
+# Installs mise (https://mise.jdx.dev) and the tools in ~/.config/mise/config.toml.
+# chezmoi runs this after applying files and again whenever this script, the
+# mise config or mise.lock changes.
+# mise config hash: {{ include "dot_config/mise/config.toml" | sha256sum }}
+# mise.lock hash: {{ include "dot_config/mise/mise.lock" | sha256sum }}
+$ErrorActionPreference = 'Stop'
+
+$mise = "$HOME\.local\bin\mise.exe"
+if (-not (Test-Path $mise -PathType Leaf)) {
+    Write-Host "`n# Install mise"
+    # The installer also adds ~\.local\bin to the user Path
+    $env:MISE_INSTALL_PATH = $mise
+    # The installer doesn't read the mise config, so give it its minimum release age
+    $env:MISE_MINIMUM_RELEASE_AGE = {{ (include "dot_config/mise/config.toml" | fromToml).settings.minimum_release_age | squote }}
+    Invoke-RestMethod https://mise.run/powershell | Invoke-Expression
+}
+
+Write-Host "`n# Install tools with mise"
+# Only the versions in mise.lock, and fail if it doesn't have them
+& $mise install --locked
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+# git gets GitHub credentials from gh (see ~/.config/git/config). Skipped when
+# chezmoi's input isn't the terminal, as in CI
+if (-not [Console]::IsInputRedirected) {
+    & $mise exec -- gh auth status *> $null
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "`n# Log in to GitHub"
+        & $mise exec -- gh auth login
+        if ($LASTEXITCODE -ne 0) { Write-Warning 'gh auth login failed, run it again later' }
+    }
+}

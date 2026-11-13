@@ -1,0 +1,58 @@
+#!/bin/bash
+# Installs mise (https://mise.jdx.dev) and the tools in ~/.config/mise/config.toml,
+# then generates zsh completions for them. chezmoi runs this after applying
+# files and again whenever this script, the mise config or mise.lock changes.
+# mise config hash: {{ include "dot_config/mise/config.toml" | sha256sum }}
+# mise.lock hash: {{ include "dot_config/mise/mise.lock" | sha256sum }}
+set -euo pipefail
+
+mise="$HOME/.local/bin/mise"
+if [ ! -x "$mise" ]; then
+    printf "\n# Install mise\n"
+    # The installer doesn't read the mise config, so give it its minimum release age
+    curl -fsSL https://mise.run | MISE_INSTALL_PATH="$mise" \
+        MISE_MINIMUM_RELEASE_AGE={{ (include "dot_config/mise/config.toml" | fromToml).settings.minimum_release_age | quote }} sh
+fi
+
+printf "\n# Install tools with mise\n"
+# Only the versions in mise.lock, and fail if it doesn't have them
+"$mise" install --locked
+eval "$("$mise" env --shell bash)"
+
+# Remove the standalone installer's receipt so `uv self update` can't replace mise's uv
+rm -f "${XDG_CONFIG_HOME:-$HOME/.config}/uv/uv-receipt.json"
+
+printf "\n# Generate zsh completions\n"
+mkdir -p "$HOME/.config/zsh/completions"
+cd "$HOME/.config/zsh/completions"
+rm -f _fzf _grm  # left by older versions of this script
+atuin gen-completions --shell zsh --out-dir .
+bat --completion zsh > _bat
+"{{ .chezmoi.executable }}" completion zsh > _chezmoi
+delta --generate-completion zsh > _delta
+fd --gen-completions zsh > _fd
+gh completion --shell zsh > _gh
+"$mise" completion zsh > _mise
+rg --generate=complete-zsh > _rg
+starship completions zsh > _starship
+uv generate-shell-completion zsh > _uv
+uvx --generate-shell-completion zsh > _uvx
+
+# Some tools ship their completions in the release archive instead
+copy_completion() {  # copy_completion TOOL FILE
+    find "$("$mise" where "$1")" -name "$2" -type f -exec cp {} . \;
+}
+copy_completion lsd _lsd
+copy_completion yazi _ya
+copy_completion yazi _yazi
+copy_completion zoxide _zoxide
+curl -fsSL -o _dust "https://raw.githubusercontent.com/bootandy/dust/v$("$mise" current dust)/completions/_dust" \
+    || echo "Couldn't download the dust completions" >&2
+rm -f "$HOME/.zcompdump"  # so that the next zsh loads the new completions
+
+# git gets GitHub credentials from gh (see ~/.config/git/config). Skipped
+# without a terminal, as in CI
+if [ -t 0 ] && ! gh auth status >/dev/null 2>&1; then
+    printf "\n# Log in to GitHub\n"
+    gh auth login || echo "gh auth login failed, run it again later" >&2
+fi

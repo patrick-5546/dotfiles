@@ -1,0 +1,71 @@
+# Lints the rendered templates and installs the dotfiles on fresh machines
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      # shellcheck, pwsh, python3 and yq come with the runner
+      - name: Install zsh and chezmoi
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zsh
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
+          echo "$HOME/.local/bin" >>"$GITHUB_PATH"
+      - run: .github/lint.sh
+
+  apply:
+    name: apply (${{ matrix.name }})
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: ubuntu
+            os: ubuntu-latest
+          # Ubuntu 22.04 has an older glibc, and the container starts without
+          # the packages that GitHub's runners come with
+          - name: ubuntu 22.04
+            os: ubuntu-latest
+            container: ubuntu:22.04
+          - name: macos
+            os: macos-latest
+          - name: windows
+            os: windows-latest
+    env:
+      DEBIAN_FRONTEND: noninteractive
+      GITHUB_TOKEN: ${{ github.token }}  # raises mise's GitHub API rate limit
+    steps:
+      - name: Install curl and Python for the test
+        if: matrix.container
+        run: apt-get update && apt-get install -y ca-certificates curl python3
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - if: runner.os != 'Windows'
+        run: .github/test.sh
+      - if: runner.os == 'Windows'
+        shell: pwsh
+        run: .github/test.ps1

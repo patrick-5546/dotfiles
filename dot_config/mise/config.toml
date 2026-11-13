@@ -1,0 +1,60 @@
+# Tools that mise (https://mise.jdx.dev) installs. chezmoi applies this file and
+# mise.lock to ~/.config/mise, and the run_onchange_after_install-cli-tools
+# scripts install the tools whenever either changes.
+#
+# - mise installs the tools in ~/.local/share/mise/installs, or
+#   %LOCALAPPDATA%\mise\installs on Windows. `mise activate` in .zshrc and the
+#   PowerShell profile puts the versions in mise.lock on PATH.
+# - mise.lock pins the version, URL and checksum of each tool, so that every
+#   machine installs the same builds. The install scripts only install what it
+#   lists (`mise install --locked`).
+# - Add or change a tool with `mise use -g TOOL[@VERSION]`, and update the tools
+#   with `mise upgrade`. Both keep these comments and update mise.lock. After
+#   editing this file by hand, update mise.lock with `mise lock --global`. Then
+#   save the changes with `chezmoi re-add ~/.config/mise`, and commit them.
+# - Roll back an update by reverting its commit and running `chezmoi apply`.
+# - Run a tool once without adding it with `mise exec TOOL@VERSION -- COMMAND`.
+#   mise updates itself, or run `mise self-update`.
+#
+# See https://mise.jdx.dev/configuration.html
+[settings]
+# Platforms that mise.lock has downloads for. To set up another kind of machine,
+# add its platform and run `mise lock --global`.
+lockfile_platforms = ["linux-arm64", "linux-x64", "macos-arm64", "windows-x64"]
+# Skip tool and mise releases from the last 7 days, which gives others time to
+# find a compromised or broken release. It doesn't change the versions in
+# mise.lock. Take a release early with `mise upgrade --minimum-release-age 0s TOOL`.
+minimum_release_age = "7d"
+# Update mise once a week, before a command that may download something, except
+# in CI and scripts
+self_update.auto = true
+
+[tools]
+# On Linux, the glibc builds of atuin and yazi need glibc 2.39 (Ubuntu 24.04),
+# so use their static musl builds until the dotfiles drop Ubuntu 22.04. mise
+# uses glibc builds for the other tools, which matters for lsd: its musl build
+# shows uid/gid instead of user names. mise skips tmux on Windows, which it has
+# no builds for.
+atuin = { version = "latest", libc = "musl" }
+bat = "latest"
+# The tree-sitter CLI, which nvim-treesitter builds parsers with. Its official
+# builds need glibc 2.39 (Ubuntu 24.04) since 0.26.1, the oldest version
+# nvim-treesitter supports, so use conda-forge's build until the dotfiles drop
+# Ubuntu 22.04. Then switch to the official build: tree-sitter = "latest".
+"conda:tree-sitter-cli" = "latest"
+delta = "latest"
+dust = "latest"
+fd = "latest"
+fzf = "latest"
+gh = "latest"
+go = "latest"
+lazygit = "latest"
+lsd = "latest"
+neovim = "latest"
+node = "lts"
+ripgrep = "latest"
+starship = "latest"
+tmux = "latest"
+uv = "latest"
+yazi = { version = "latest", libc = "musl" }
+zoxide = "latest"

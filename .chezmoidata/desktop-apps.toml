@@ -1,0 +1,22 @@
+# The desktop apps that chezmoi installs on macOS and Windows, if you answer yes
+# to its prompt, skipping the ones that are already installed. Each app has a
+# Homebrew cask or a Mac App Store ID for macOS, and a winget ID or a Microsoft
+# Store ID for Windows. Leave them out for an OS that the app isn't on. Find
+# more with `brew search`, `mas search` and `winget search`.
+desktopApps = [
+    # Bitwarden's Safari extension only comes with its Mac App Store app
+    { name = "Bitwarden", mas = 1352778147, winget = "Bitwarden.Bitwarden" },
+    { name = "Docker Desktop", cask = "docker-desktop", winget = "Docker.DockerDesktop" },
+    { name = "Ghostty", cask = "ghostty" },
+    { name = "Microsoft To Do", mas = 1274495053, msstore = "9NBLGGH5R558" },
+    { name = "Nextcloud", cask = "nextcloud", winget = "Nextcloud.NextcloudDesktop" },
+    # The new Outlook for Windows, not classic Outlook
+    { name = "Outlook", winget = "Microsoft.Outlook" },
+    { name = "Speedtest by Ookla", mas = 1153157709, winget = "Ookla.Speedtest.Desktop" },
+    { name = "TorGuard", cask = "torguard", winget = "VPNetwork.TorGuard" },
+    { name = "UniGetUI", winget = "Devolutions.UniGetUI" },
+    { name = "Visual Studio Code", cask = "visual-studio-code", winget = "Microsoft.VisualStudioCode" },
+    { name = "WireGuard", mas = 1451685025, winget = "WireGuard.WireGuard" },
+    # WizTree for macOS isn't in Homebrew's casks, but in Antibody Software's tap
+    { name = "WizTree", cask = "antibodysw/tap/wiztree", winget = "AntibodySoftware.WizTree" },
+]
