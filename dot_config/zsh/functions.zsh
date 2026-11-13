@@ -24,7 +24,8 @@ function git_main_branch() {
   local ref
   for ref in refs/{heads,remotes/{origin,upstream}}/{main,trunk}; do
     if command git show-ref -q --verify $ref; then
-      echo ${ref#refs/heads/}
+      # The name after the last /. Oh My Zsh's ${ref:t} doesn't work in bash
+      echo ${ref##*/}
       return
     fi
   done
