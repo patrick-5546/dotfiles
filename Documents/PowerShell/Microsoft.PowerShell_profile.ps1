@@ -9,6 +9,11 @@ $ProfilePath = $PSScriptRoot
 ## PSReadLine configuration
 # PSReadLine comes with PowerShell 7, which loads it without Import-Module
 Set-PSReadLineOption -EditMode Vi
+# A beam cursor in insert mode and a block in command mode, like in zsh.
+# starship init, below, keeps this handler and adds its own
+Set-PSReadLineOption -ViModeIndicator Script -ViModeChangeHandler {
+    if ($args[0] -eq 'Command') { Write-Host -NoNewline "`e[1 q" } else { Write-Host -NoNewline "`e[5 q" }
+}
 # Shows navigable menu of all options when hitting Tab
 Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 # Search history for commands that start with the currently entered text
