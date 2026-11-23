@@ -269,6 +269,29 @@ url = "https://github.com/cli/cli/releases/download/v2.104.0/gh_2.104.0_windows_
 url_api = "https://api.github.com/repos/cli/cli/releases/assets/740719168"
 provenance = "github-attestations"
 
+[[tools."github:YosysHQ/oss-cad-suite-build"]]
+version = "2026-11-16"
+backend = "github:YosysHQ/oss-cad-suite-build"
+specifiers = ["latest"]
+
+[tools."github:YosysHQ/oss-cad-suite-build"."platforms.linux-arm64"]
+checksum = "sha256:8b0a12ed5477a1858a82fcb2e4f6d4310e0998fbfea918dff3e8e05cc17a7d71"
+checksum_source = "mise-versions"
+url = "https://github.com/YosysHQ/oss-cad-suite-build/releases/download/2026-11-16/oss-cad-suite-linux-arm64-20261116.tgz"
+url_api = "https://api.github.com/repos/YosysHQ/oss-cad-suite-build/releases/assets/754025448"
+
+[tools."github:YosysHQ/oss-cad-suite-build"."platforms.linux-x64"]
+checksum = "sha256:ce7ae7e795440f7709025b589bd907950a409b4155b0be5828afb82d41e32d22"
+checksum_source = "mise-versions"
+url = "https://github.com/YosysHQ/oss-cad-suite-build/releases/download/2026-11-16/oss-cad-suite-linux-x64-20261116.tgz"
+url_api = "https://api.github.com/repos/YosysHQ/oss-cad-suite-build/releases/assets/753897999"
+
+[tools."github:YosysHQ/oss-cad-suite-build"."platforms.macos-arm64"]
+checksum = "sha256:754e23cfc99a6a7f8e89e05516c0a2987eecf5dbbb0a7dae5b65fcaeb81aacf0"
+checksum_source = "mise-versions"
+url = "https://github.com/YosysHQ/oss-cad-suite-build/releases/download/2026-11-16/oss-cad-suite-darwin-arm64-20261116.tgz"
+url_api = "https://api.github.com/repos/YosysHQ/oss-cad-suite-build/releases/assets/754006188"
+
 [[tools.go]]
 version = "1.27.4"
 backend = "core:go"

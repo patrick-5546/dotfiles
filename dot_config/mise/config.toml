@@ -55,6 +55,9 @@ dust = "latest"
 fd = "latest"
 fzf = "latest"
 gh = "latest"
+# OSS CAD Suite: yosys, nextpnr, iverilog and other FPGA tools, which bundle
+# their own libraries. It releases daily, and each version is about 550 MB.
+"github:YosysHQ/oss-cad-suite-build" = { version = "latest", os = ["linux", "macos"] }
 go = "latest"
 lazygit = "latest"
 lsd = "latest"
