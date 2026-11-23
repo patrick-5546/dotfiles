@@ -7,12 +7,6 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-# Home folders without the age key, so that the decrypt scripts render
-declare -A os_data=(
-    [linux]='{"os":"linux","homeDir":"/home/lint"}'
-    [darwin]='{"os":"darwin","homeDir":"/Users/lint"}'
-    [windows]='{"os":"windows","homeDir":"C:/Users/lint"}'
-)
 out=$(mktemp -d)
 trap 'rm -rf "$out"' EXIT
 
@@ -41,10 +35,16 @@ check() {  # check OS TEMPLATE RENDERED
 
 # The prompts change unrelated files, so answering all of them yes and then all
 # of them no renders every branch
-for os in "${!os_data[@]}"; do
+for os in linux darwin windows; do
+    # Home folders without the age key, so that the decrypt scripts render
+    case $os in
+        linux) home=/home/lint ;;
+        darwin) home=/Users/lint ;;
+        windows) home=C:/Users/lint ;;
+    esac
     for answer in true false; do
         echo "# $os, answers: $answer"
-        chezmoi=(chezmoi --source . --override-data "{\"chezmoi\":${os_data[$os]},\"apps\":$answer,\"encryption\":$answer}")
+        chezmoi=(chezmoi --source . --override-data "{\"chezmoi\":{\"os\":\"$os\",\"homeDir\":\"$home\"},\"apps\":$answer,\"encryption\":$answer}")
         for template in $(git ls-files '*.tmpl' .chezmoiexternal.toml .chezmoiignore); do
             rendered="$out/$os-$answer/${template%.tmpl}"
             mkdir -p "$(dirname "$rendered")"
