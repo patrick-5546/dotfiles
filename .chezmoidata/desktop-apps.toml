@@ -19,7 +19,9 @@ desktopApps = [
     { name = "Rectangle", cask = "rectangle" },
     { name = "Signal", cask = "signal", winget = "OpenWhisperSystems.Signal" },
     { name = "Speedtest by Ookla", mas = 1153157709, winget = "Ookla.Speedtest.Desktop" },
-    { name = "TorGuard", cask = "torguard", winget = "VPNetwork.TorGuard" },
+    # TorGuard's macOS app needs Rosetta. Add cask = "torguard" back once its
+    # native app is out of beta
+    { name = "TorGuard", winget = "VPNetwork.TorGuard" },
     { name = "UniGetUI", winget = "Devolutions.UniGetUI" },
     { name = "Visual Studio Code", cask = "visual-studio-code", winget = "Microsoft.VisualStudioCode" },
     { name = "WireGuard", mas = 1451685025, winget = "WireGuard.WireGuard" },
