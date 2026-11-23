@@ -15,7 +15,7 @@ desktopApps = [
     { name = "Nextcloud", cask = "nextcloud", winget = "Nextcloud.NextcloudDesktop" },
     # The new Outlook for Windows, not classic Outlook
     { name = "Outlook", winget = "Microsoft.Outlook" },
-    { name = "Plezy", cask = "plezy" },
+    { name = "Plezy", cask = "plezy", winget = "edde746.Plezy" },
     { name = "Rectangle", cask = "rectangle" },
     { name = "Signal", cask = "signal", winget = "OpenWhisperSystems.Signal" },
     { name = "Speedtest by Ookla", mas = 1153157709, winget = "Ookla.Speedtest.Desktop" },
