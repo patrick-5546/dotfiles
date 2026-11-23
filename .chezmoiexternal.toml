@@ -12,7 +12,12 @@
     url = "https://github.com/tmux-plugins/tpm.git"
     refreshPeriod = "168h"
 {{- end }}
-[".config/yazi/flavors/tokyo-night.yazi"]
-    type = "git-repo"
-    url = "https://github.com/BennyOe/tokyo-night.yazi.git"
-    refreshPeriod = "168h"
+[".config/yazi/flavors/tokyo-night.yazi/tmtheme.xml"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/folke/tokyonight.nvim/cdc07ac78467a233fd62c493de29a17e0cf2b2b6/extras/sublime/tokyonight_night.tmTheme"
+[".config/yazi/flavors/tokyo-night.yazi/LICENSE-tokyonight"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/folke/tokyonight.nvim/cdc07ac78467a233fd62c493de29a17e0cf2b2b6/LICENSE"
+[".config/yazi/flavors/tokyo-night.yazi/LICENSE-yazi"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/BennyOe/tokyo-night.yazi/8e6296f14daff24151c736ebd0b9b6cd89b02b03/LICENSE"
