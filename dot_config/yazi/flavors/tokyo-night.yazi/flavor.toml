@@ -134,10 +134,9 @@ separator_style = { fg = "#565f89" }
 # : Help {{{
 
 [help]
-on      = { fg = "#9ece6a" }
-run     = { fg = "#bb9af7" }
+chord   = { fg = "#9ece6a" }
+action  = { fg = "#bb9af7" }
 hovered = { reversed = true, bold = true }
-footer  = { fg = "#1a1b26", bg = "#a9b1d6" }
 
 # : }}}
 
@@ -169,32 +168,16 @@ title_error = { fg = "#e0af68" }
 
 rules = [
 	# Images
-	{ mime = "image/*", fg = "#e0af68" },
-
+	{ mime = "**/image/*", fg = "#e0af68" },
 	# Media
-	{ mime = "video/*", fg = "#f7768e" },
-	{ mime = "audio/*", fg = "#f7768e" },
-
+	{ mime = "**/{audio,video}/*", fg = "#f7768e" },
 	# Archives
-	{ mime = "application/zip",             fg = "#bb9af7" },
-	{ mime = "application/x-tar",           fg = "#bb9af7" },
-	{ mime = "application/x-bzip*",         fg = "#bb9af7" },
-	{ mime = "application/x-bzip2",         fg = "#bb9af7" },
-	{ mime = "application/x-7z-compressed", fg = "#bb9af7" },
-	{ mime = "application/x-rar",           fg = "#bb9af7" },
-	{ mime = "application/x-xz",            fg = "#bb9af7" },
-
+	{ mime = "**/application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", fg = "#bb9af7" },
 	# Documents
-	{ mime = "application/doc",        fg = "#9ece6a" },
-	{ mime = "application/epub+zip",   fg = "#9ece6a" },
-	{ mime = "application/pdf",        fg = "#9ece6a" },
-	{ mime = "application/rtf",        fg = "#9ece6a" },
-	{ mime = "application/vnd.*",      fg = "#9ece6a" },
-
-  # Special files
-  { mime = "*", is = "orphan", fg = "#f7768e", bg = "#2d202a" },
-  { mime = "application/*exec*", fg = "#f7768e" },
-
+	{ mime = "**/application/{pdf,doc,rtf}", fg = "#9ece6a" },
+	# Special files
+	{ url = "*", is = "orphan", fg = "#f7768e", bg = "#2d202a" },
+	{ url = "*", is = "exec", fg = "#f7768e" },
 	# Fallback
 	{ url = "*", fg = "#c0caf5" },
 	{ url = "*/", fg = "#7aa2f7" },
