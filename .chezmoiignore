@@ -13,6 +13,7 @@ install-packages-windows.ps1
 
 # macOS files
 {{ if ne .chezmoi.os "darwin" -}}
+.config/btop
 .config/ghostty
 install-desktop-apps-macos.sh
 {{- end }}
