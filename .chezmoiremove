@@ -1,0 +1,7 @@
+# Left by the old git-repo external for the Yazi flavor, which
+# .chezmoiexternal.toml now replaces with pinned TokyoNight Night files
+.config/yazi/flavors/tokyo-night.yazi/.git
+.config/yazi/flavors/tokyo-night.yazi/LICENSE
+.config/yazi/flavors/tokyo-night.yazi/LICENSE-tmtheme
+.config/yazi/flavors/tokyo-night.yazi/README.md
+.config/yazi/flavors/tokyo-night.yazi/preview.png

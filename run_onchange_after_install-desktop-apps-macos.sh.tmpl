@@ -12,15 +12,17 @@ if [ ! -x "$brew" ]; then
 fi
 
 printf "\n# Install the desktop apps with Homebrew\n"
-# Casks, and App Store apps, which mas installs once you sign in to the App
-# Store, from .chezmoidata/desktop-apps.toml. Homebrew only loads the casks from
-# third-party taps, named user/tap/cask, that are trusted, so trust them:
+# Formulae, casks, and App Store apps, which mas installs once you sign in to
+# the App Store, from .chezmoidata/desktop-apps.toml. Homebrew only loads the
+# casks from third-party taps, named user/tap/cask, that are trusted, so trust them:
 # https://docs.brew.sh/Tap-Trust
 brewfile=$(mktemp)
 trap 'rm -f "$brewfile"' EXIT
 cat >"$brewfile" <<'EOF'
 {{ range .desktopApps -}}
-{{   if hasKey . "cask" -}}
+{{   if hasKey . "formula" -}}
+brew {{ quote .formula }}
+{{   else if hasKey . "cask" -}}
 cask {{ quote .cask }}{{ if contains "/" .cask }}, trusted: true{{ end }}
 {{   else if hasKey . "mas" -}}
 mas {{ quote .name }}, id: {{ .mas }}

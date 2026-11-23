@@ -9,9 +9,6 @@ UniGetUI, one of the desktop apps, or install it with `winget install --exact --
 
 | Software | What it does | winget ID | Homebrew cask |
 | --- | --- | --- | --- |
-| [Discord](https://discord.com) | Chat | `Discord.Discord` | `discord` |
-| [Plex](https://www.plex.tv) | Plays media from Plex servers | `Plex.Plex` | `plex` |
-| [Signal](https://signal.org) | Encrypted messaging | `OpenWhisperSystems.Signal` | `signal` |
 | [TeamViewer](https://www.teamviewer.com) | Remote access and support | `TeamViewer.TeamViewer` | `teamviewer` |
 
 ## Windows only
