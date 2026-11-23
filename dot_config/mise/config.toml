@@ -45,6 +45,8 @@ self_update.auto = true
 # no builds for.
 atuin = { version = "latest", libc = "musl" }
 bat = "latest"
+# macOS ships openrsync instead of GNU rsync, which lacks some of its options
+"conda:rsync" = { version = "latest", os = ["macos"] }
 # The tree-sitter CLI, which nvim-treesitter builds parsers with. Its official
 # builds need glibc 2.39 (Ubuntu 24.04) since 0.26.1, the oldest version
 # nvim-treesitter supports, so use conda-forge's build until the dotfiles drop
@@ -61,6 +63,8 @@ gh = "latest"
 go = "latest"
 lazygit = "latest"
 lsd = "latest"
+# macOS ships GNU make 3.81 from 2006, the last version under GPLv2
+make = { version = "latest", os = ["macos"] }
 neovim = "latest"
 node = "lts"
 ripgrep = "latest"
