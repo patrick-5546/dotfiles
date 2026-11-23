@@ -21,9 +21,11 @@
 [".config/yazi/flavors/tokyo-night.yazi/LICENSE-yazi"]
     type = "file"
     url = "https://raw.githubusercontent.com/BennyOe/tokyo-night.yazi/8e6296f14daff24151c736ebd0b9b6cd89b02b03/LICENSE"
+{{ if eq .chezmoi.os "darwin" -}}
 [".config/btop/themes/tokyonight_night.theme"]
     type = "file"
     url = "https://raw.githubusercontent.com/folke/tokyonight.nvim/cdc07ac78467a233fd62c493de29a17e0cf2b2b6/extras/btop/tokyonight_night.theme"
 [".config/btop/themes/LICENSE-tokyonight"]
     type = "file"
     url = "https://raw.githubusercontent.com/folke/tokyonight.nvim/cdc07ac78467a233fd62c493de29a17e0cf2b2b6/LICENSE"
+{{- end }}
