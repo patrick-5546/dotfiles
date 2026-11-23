@@ -1,0 +1,8 @@
+# Match the TokyoNight style used by Neovim and the other terminal tools.
+theme = TokyoNight Night
+
+mouse-hide-while-typing = true
+
+# A persistent drop-down terminal without taking over macOS's Command+` shortcut.
+quick-terminal-size = 40%
+keybind = global:ctrl+alt+backquote=toggle_quick_terminal
