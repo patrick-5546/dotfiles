@@ -9,6 +9,7 @@ desktopApps = [
     { name = "btop", formula = "btop" },
     { name = "Discord", cask = "discord", winget = "Discord.Discord" },
     { name = "Docker Desktop", cask = "docker-desktop", winget = "Docker.DockerDesktop" },
+    { name = "DockDoor", cask = "dockdoor" },
     { name = "Ghostty", cask = "ghostty" },
     { name = "LinearMouse", cask = "linearmouse" },
     { name = "Microsoft To Do", mas = 1274495053, msstore = "9NBLGGH5R558" },
