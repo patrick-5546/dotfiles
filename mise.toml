@@ -1,0 +1,21 @@
+# Tools for working on this repo, which mise installs and puts on PATH in this
+# folder, separate from the tools in dot_config/mise that chezmoi installs.
+# .chezmoiignore keeps this file and mise.lock out of your home folder.
+#
+# - Run `mise trust` once in a new clone, then `mise install`.
+# - mise.lock pins each tool. Update them with `mise upgrade`, or update
+#   mise.lock with `mise lock` after editing this file.
+# - CI's lint job installs these with jdx/mise-action.
+#
+# See https://mise.jdx.dev/configuration.html
+
+[settings]
+# Platforms that mise.lock has downloads for: CI's and yours
+lockfile_platforms = ["linux-arm64", "linux-x64", "macos-arm64"]
+
+[tools]
+# .github/lint.sh also needs chezmoi, which the README installs, and zsh
+powershell-core = "latest"
+python = "latest"  # 3.11 or later, for tomllib
+shellcheck = "latest"
+yq = "latest"

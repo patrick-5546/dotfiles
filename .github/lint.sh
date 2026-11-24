@@ -2,8 +2,8 @@
 # Renders the chezmoi templates for each OS, answering yes and then no to the
 # prompts, and checks them along with the files that aren't templates: shell
 # scripts with shellcheck, zsh files with zsh -n, PowerShell with its parser,
-# and TOML, YAML and git config syntax. Needs chezmoi, zsh, shellcheck, pwsh,
-# python3 and yq.
+# and TOML, YAML and git config syntax. Needs chezmoi, zsh, and the tools in
+# mise.toml.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 

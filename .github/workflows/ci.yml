@@ -25,7 +25,8 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      # shellcheck, pwsh, python3 and yq come with the runner
+      # The tools in mise.toml, at the versions in mise.lock
+      - uses: jdx/mise-action@v5
       - name: Install zsh and chezmoi
         run: |
           sudo apt-get update

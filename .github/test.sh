@@ -10,6 +10,8 @@ if [ "${CI:-}" != true ]; then
     exit 1
 fi
 checkout=$(cd "$(dirname "$0")/.." && pwd)
+# Away from the checkout, whose mise.toml mise doesn't trust
+cd "$HOME"
 bin=$HOME/.local/bin
 export PATH="$bin:$PATH"
 

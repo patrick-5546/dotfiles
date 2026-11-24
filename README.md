@@ -24,7 +24,8 @@ The files I think are most notable are listed below:
 - Encryption: files with sensitive information are
   [encrypted](https://www.chezmoi.io/user-guide/frequently-asked-questions/encryption/) with age
 - CI: lints the templates for each OS, then installs the dotfiles on fresh Ubuntu, macOS and Windows machines and
-  checks that Neovim is ready to use: [`.github/workflows/ci.yml`](./.github/workflows/ci.yml)
+  checks that Neovim is ready to use: [`.github/workflows/ci.yml`](./.github/workflows/ci.yml). Run the lint
+  locally with `.github/lint.sh`, after `mise trust` and `mise install` for the tools in [`mise.toml`](./mise.toml)
 - Configuration files for software that is not managed with chezmoi: [`reference_dotfiles`](./reference_dotfiles)
 
 ## Installation

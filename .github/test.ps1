@@ -8,6 +8,8 @@ if ($env:CI -ne 'true') {
     throw 'This replaces your dotfiles, so it only runs in CI (CI=true)'
 }
 $checkout = Split-Path -Parent $PSScriptRoot
+# Away from the checkout, whose mise.toml mise doesn't trust
+Set-Location $HOME
 $bin = "$HOME\.local\bin"
 $env:Path = "$bin;$env:Path"
 
