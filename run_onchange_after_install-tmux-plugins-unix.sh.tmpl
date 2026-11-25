@@ -1,0 +1,12 @@
+#!/bin/bash
+# Installs the tmux plugins in ~/.tmux.conf with tpm, which chezmoi clones (see
+# .chezmoiexternal.toml). chezmoi runs this after applying files and installing
+# the CLI tools, and again whenever this script or ~/.tmux.conf changes.
+# tmux.conf hash: {{ include "dot_tmux.conf" | sha256sum }}
+set -euo pipefail
+
+# tmux is installed with mise
+eval "$("$HOME/.local/bin/mise" env --shell bash)"
+
+printf "\n# Install tmux plugins\n"
+"$HOME/.tmux/plugins/tpm/bin/install_plugins"

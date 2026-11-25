@@ -15,6 +15,7 @@ The files I think are most notable are listed below:
 - Neovim configuration, based off [LazyVim](https://www.lazyvim.org): [`dot_config/nvim`](./dot_config/nvim)
 - Tmux configuration: [`dot_tmux.conf`](./dot_tmux.conf)
     - Integrated with neovim: uses same theme, seamless navigation between tmux and neovim splits
+    - Plugins are installed with [tpm](https://github.com/tmux-plugins/tpm) whenever the configuration changes
 - Installation scripts: improve and standardize the CLI across operating systems. chezmoi reruns each one only when
   it changes
     - CLI tools are installed and updated with [mise](https://mise.jdx.dev), with their versions pinned in its

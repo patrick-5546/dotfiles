@@ -29,6 +29,7 @@ install-desktop-apps-macos.sh
 decrypt-private-key-unix.sh
 install-cli-tools-unix.sh
 install-packages-unix.sh
+install-tmux-plugins-unix.sh
 {{- end }}
 
 # encrypted files
