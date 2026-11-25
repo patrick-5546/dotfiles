@@ -7,3 +7,6 @@ vim.g.autoformat = false
 
 -- LSP Server to use for Python.
 vim.g.lazyvim_python_lsp = "pyrefly"
+
+-- No swap files, so a killed nvim doesn't leave "swap file already exists" prompts
+vim.opt.swapfile = false
