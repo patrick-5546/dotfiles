@@ -42,6 +42,7 @@ $env:BAT_PAGER = $env:DELTA_PAGER
 # Like in zsh, fzf takes 40% of the window and lists files with fd. It runs the
 # command with cmd, where single quotes don't quote, so .git has none
 $env:FZF_DEFAULT_OPTS = '--height 40% --layout=reverse --info=inline'
+$env:FZF_DEFAULT_OPTS_FILE = "$HOME\.config\fzf\fzfrc"  # TokyoNight colors
 $env:FZF_DEFAULT_COMMAND = 'fd --hidden --follow --exclude .git'
 
 # Tools installed by mise: https://mise.jdx.dev
